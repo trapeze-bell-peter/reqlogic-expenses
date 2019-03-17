@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<% flash.each do |key, value| %>
+  <div class="<%= flash_class(key) %>">
+    <%= value %>
+  </div>
+<% end %>
 
 <p>
   <strong>Description:</strong>
@@ -7,7 +11,7 @@
 
 <p>
   <strong>Date:</strong>
-  <%= @expense_claim.date %>
+  <%= @expense_claim.claim_date %>
 </p>
 
 <%= link_to 'Edit', edit_expense_claim_path(@expense_claim) %> |

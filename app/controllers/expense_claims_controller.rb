@@ -62,13 +62,14 @@ class ExpenseClaimsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_expense_claim
-      @expense_claim = ExpenseClaim.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def expense_claim_params
-      params.require(:expense_claim).permit(:description, :date)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_expense_claim
+    @expense_claim = ExpenseClaim.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def expense_claim_params
+    params.require(:expense_claim).permit(:description, :claim_date)
+  end
 end
