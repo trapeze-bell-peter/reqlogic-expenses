@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Expense Claims</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Date</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @expense_claims.each do |expense_claim| %>
+      <tr>
+        <td><%= expense_claim.description %></td>
+        <td><%= expense_claim.date %></td>
+        <td><%= link_to 'Show', expense_claim %></td>
+        <td><%= link_to 'Edit', edit_expense_claim_path(expense_claim) %></td>
+        <td><%= link_to 'Destroy', expense_claim, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Expense Claim', new_expense_claim_path %>

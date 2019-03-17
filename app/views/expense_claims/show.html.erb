@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @expense_claim.description %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @expense_claim.date %>
+</p>
+
+<%= link_to 'Edit', edit_expense_claim_path(@expense_claim) %> |
+<%= link_to 'Back', expense_claims_path %>
