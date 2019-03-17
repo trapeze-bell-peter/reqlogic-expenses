@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_17_041905) do
+ActiveRecord::Schema.define(version: 2019_03_17_092006) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,22 @@ ActiveRecord::Schema.define(version: 2019_03_17_041905) do
     t.date "claim_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "expense_entries", force: :cascade do |t|
+    t.bigint "expense_claim_id"
+    t.date "date"
+    t.integer "sequence"
+    t.string "category"
+    t.string "description"
+    t.string "project"
+    t.integer "vat"
+    t.integer "qty"
+    t.integer "unit_cost_pence", default: 0, null: false
+    t.string "unit_cost_currency", default: "GBP", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expense_claim_id"], name: "index_expense_entries_on_expense_claim_id"
   end
 
 end

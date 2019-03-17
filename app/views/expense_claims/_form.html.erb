@@ -1,4 +1,4 @@
-<%= form_with(model: expense_claim, local: true) do |form| %>
+<%= form_with(model: expense_claim, local: true) do |expense_form| %>
   <% if expense_claim.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(expense_claim.errors.count, "error") %> prohibited this expense_claim from being saved:</h2>
@@ -12,22 +12,70 @@
   <% end %>
 
   <div class="form-group row">
-    <%= form.label :description, class:  "col-sm-2 col-form-label" %>
+    <%= expense_form.label :description, class:  "col-sm-2 col-form-label" %>
     <div class="col-sm-10">
-      <%= form.text_field :description, class: "form-control" %>
+      <%= expense_form.text_field :description, class: "form-control" %>
     </div>
   </div>
 
   <div class="form-group row">
-    <%= form.label :claim_date, class:  "col-sm-2 col-form-label" %>
+    <%= expense_form.label :claim_date, class:  "col-sm-2 col-form-label" %>
     <div class="col-sm-10">
-      <%= form.date_field :claim_date %>
+      <%= expense_form.date_field :claim_date %>
     </div>
   </div>
 
+  <table class="table table-hover">
+    <thead>
+      <tr class="form-row">
+        <th scope="col" class="col-2">Date</th>
+        <th scope="col" class="col-2">Category</th>
+        <th scope="col" class="col-3">Description</th>
+        <th scope="col" class="col-1">Project</th>
+        <th scope="col" class="col-1">VAT Rate</th>
+        <th scope="col" class="col-1">Qty</th>
+        <th scope="col" class="col-1">Unit Cost</th>
+        <th scope="col" class="col-1">Cost</th>
+      </tr>
+    </thead>
+    <%= expense_form.fields_for :expense_entries, expense_claim.expense_entries do |expenses_fields| %>
+      <tr class="form-row">
+        <td class="col-2">
+          <%= expenses_fields.date_field :date, class: 'form-control', placeholder: 'Date' %>
+        </td>
+        <td class="col-2">
+          <%= expenses_fields.select :category,
+                                     options_for_select(
+                                         [['ACCOMODATION', 'ACCOMODATION', {}, { data: { vat: '20%', unit_cost: ''} }],
+                                          ['FARES', 'FARES', {}, { data: { vat: '20%', unit_cost: '10.00'} }]]),
+                                     { include_blank: 'Category'},
+                                     { class: 'form-control' } %>
+        </td>
+        <td class="col-3">
+          <%= expenses_fields.text_field :description, class: 'form-control', placeholder: 'Description' %>
+        </td>
+        <td class="col-1">
+          EXPENSE
+        </td>
+        <td class="col-1">
+          <%= expenses_fields.text_field :vat, class: 'form-control' %>
+        </td>
+        <td class="col-1">
+          <%= expenses_fields.text_field :qty, class: 'form-control' %>
+        </td>
+        <td class="col-1">
+          <%= expenses_fields.text_field :unit_cost, class: 'form-control' %>
+        </td>
+        <td class="col-1">
+          69.96
+        </td>
+      </tr>
+    <% end %>
+  </table>
+
   <div class="form-group row">
     <div class="col-sm-10">
-      <%= form.submit class: "btn btn-primary" %>
+      <%= expense_form.submit class: "btn btn-primary" %>
     </div>
   </div>
 <% end %>
