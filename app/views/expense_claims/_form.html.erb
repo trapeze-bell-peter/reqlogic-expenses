@@ -62,13 +62,13 @@
             <%= expenses_fields.text_field :vat, class: 'form-control', data: { target: 'expenses.vat' } %>
           </td>
           <td class="col-1">
-            <%= expenses_fields.text_field :qty, class: 'form-control' %>
+            <%= expenses_fields.text_field :qty, class: 'form-control', data: { action:'change->expenses#recalcClaim', target: 'expenses.qty'} %>
           </td>
           <td class="col-1">
-            <%= expenses_fields.text_field :unit_cost, class: 'form-control', data: { target: 'expenses.unitCost' } %>
+            <%= expenses_fields.text_field :unit_cost, class: 'form-control', data: { action:'change->expenses#recalcClaim', target: 'expenses.unitCost' } %>
           </td>
           <td class="col-1">
-            69.96
+            <input type="text" value="0.0" disabled="true" class="form-control" data-target="expenses.totalCost">
           </td>
         </tr>
       <% end %>
