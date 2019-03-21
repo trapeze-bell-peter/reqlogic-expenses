@@ -14,3 +14,5 @@ MoneyRails.configure do |config|
                            default: 0
   }
 end
+
+Money.locale_backend = :i18n
