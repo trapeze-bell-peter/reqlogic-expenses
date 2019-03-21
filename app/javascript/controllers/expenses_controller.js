@@ -10,6 +10,7 @@ export default class extends Controller {
         this.unitCostTarget.value = dataset.unitcost;
     }
 
+    // Event handler for when the user changes a field that affects the total cost of the claim.
     recalcClaim(event) {
         console.log("Hello, recalcClaim!", this.element);
         this.totalCostTarget.value = parseFloat(this.unitCostTarget.value) * parseInt(this.qtyTarget.value)
