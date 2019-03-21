@@ -26,19 +26,11 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-              <a class="nav-link" href="#">Home
-                <span class="sr-only">(current)</span>
-              </a>
+            <li class="nav-item">
+              <%= link_to 'Expenses', expense_claims_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Services</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Contact</a>
+              <%= link_to 'Categories', categories_path, class: 'nav-link' %>
             </li>
           </ul>
         </div>
@@ -47,6 +39,12 @@
 
     <!-- Page Content -->
     <div class="container">
+      <% flash.each do |key, value| %>
+        <div class="<%= flash_class(key) %>">
+          <%= value %>
+        </div>
+      <% end %>
+
       <%= yield %>
     </div>
   </body>
