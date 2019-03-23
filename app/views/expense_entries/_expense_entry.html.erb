@@ -39,6 +39,10 @@
         <%= link_to(expense_entry_path(expense_entry), method: :delete, remote: true, data: { action: 'ajax:success->expenses#deleteRow'}) do %>
           <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
         <% end %>
+      <% else %>
+        <%= link_to '_', href: '#', data: { action: 'click->expenses#deleteRow'} do %>
+          <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
+        <% end %>
       <% end %>
       <i class="fas fa-plus-square fa-2x" style="vertical-align: middle;"></i>
     </div>
