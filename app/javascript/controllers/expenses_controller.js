@@ -24,7 +24,15 @@ export default class extends Controller {
         Rails.fire(event.currentTarget, 'submit');
     }
 
+    // ToDo: Event handler for when an error is reported back by RoR backend
     errorOnRow(event) {
         console.log("Hello, errorOnRow!", this.element);
+    }
+
+    deleteRow(event) {
+        console.log("Hello, deleteEntry!", this.element);
+        event.preventDefault();
+        event.stopPropagation();
+        event.srcElement.closest('div.expenses-row').setAttribute('hidden','true');
     }
 }

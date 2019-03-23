@@ -27,7 +27,6 @@ class ExpenseEntriesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /expense_entries/1
   # PATCH/PUT /expense_entries/1.json
   def update
     respond_to :json
@@ -39,14 +38,13 @@ class ExpenseEntriesController < ApplicationController
     end
   end
 
-  # DELETE /expense_entries/1
   # DELETE /expense_entries/1.json
   def destroy
-    @expense_entry.destroy
-    respond_to do |format|
-      format.html { redirect_to expense_entries_url, notice: 'Expense claim was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    respond_to :html, :json, :js
+
+    # @expense_entry.destroy
+
+    head :ok
   end
 
   private
