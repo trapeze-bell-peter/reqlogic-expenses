@@ -5,5 +5,8 @@ class ExpenseEntry < ApplicationRecord
 
   monetize :unit_cost_pence
 
+  attribute :vat, :integer, default: 20
+  attribute :qty, :integer, default: 1
 
+  validates :vat, inclusion: [0, 20]
 end

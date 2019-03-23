@@ -1,4 +1,5 @@
-import { Controller } from "stimulus"
+import { Controller } from "stimulus";
+import Rails from "rails-ujs";
 
 export default class extends Controller {
     static targets = [ "category", "vat", "qty", "unitCost", "totalCost" ];
@@ -14,5 +15,16 @@ export default class extends Controller {
     recalcClaim(event) {
         console.log("Hello, recalcClaim!", this.element);
         this.totalCostTarget.value = parseFloat(this.unitCostTarget.value) * parseInt(this.qtyTarget.value)
+    }
+
+    // Event handler for when the user leaves a row and we can push the results back to the controller
+    submitRow(event) {
+        console.log("Hello, submitClaim!", this.element);
+        event.preventDefault();
+        Rails.fire(event.currentTarget, 'submit');
+    }
+
+    errorOnRow(event) {
+        console.log("Hello, errorOnRow!", this.element);
     }
 }

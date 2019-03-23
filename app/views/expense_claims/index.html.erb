@@ -16,9 +16,11 @@
       <tr>
         <td><%= expense_claim.description %></td>
         <td><%= expense_claim.claim_date %></td>
-        <td><%= link_to 'Show', expense_claim %></td>
-        <td><%= link_to 'Edit', edit_expense_claim_path(expense_claim) %></td>
-        <td><%= link_to 'Destroy', expense_claim, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td>
+          <%= link_to 'Show', expense_claim %>
+          <%= link_to 'Edit', edit_expense_claim_path(expense_claim) %>
+          <%= link_to 'Delete', expense_claim, method: :delete %>
+        </td>
       </tr>
     <% end %>
   </tbody>
