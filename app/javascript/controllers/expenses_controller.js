@@ -21,7 +21,10 @@ export default class extends Controller {
     submitRow(event) {
         console.log("Hello, submitClaim!", this.element);
         event.preventDefault();
-        Rails.fire(event.currentTarget, 'submit');
+        
+        if (event.currentTarget.visible) {
+            Rails.fire(event.currentTarget, 'submit');
+        }
     }
 
     // ToDo: Event handler for when an error is reported back by RoR backend
