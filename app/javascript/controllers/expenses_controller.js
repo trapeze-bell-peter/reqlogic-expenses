@@ -21,7 +21,8 @@ export default class extends Controller {
     submitRow(event) {
         console.log("Hello, submitClaim!", this.element);
         event.preventDefault();
-        
+
+        // The process of hiding the row causes a loss of focus.  Don't send an update in this case to the backend.
         if (event.currentTarget.visible) {
             Rails.fire(event.currentTarget, 'submit');
         }
@@ -32,6 +33,7 @@ export default class extends Controller {
         console.log("Hello, errorOnRow!", this.element);
     }
 
+    // Event handler for when the user presses the delete on an expense row.
     deleteRow(event) {
         console.log("Hello, deleteEntry!", this.element);
         event.preventDefault();

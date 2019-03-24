@@ -1,17 +1,14 @@
 <%= form_with model: expense_entry,
               class: 'form',
               data: { action: "focusout->expenses#submitRow ajax:error->expenses#errorOnRow", type: 'json' } do |expense_entry_form| %>
+  <% expense_entry_presenter = ExpenseEntryPresenter.new(self, expense_entry_form) %>
+
   <div class="form-row expenses-row align-items-center" draggable="true">
     <div class="form-group col-2">
-      <%= expense_entry_form.date_field :date, class: 'form-control', placeholder: 'Date' %>
+      <%= expense_entry_presenter.date %>
     </div>
     <div class="form-group col-2">
-      <%= expense_entry_form.select :category,
-                                     options_for_select(
-                                         [['ACCOMODATION', 'ACCOMODATION', {}, { data: { vat: '20%', unitCost: ''} }],
-                                          ['FARES', 'FARES', {}, { data: { vat: '0%', unitCost: '10.00'} }]]),
-                                     { include_blank: 'Category', required: true },
-                                     { class: 'form-control', data: { action: 'change->expenses#categoryChange' } } %>
+      <%= expense_entry_presenter.categories %>
     </div>
     <div class="form-group col-2">
       <%= expense_entry_form.text_field :description, class: 'form-control', placeholder: 'Description' %>
@@ -44,6 +41,7 @@
           <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
         <% end %>
       <% end %>
+
       <i class="fas fa-plus-square fa-2x" style="vertical-align: middle;"></i>
     </div>
   </div>
