@@ -1,43 +1,46 @@
-<%= form_with model: expense_entry,
-              class: 'form',
-              data: { action: "focusout->expenses#submitRow ajax:error->expenses#errorOnRow",
-                      type: 'json' } do |expense_entry_form| %>
-  <% expense_entry_presenter = ExpenseEntryPresenter.new(self, expense_entry_form) %>
+<div class="expenses-row" data-controller="expenses" data-target="expenses.row" draggable="true" data-action="focusout->expenses#submitRow">
+  <%= form_with model: expense_entry,
+                class: 'form',
+                data: { action: "ajax:error->expenses#errorOnRow",
+                        type: 'json' } do |expense_entry_form| %>
+    <% expense_entry_presenter = ExpenseEntryPresenter.new(self, expense_entry_form) %>
 
-  <div class="form-row expenses-row align-items-center" draggable="true">
-    <div class="form-group col-2">
-      <%= expense_entry_presenter.date %>
-    </div>
-    <div class="form-group col-2">
-      <%= expense_entry_presenter.categories %>
-    </div>
-    <div class="form-group col-2">
-      <%= expense_entry_presenter.description %>
-    </div>
-    <div class="form-group col-1">
-      <%= expense_entry_presenter.project %>
-    </div>
-    <div class="form-group col-1">
-      <%= expense_entry_presenter.vat %>
-    </div>
-    <div class="form-group col-1">
-      <%= expense_entry_presenter.qty %>
-    </div>
-    <div class="form-group col-1">
-      <%= expense_entry_presenter.unit_cost %>
-    </div>
-    <div class="form-group col-1">
-      <%= expense_entry_presenter.total_cost %>
-    </div>
-    <div class="form-group col-1">
-      <%= expense_entry_presenter.delete_button do %>
-        <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
-      <% end %>
+    <%= expense_entry_presenter.expense_claim_id %>
 
-      <%= link_to new_expense_entry_path(expense_claim_id: expense_claim.id), data: { action: 'click->expenses#insertRow' } do %>
-        <i class="fas fa-plus-square fa-2x" style="vertical-align: middle;"></i>
-      <% end %>
-    </div>
-  </div>
-<% end %>
+    <div class="form-row align-items-center">
+      <div class="form-group col-2">
+        <%= expense_entry_presenter.date %>
+      </div>
+      <div class="form-group col-2">
+        <%= expense_entry_presenter.categories %>
+      </div>
+      <div class="form-group col-2">
+        <%= expense_entry_presenter.description %>
+      </div>
+      <div class="form-group col-1">
+        <%= expense_entry_presenter.project %>
+      </div>
+      <div class="form-group col-1">
+        <%= expense_entry_presenter.vat %>
+      </div>
+      <div class="form-group col-1">
+        <%= expense_entry_presenter.qty %>
+      </div>
+      <div class="form-group col-1">
+        <%= expense_entry_presenter.unit_cost %>
+      </div>
+      <div class="form-group col-1">
+        <%= expense_entry_presenter.total_cost %>
+      </div>
+      <div class="form-group col-1">
+        <%= expense_entry_presenter.delete_button do %>
+          <i class="fas fa-trash fa-2x expenses-action-icon"></i>
+        <% end %>
 
+        <%= expense_entry_presenter.insert_button do %>
+          <i class="fas fa-plus-square fa-2x expenses-action-icon"></i>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

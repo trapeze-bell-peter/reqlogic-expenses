@@ -20,7 +20,6 @@ class ExpenseClaimsController < ApplicationController
 
   # GET /expense_claims/1/edit
   def edit
-    @expense_claim.expense_entries.new
   end
 
   # POST /expense_claims
@@ -72,7 +71,6 @@ class ExpenseClaimsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_claim_params
-    params.require(:expense_claim).permit(:description, :claim_date,
-                                          expense_entries_attributes: %i[date description vat qty])
+    params.require(:expense_claim).permit(:description, :claim_date)
   end
 end

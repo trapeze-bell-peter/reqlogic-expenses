@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "rails-ujs";
 
 export default class extends Controller {
-    static targets = [ "category", "vat", "qty", "unitCost", "totalCost" ];
+    static targets = [ "row", "category", "vat", "qty", "unitCost", "totalCost" ];
 
     // Event handler for when the user selects a particular expenses claim category
     categoryChange(event) {
@@ -14,18 +14,16 @@ export default class extends Controller {
     // Event handler for when the user changes a field that affects the total cost of the claim.
     recalcClaim(event) {
         console.log("Hello, recalcClaim!", this.element);
-        this.totalCostTarget.value = parseFloat(this.unitCostTarget.value) * parseInt(this.qtyTarget.value)
+        this.totalCostTarget.value = (parseFloat(this.unitCostTarget.value) * parseInt(this.qtyTarget.value)).toFixed(2)
     }
 
     // Event handler for when the user leaves a row and we can push the results back to the controller
     submitRow(event) {
-        console.log("Hello, submitClaim!", this.element);
+        console.log("Hello, submitRow!", this.element);
         event.preventDefault();
 
         // The process of hiding the row causes a loss of focus.  Don't send an update in this case to the backend.
-        if (event.currentTarget.visible) {
-            Rails.fire(event.currentTarget, 'submit');
-        }
+        Rails.fire(this.element.firstElementChild, 'submit');
     }
 
     // ToDo: Event handler for when an error is reported back by RoR backend
@@ -35,22 +33,18 @@ export default class extends Controller {
 
     // Event handler for when the user presses the insert on an expesne row.
     insertRow(event) {
-        console.log("Hello, deleteEntry!", this.element);
+        console.log("Hello, insertEntry!", this.element);
         event.preventDefault();
 
-        let insertButton = event.currentTarget
-        let promise = fetch(insertButton.href);
-        promise.then( response => { return response.text(); })
-            .then( function(html) {
-                insertButton.closest('div.expenses-row').insertAdjacentHTML('afterend', html);
-            });
+        fetch(event.currentTarget.href)
+            .then( response => { return response.text(); })
+            .then( html => { this.rowTarget.insertAdjacentHTML('afterend', html); });
     }
 
     // Event handler for when the user presses the delete on an expense row.
     deleteRow(event) {
         console.log("Hello, deleteEntry!", this.element);
-        event.preventDefault();
-        event.stopPropagation();
-        event.srcElement.closest('div.expenses-row').setAttribute('hidden','true');
+        this.element.remove();
     }
 }
+

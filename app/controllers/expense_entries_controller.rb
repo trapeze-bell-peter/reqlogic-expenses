@@ -5,8 +5,7 @@ class ExpenseEntriesController < ApplicationController
   def new
     respond_to :html
 
-    @expense_entry = ExpenseEntry.new
-    @expense_claim = ExpenseClaim.find(new_expense_entry_params)
+    @expense_entry = ExpenseEntry.new(new_expense_entry_params)
 
     render :new, layout: false
   end
@@ -21,14 +20,12 @@ class ExpenseEntriesController < ApplicationController
   def create
     @expense_entry = ExpenseEntry.new(expense_entry_params)
 
-    respond_to do |format|
-      if @expense_entry.save
-        format.html { redirect_to @expense_entry, notice: 'Expense entry was successfully created.' }
-        format.json { render :show, status: :created, location: @expense_entry }
-      else
-        format.html { render :new }
-        format.json { render json: @expense_entry.errors, status: :unprocessable_entity }
-      end
+    respond_to :json
+
+    if @expense_entry.update(expense_entry_params)
+      render json: @expense_entry, status: :ok
+    else
+      render json: @expense_entry.errors, status: :unprocessable_entity
     end
   end
 
@@ -47,7 +44,7 @@ class ExpenseEntriesController < ApplicationController
   def destroy
     respond_to :html, :json, :js
 
-    # @expense_entry.destroy
+    @expense_entry.destroy
 
     head :ok
   end
@@ -60,11 +57,12 @@ class ExpenseEntriesController < ApplicationController
   end
 
   def new_expense_entry_params
-    params.require(:expense_claim_id)
+    params.permit(:expense_claim_id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_entry_params
-    params.require(:expense_entry).permit(:date, :category, :description, :vat, :qty, :unit_cost)
+    params.require(:expense_entry)
+          .permit(:expense_claim_id, :date, :category, :description, :project, :vat, :qty, :unit_cost)
   end
 end
