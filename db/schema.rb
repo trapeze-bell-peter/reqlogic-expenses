@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_22_171734) do
+ActiveRecord::Schema.define(version: 2019_03_24_043043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 2019_03_22_171734) do
     t.integer "sequence"
     t.string "category"
     t.string "description"
-    t.string "project"
+    t.string "project", null: false
     t.integer "vat", default: 20, null: false
     t.integer "qty", default: 1, null: false
     t.integer "unit_cost_pence", default: 0, null: false

@@ -14,7 +14,6 @@ class ExpenseEntryPresenter < BasePresenter
   attr_reader :expense_entry_form
 
   # Renders a date field for the expense entry form
-  # @return [ActionView::DateField]
   def date
     expense_entry_form.date_field :date, class: 'form-control', placeholder: 'Date'
   end
@@ -25,6 +24,17 @@ class ExpenseEntryPresenter < BasePresenter
                               view.options_for_select(options_list),
                               { include_blank: 'Category', required: true },
                               { class: 'form-control', data: { action: 'change->expenses#categoryChange' } }
+  end
+
+  # Renders a text field for the description
+  def description
+    expense_entry_form.text_field :description, class: 'form-control', placeholder: 'Description'
+  end
+
+  # Renders a text field for the description
+  # @todo replace with a lookup based on JET data
+  def project
+    expense_entry_form.text_field :project, class: 'form-control', placeholder: 'Project code'
   end
 
   private

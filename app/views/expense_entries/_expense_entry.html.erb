@@ -11,10 +11,10 @@
       <%= expense_entry_presenter.categories %>
     </div>
     <div class="form-group col-2">
-      <%= expense_entry_form.text_field :description, class: 'form-control', placeholder: 'Description' %>
+      <%= expense_entry_presenter.description %>
     </div>
     <div class="form-group col-1">
-      EXPENSE
+      <%= expense_entry_presenter.project %>
     </div>
     <div class="form-group col-1">
       <%= expense_entry_form.number_field :vat, class: 'form-control', data: { target: 'expenses.vat' } %>

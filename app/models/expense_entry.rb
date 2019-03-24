@@ -7,6 +7,8 @@ class ExpenseEntry < ApplicationRecord
 
   attribute :vat, :integer, default: 20
   attribute :qty, :integer, default: 1
+  attribute :project, :string, default: 'EXPENSE'
 
   validates :vat, inclusion: [0, 20]
+  validates :project, presence: true
 end
