@@ -1,6 +1,7 @@
 <%= form_with model: expense_entry,
               class: 'form',
-              data: { action: "focusout->expenses#submitRow ajax:error->expenses#errorOnRow", type: 'json' } do |expense_entry_form| %>
+              data: { action: "focusout->expenses#submitRow ajax:error->expenses#errorOnRow",
+                      type: 'json' } do |expense_entry_form| %>
   <% expense_entry_presenter = ExpenseEntryPresenter.new(self, expense_entry_form) %>
 
   <div class="form-row expenses-row align-items-center" draggable="true">
@@ -17,29 +18,20 @@
       <%= expense_entry_presenter.project %>
     </div>
     <div class="form-group col-1">
-      <%= expense_entry_form.number_field :vat, class: 'form-control', data: { target: 'expenses.vat' } %>
+      <%= expense_entry_presenter.vat %>
     </div>
     <div class="form-group col-1">
-      <%= expense_entry_form.number_field :qty, class: 'form-control', required: true, min: '1',
-                                           data: { action:'change->expenses#recalcClaim', target: 'expenses.qty'} %>
+      <%= expense_entry_presenter.qty %>
     </div>
     <div class="form-group col-1">
-      <%= expense_entry_form.number_field :unit_cost, class: 'form-control', required: true, min: '0.01', step: '0.01',
-                                           data: { action:'change->expenses#recalcClaim', target: 'expenses.unitCost' } %>
+      <%= expense_entry_presenter.unit_cost %>
     </div>
     <div class="form-group col-1">
-      <%= number_field_tag :total_cost, expense_entry_form.object.vat*expense_entry_form.object.qty, disabled: true,
-                           class: 'form-control', data: { target: 'expenses.totalCost' } %>
+      <%= expense_entry_presenter.total_cost %>
     </div>
     <div class="form-group col-1">
-      <% if expense_entry.id %>
-        <%= link_to(expense_entry_path(expense_entry), method: :delete, remote: true, data: { action: 'ajax:success->expenses#deleteRow'}) do %>
-          <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
-        <% end %>
-      <% else %>
-        <%= link_to '_', href: '#', data: { action: 'click->expenses#deleteRow'} do %>
-          <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
-        <% end %>
+      <%= expense_entry_presenter.delete_button do %>
+        <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
       <% end %>
 
       <i class="fas fa-plus-square fa-2x" style="vertical-align: middle;"></i>

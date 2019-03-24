@@ -37,6 +37,37 @@ class ExpenseEntryPresenter < BasePresenter
     expense_entry_form.text_field :project, class: 'form-control', placeholder: 'Project code'
   end
 
+  def vat
+    expense_entry_form.number_field :vat, class: 'form-control', data: { target: 'expenses.vat' }
+  end
+
+  def qty
+    expense_entry_form.number_field :qty, class: 'form-control', required: true, min: '1',
+                                          data: { action: 'change->expenses#recalcClaim', target: 'expenses.qty' }
+  end
+
+  def unit_cost
+    expense_entry_form.number_field :unit_cost, class: 'form-control', required: true, min: '0.01', step: '0.01',
+                                                data: { action: 'change->expenses#recalcClaim',
+                                                        target: 'expenses.unitCost' }
+  end
+
+  def total_cost
+    view.number_field_tag :total_cost,
+                          expense_entry_form.object.vat * expense_entry_form.object.qty,
+                          disabled: true, class: 'form-control', data: { target: 'expenses.totalCost' }
+  end
+
+  def delete_button(&block)
+    if expense_entry_form.object.persisted?
+      view.link_to(view.expense_entry_path(expense_entry_form.object),
+                   method: :delete, remote: true, data: { action: 'ajax:success->expenses#deleteRow' },
+                   &block)
+    else
+      view.link_to('_', href: '#', data: { action: 'click->expenses#deleteRow' },&block)
+    end
+  end
+
   private
 
   def options_list
