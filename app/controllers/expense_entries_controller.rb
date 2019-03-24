@@ -3,7 +3,12 @@ class ExpenseEntriesController < ApplicationController
 
   # GET /expense_entries/new
   def new
+    respond_to :html
+
     @expense_entry = ExpenseEntry.new
+    @expense_claim = ExpenseClaim.find(new_expense_entry_params)
+
+    render :new, layout: false
   end
 
   # GET /expense_entries/1/edit
@@ -52,6 +57,10 @@ class ExpenseEntriesController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_expense_entry
     @expense_entry = ExpenseEntry.find(params[:id])
+  end
+
+  def new_expense_entry_params
+    params.require(:expense_claim_id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

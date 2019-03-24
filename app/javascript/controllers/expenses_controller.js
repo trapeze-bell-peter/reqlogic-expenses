@@ -33,6 +33,19 @@ export default class extends Controller {
         console.log("Hello, errorOnRow!", this.element);
     }
 
+    // Event handler for when the user presses the insert on an expesne row.
+    insertRow(event) {
+        console.log("Hello, deleteEntry!", this.element);
+        event.preventDefault();
+
+        let insertButton = event.currentTarget
+        let promise = fetch(insertButton.href);
+        promise.then( response => { return response.text(); })
+            .then( function(html) {
+                insertButton.closest('div.expenses-row').insertAdjacentHTML('afterend', html);
+            });
+    }
+
     // Event handler for when the user presses the delete on an expense row.
     deleteRow(event) {
         console.log("Hello, deleteEntry!", this.element);

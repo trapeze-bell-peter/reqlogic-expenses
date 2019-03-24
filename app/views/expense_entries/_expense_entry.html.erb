@@ -34,7 +34,9 @@
         <i class="fas fa-trash fa-2x" style="vertical-align: middle;"></i>
       <% end %>
 
-      <i class="fas fa-plus-square fa-2x" style="vertical-align: middle;"></i>
+      <%= link_to new_expense_entry_path(expense_claim_id: expense_claim.id), data: { action: 'click->expenses#insertRow' } do %>
+        <i class="fas fa-plus-square fa-2x" style="vertical-align: middle;"></i>
+      <% end %>
     </div>
   </div>
 <% end %>
