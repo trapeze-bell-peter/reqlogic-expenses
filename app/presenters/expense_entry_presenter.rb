@@ -29,7 +29,7 @@ class ExpenseEntryPresenter < BasePresenter
   # Renders a selector for the different categories
   def categories
     expense_entry_form.select :category,
-                              view.options_for_select(options_list),
+                              view.options_for_select(options_list, expense_entry.category),
                               { placeholder: 'Category', required: true },
                               { class: 'form-control', data: { action: 'change->expense-entry#categoryChange' } }
   end

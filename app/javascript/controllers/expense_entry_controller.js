@@ -2,10 +2,12 @@ import { Controller } from "stimulus";
 import Rails from "rails-ujs";
 
 export default class ExpenseEntryController extends Controller {
-    static targets = [ "row", "category", "vat", "qty", "unitCost", "totalCost" ];
+    static targets = [ "category", "vat", "qty", "unitCost", "totalCost" ];
 
     connect() {
         console.log("Hello from expense_entry");
+
+        this.recalcClaim(null);
     }
 
     // Event handler for change event.  We use the opportunity to check if any of the other controllers have pending
@@ -13,7 +15,11 @@ export default class ExpenseEntryController extends Controller {
     changeEvent(event) {
         console.log("Hello, changeEvent!", this.element);
         this.data.set('changePending', '1');
-        this.submitOtherRowsIfChanged()
+    }
+
+    focusEvent(event) {
+        console.log("Hello, focusEvent!", this.element);
+        this.submitOtherRowsIfChanged();
     }
 
     // Class method to loop through all other rows and submit if changed.
