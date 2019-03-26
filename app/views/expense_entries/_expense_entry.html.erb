@@ -1,8 +1,8 @@
-<div class="expenses-row" data-controller="expenses" data-target="expenses.row" draggable="true" data-action="focusout->expenses#submitRow">
-  <%= form_with model: expense_entry,
-                class: 'form',
-                data: { action: "ajax:error->expenses#errorOnRow",
-                        type: 'json' } do |expense_entry_form| %>
+<div class="expenses-row" draggable="true"
+     data-controller="expense-entry" data-target="expense-entry.row" data-expense-entry-change-pending="0"
+     data-action="change->expense-entry#changeEvent">
+  <%= form_with model: expense_entry, class: 'form',
+                data: { action: callbacks, reference_change_pending: '0', type: 'json' } do |expense_entry_form| %>
     <% expense_entry_presenter = ExpenseEntryPresenter.new(self, expense_entry_form) %>
 
     <%= expense_entry_presenter.expense_claim_id %>

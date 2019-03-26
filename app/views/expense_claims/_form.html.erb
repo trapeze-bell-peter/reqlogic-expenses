@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<%= form_with model: @expense_claim do |expense_form| %>
+<%= form_with model: @expense_claim, data: { controller: 'expense-claim' } do |expense_form| %>
   <div class="form-group row">
     <%= expense_form.label :description, class:  "col-2 col-form-label" %>
     <div class="col-10">
@@ -66,7 +66,9 @@
   </div>
 
   <% @expense_claim.expense_entries.each do |expense_entry| %>
-    <%= render 'expense_entries/expense_entry', expense_entry: expense_entry, expense_claim: @expense_claim %>
+    <%= render partial: 'expense_entries/expense_entry', locals: { expense_entry: expense_entry,
+                                                                   expense_claim: @expense_claim,
+                                                                   callbacks: "ajax:error->expenses#errorOnRow" } %>
   <% end %>
 </div>
 

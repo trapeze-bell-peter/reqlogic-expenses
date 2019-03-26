@@ -13,20 +13,20 @@ class ExpenseEntriesController < ApplicationController
   # GET /expense_entries/1/edit
   def edit
     @expense_entry.new
+
+    render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
+           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
+                     callbacks: 'ajax:success->expense-entries#replaceRow ajax:error->expense-entries#replaceRow' }
   end
 
   # POST /expense_entries
   # POST /expense_entries.json
   def create
-    @expense_entry = ExpenseEntry.new(expense_entry_params)
+    @expense_entry = ExpenseEntry.create(expense_entry_params)
 
-    respond_to :json
-
-    if @expense_entry.update(expense_entry_params)
-      render json: @expense_entry, status: :ok
-    else
-      render json: @expense_entry.errors, status: :unprocessable_entity
-    end
+    render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
+           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
+                     callbacks: 'ajax:error->expense-entries#replaceRow' }
   end
 
   # PATCH/PUT /expense_entries/1.json
@@ -34,9 +34,9 @@ class ExpenseEntriesController < ApplicationController
     respond_to :json
 
     if @expense_entry.update(expense_entry_params)
-      render json: @expense_entry, status: :ok
+      head :ok
     else
-      render json: @expense_entry.errors, status: :unprocessable_entity
+      render @expense_entry, layout: false, status: :unprocessable_entity
     end
   end
 

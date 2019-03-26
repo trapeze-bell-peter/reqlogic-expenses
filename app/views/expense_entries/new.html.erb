@@ -1,3 +1,3 @@
 
-
-<%= render 'expense_entry', expense_entry: @expense_entry, expense_claim: @expense_claim %>
+<%= render partial: 'expense_entry', locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
+                                               callbacks: "ajax:success->expense-entry#replaceRow ajax:error->expense-entry#replaceRow" } %>
