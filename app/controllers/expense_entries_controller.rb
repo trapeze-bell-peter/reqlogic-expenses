@@ -9,14 +9,14 @@ class ExpenseEntriesController < ApplicationController
 
     render partial: 'expense_entry', layout: false, status: :ok,
            locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     ajax_actions: 'ajax:success->expense-entries#replaceRow' }
+                     ajax_actions: 'ajax:success->expense-entry#replaceRow  ajax:error->expense-entry#replaceRow' }
   end
 
   # GET /expense_entries/1/edit
   def edit
     render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
            locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     ajax_actions: 'ajax:success->expense-entries#replaceRow ajax:error->expense-entries#replaceRow' }
+                     ajax_actions: 'ajax:success->expense-entry#replaceRow ajax:error->expense-entry#replaceRow' }
   end
 
   # POST /expense_entries
@@ -26,7 +26,7 @@ class ExpenseEntriesController < ApplicationController
 
     render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
            locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     ajax_actions: 'ajax:error->expense-entries#replaceRow' }
+                     ajax_actions: 'ajax:error->expense-entry#replaceRow' }
   end
 
   # PATCH/PUT /expense_entries/1.json

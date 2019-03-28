@@ -10,8 +10,9 @@ export default class ExpenseEntryController extends Controller {
 
     // The backend serves up a div row with the details.
     replaceRow(event) {
+        console.log('replaceRow invoked');
         let [data, status, xhr] = event.detail;
-        this.element.children[0].replaceWith(data.getElementsByTagName('form')[0]);
+        this.element.replaceWith(data.getElementsByClassName('expenses-row')[0]);
     }
 
     // Event handler for when the user presses the insert on an expesne row.

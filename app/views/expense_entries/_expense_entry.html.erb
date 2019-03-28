@@ -1,5 +1,5 @@
 <div class="expenses-row" draggable="true"
-     data-controller="expense-entry" data-target="expense-entry.row"">
+     data-controller="expense-entry" data-target="expense-entry.row">
   <%= form_with model: expense_entry, class: 'form',
                 data: { controller: 'expense-form', action: "change->expense-form#changeEvent #{ajax_actions}",
                         expense_form_change_pending: '0', target: 'expense-rows.form', type: 'json' } do |expense_entry_form| %>
