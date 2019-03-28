@@ -21,6 +21,10 @@ class ExpenseEntryPresenter < BasePresenter
     expense_entry_form.hidden_field :expense_claim_id
   end
 
+  def sequence
+    expense_entry_form.hidden_field :sequence, data: { target: 'expense-rows.sequenceField' }
+  end
+
   # Renders a date field for the expense entry form
   def date
     expense_entry_form.date_field :date, class: 'form-control', placeholder: 'Date'
@@ -31,7 +35,7 @@ class ExpenseEntryPresenter < BasePresenter
     expense_entry_form.select :category,
                               view.options_for_select(options_list, expense_entry.category),
                               { placeholder: 'Category', required: true },
-                              { class: 'form-control', data: { action: 'change->expense-entry#categoryChange' } }
+                              { class: 'form-control', data: { action: 'change->expense-form#categoryChange' } }
   end
 
   # Renders a text field for the description
@@ -46,24 +50,24 @@ class ExpenseEntryPresenter < BasePresenter
   end
 
   def vat
-    expense_entry_form.number_field :vat, class: 'form-control', data: { target: 'expense-entry.vat' }
+    expense_entry_form.number_field :vat, class: 'form-control', data: { target: 'expense-form.vat' }
   end
 
   def qty
     expense_entry_form.number_field :qty, class: 'form-control', required: true, min: '1',
-                                          data: { action: 'change->expense-entry#recalcClaim', target: 'expense-entry.qty' }
+                                          data: { action: 'change->expense-formy#recalcClaim', target: 'expense-form.qty' }
   end
 
   def unit_cost
     expense_entry_form.number_field :unit_cost, class: 'form-control', required: true, min: '0.01', step: '0.01',
-                                                data: { action: 'keyup->expense-entry#recalcClaim change->expense-entry#recalcClaim',
-                                                        target: 'expense-entry.unitCost' }
+                                                data: { action: 'keyup->expense-form#recalcClaim change->expense-form#recalcClaim',
+                                                        target: 'expense-form.unitCost' }
   end
 
   def total_cost
     view.number_field_tag :total_cost,
                           expense_entry.vat * expense_entry.qty,
-                          disabled: true, class: 'form-control', data: { target: 'expense-entry.totalCost' }
+                          disabled: true, class: 'form-control', data: { target: 'expense-form.totalCost' }
   end
 
   def delete_button

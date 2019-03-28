@@ -1,5 +1,9 @@
-div.expenses-row:hover {
-  background-color: lightgray;
+div.expenses-row {
+  @extend .form-row;
+
+  &:hover {
+    background-color: lightgray;
+  }
 }
 
 i.expenses-action-icon {

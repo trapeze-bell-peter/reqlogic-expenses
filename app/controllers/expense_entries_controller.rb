@@ -7,16 +7,16 @@ class ExpenseEntriesController < ApplicationController
 
     @expense_entry = ExpenseEntry.new(new_expense_entry_params)
 
-    render :new, layout: false
+    render partial: 'expense_entry', layout: false, status: :ok,
+           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
+                     ajax_actions: 'ajax:success->expense-entries#replaceRow' }
   end
 
   # GET /expense_entries/1/edit
   def edit
-    @expense_entry.new
-
     render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
            locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     callbacks: 'ajax:success->expense-entries#replaceRow ajax:error->expense-entries#replaceRow' }
+                     ajax_actions: 'ajax:success->expense-entries#replaceRow ajax:error->expense-entries#replaceRow' }
   end
 
   # POST /expense_entries
@@ -26,7 +26,7 @@ class ExpenseEntriesController < ApplicationController
 
     render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
            locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     callbacks: 'ajax:error->expense-entries#replaceRow' }
+                     ajax_actions: 'ajax:error->expense-entries#replaceRow' }
   end
 
   # PATCH/PUT /expense_entries/1.json
@@ -36,7 +36,9 @@ class ExpenseEntriesController < ApplicationController
     if @expense_entry.update(expense_entry_params)
       head :ok
     else
-      render @expense_entry, layout: false, status: :unprocessable_entity
+      render partial: 'expense_entry', layout: false, status: :unprocessable_entity,
+             locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
+                       ajax_actions: 'ajax:error->expense-entries#replaceRow' }
     end
   end
 
@@ -63,6 +65,6 @@ class ExpenseEntriesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_entry_params
     params.require(:expense_entry)
-          .permit(:expense_claim_id, :date, :category, :description, :project, :vat, :qty, :unit_cost)
+          .permit(:expense_claim_id, :sequence, :date, :category, :description, :project, :vat, :qty, :unit_cost)
   end
 end

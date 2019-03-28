@@ -34,7 +34,8 @@
   <% end %>
 <% end %>
 
-<div>
+<div id="expenses-entry-table" data-controller="expense-rows"
+     data-action="resequence->expense-rows#resequence focusin->expense-rows#submitChangedForms">
   <div class="form-row">
     <div class="form-group col-2">
       <label>Date</label>
@@ -65,10 +66,10 @@
     </div>
   </div>
 
-  <% @expense_claim.expense_entries.each do |expense_entry| %>
+  <% @expense_claim.expense_entries.order(:sequence).each do |expense_entry| %>
     <%= render partial: 'expense_entries/expense_entry', locals: { expense_entry: expense_entry,
                                                                    expense_claim: @expense_claim,
-                                                                   callbacks: "ajax:error->expenses#errorOnRow" } %>
+                                                                   ajax_actions: "ajax:error->expenses#errorOnRow" } %>
   <% end %>
 </div>
 
