@@ -1,11 +1,12 @@
 import { Controller } from "stimulus";
 import Rails from "rails-ujs";
 
+// This controller focuses on the form for a specific expense_entry row on the page.  It captures changes to the row
+// causing
 export default class ExpenseFormController extends Controller {
     static targets = [ "category", "vat", "qty", "unitCost", "totalCost" ];
 
     connect() {
-        console.log('hello from ExpenseFormController');
         this.recalcClaim(null);
         this.emitResequenceRequired();
     }
@@ -13,7 +14,6 @@ export default class ExpenseFormController extends Controller {
     // Generate a custom event that the ExpenseRowsController is listening for.  It takes responsibility for
     // re-sequencing the rows so that the correct sequence numbers are stored in the database.
     emitResequenceRequired() {
-        console.log("in emitReqsequenceRequired");
         this.element.dispatchEvent(new CustomEvent('resequence', { bubbles: true}));
     }
 

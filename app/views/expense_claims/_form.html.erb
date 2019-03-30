@@ -71,6 +71,13 @@
                                                                    expense_claim: @expense_claim,
                                                                    ajax_actions: "ajax:error->expenses#errorOnRow" } %>
   <% end %>
+
+  <template id="expense-entry-empty-row">
+    <%= render partial: 'expense_entries/expense_entry', layout: false, status: :ok,
+               locals: { expense_entry: ExpenseEntry.new(expense_claim: expense_claim), expense_claim: @expense_claim,
+                         ajax_actions: 'ajax:success->expense-entry#replaceRow  ajax:error->expense-entry#replaceRow' } %>
+
+  </template>
 </div>
 
   <% # ToDo move this into a little helper %>

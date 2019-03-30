@@ -6,16 +6,27 @@ class ExpenseEntryPresenter < BasePresenter
   #
   # @api public
   # @param [ActiveView::Template] view
-  def initialize(view, expense_entry_form)
+  def initialize(view, expense_entry)
     super(view)
-    @expense_entry_form = expense_entry_form
+    @expense_entry = expense_entry
+  end
+
+  attr_reader :expense_entry
+
+  def row_id
+    "expense-entry-#{expense_entry.persisted? ? expense_entry.id : 'empty-row'}"
+  end
+
+  def form(ajax_actions)
+    view.form_with model: expense_entry, class: 'form',
+                   data: { controller: 'expense-form', action: "change->expense-form#changeEvent #{ajax_actions}",
+                           expense_form_change_pending: '0', target: 'expense-rows.form', type: 'json' } do |expense_entry_form|
+                        @expense_entry_form = expense_entry_form
+                        yield(expense_entry_form)
+                      end
   end
 
   attr_reader :expense_entry_form
-
-  def expense_entry
-    expense_entry_form.object
-  end
 
   def expense_claim_id
     expense_entry_form.hidden_field :expense_claim_id
@@ -50,12 +61,13 @@ class ExpenseEntryPresenter < BasePresenter
   end
 
   def vat
-    expense_entry_form.number_field :vat, class: 'form-control', data: { target: 'expense-form.vat' }
+    expense_entry_form.select :vat, %w[0 20], { placeholder: 'Category', required: true },
+                                              { class: 'form-control', data: { target: 'expense-form.vat' } }
   end
 
   def qty
     expense_entry_form.number_field :qty, class: 'form-control', required: true, min: '1',
-                                          data: { action: 'change->expense-formy#recalcClaim', target: 'expense-form.qty' }
+                                          data: { action: 'change->expense-form#recalcClaim', target: 'expense-form.qty' }
   end
 
   def unit_cost
@@ -84,6 +96,13 @@ class ExpenseEntryPresenter < BasePresenter
     view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
                  data: { action: 'click->expense-entry#insertRow' }) do
       view.tag.i class: 'fas fa-plus-square fa-2x expenses-action-icon'
+    end
+  end
+
+  def copy_button
+    view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
+                 data: { action: 'click->expense-entry#copyRow' }) do
+      view.tag.i class: 'fas fa-copy fa-2x expenses-action-icon'
     end
   end
 
