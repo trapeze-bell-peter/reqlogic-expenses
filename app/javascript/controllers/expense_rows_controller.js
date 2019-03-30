@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "rails-ujs";
 
 export default class ExpenseRowsController extends Controller {
-    static targets = [ "form", "sequenceField" ];
+    static targets = [ "form", "sequenceField", "totalCost", "totalClaim" ];
 
     connect() {
         this.resequence();
@@ -44,5 +44,11 @@ export default class ExpenseRowsController extends Controller {
                     }
                 }
             }, this);
+    }
+
+    sumTotalCosts(event) {
+        let overallCost = 0.0;
+        this.totalCostTargets.forEach( totalCostField => { overallCost += parseFloat(totalCostField.value); });
+        this.totalClaimTarget.value = overallCost.toFixed(2);
     }
 }

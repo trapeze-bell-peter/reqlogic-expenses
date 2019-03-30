@@ -62,7 +62,7 @@ class ExpenseEntryPresenter < BasePresenter
 
   def vat
     expense_entry_form.select :vat, %w[0 20], { placeholder: 'Category', required: true },
-                                              { class: 'form-control', data: { target: 'expense-form.vat' } }
+                              { class: 'form-control', data: { target: 'expense-form.vat' } }
   end
 
   def qty
@@ -77,9 +77,10 @@ class ExpenseEntryPresenter < BasePresenter
   end
 
   def total_cost
-    view.number_field_tag :total_cost,
-                          expense_entry.vat * expense_entry.qty,
-                          disabled: true, class: 'form-control', data: { target: 'expense-form.totalCost' }
+    view.text_field_tag :total_cost,
+                        expense_entry.vat * expense_entry.qty,
+                        disabled: true,
+                        class: 'form-control', data: { target: 'expense-form.totalCost expense-rows.totalCost' }
   end
 
   def delete_button
