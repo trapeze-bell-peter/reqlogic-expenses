@@ -106,12 +106,13 @@ export default class ExpenseClaimController extends Controller {
         this.sequenceFieldTargets.forEach( sequenceField => {
             let owningExpenseEntryDiv = sequenceField.closest('div.expense-entry');
             if (!owningExpenseEntryDiv.hidden && parseInt(sequenceField.value)!=sequenceIndex) {
-                console.log(sequenceField);
                 sequenceField.value = sequenceIndex;
                 sequenceField.form.dataset.expenseEntryChanged = '1';
             }
             sequenceIndex++;
         } );
+
+        this.submitChangedExpenseEntryForms();
     }
 
     // Helper method to submit any expense entry forms that are flagged as having changed.  Any hidden expense entry
@@ -122,7 +123,6 @@ export default class ExpenseClaimController extends Controller {
         this.formTargets.forEach( form => {
             if (form.dataset.expenseEntryChanged == '1') {
                 form.dataset.expenseEntryChanged = '0';
-                console.log('submitting', form)
                 Rails.fire(form, 'submit');
             }
         });

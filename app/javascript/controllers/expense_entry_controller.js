@@ -18,8 +18,6 @@ export default class ExpenseEntryController extends Controller {
     }
 
     ajaxSuccessThereforeResetErrors(event) {
-        console.log("ajaxSuccessThereforeResetErrors invoked");
-
         for(let element of this.element.getElementsByClassName('is-invalid')) {
             element.classList.remove('is-invalid');
         }
@@ -31,7 +29,6 @@ export default class ExpenseEntryController extends Controller {
     // We store the id (which is either the database id for existing expense_entry, or we store the timestamp of when
     // we created the new row for objects not yet saved in the database.
     dragstart(event) {
-        console.log('dragstart for', this.element);
         event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData("text/plain", this.element.id);
     }
@@ -44,7 +41,6 @@ export default class ExpenseEntryController extends Controller {
     // We model the fact that we can re-arrange the rows by allowing each row to receive a drop event.  Hence, this
     // method.
     dragover(event) {
-        console.log('drageover for', event);
         event.preventDefault();
         return true;
     }

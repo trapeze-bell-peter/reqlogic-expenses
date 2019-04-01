@@ -16,7 +16,7 @@ class ExpenseEntryPresenter < BasePresenter
   attr_reader :expense_entry
 
   def self.actions_for_claim_table
-    'recalcTotalClaim->expense-claim#recalcTotalClaim'
+    'recalcTotalClaim->expense-claim#recalcTotalClaim resequence->expense-claim#reSequenceExpenseEntryForms'
   end
 
   # @return [String] action definitions for use by Stimulus.js on the expense-entry div
@@ -31,12 +31,11 @@ class ExpenseEntryPresenter < BasePresenter
 
   FORM_ACTIONS = 'ajax:complete->expense-claim#ajaxComplete ajax:success->expense-entry#ajaxSuccessThereforeResetErrors'
 
-  # Generates the form used in a row.
+  # Generates the form used in a expense entry row.
   def form
     view.form_with(model: expense_entry,
                    class: 'form',
-                   data: { target: 'expense-claim.form',
-                           expense_entry_changed: expense_entry.persisted? ? '0' : '1',
+                   data: { target: 'expense-claim.form', expense_entry_changed: '0',
                            action: FORM_ACTIONS }) do |expense_entry_form|
       @expense_entry_form = expense_entry_form
       yield(expense_entry_form)
@@ -45,10 +44,16 @@ class ExpenseEntryPresenter < BasePresenter
 
   attr_reader :expense_entry_form
 
+  # Generates the hidden field containing the expense claim id.  Used by the RoR backend to associate with the correct
+  # expense claim.
+  # @return [String]
   def expense_claim_id
     expense_entry_form.hidden_field :expense_claim_id
   end
 
+  # Generates the hidden field in which we save sequence number.  This field is updated by the expenseClaim Stimulus.js
+  # controller.
+  # @return [String]
   def sequence
     expense_entry_form.hidden_field :sequence, data: { target: 'expense-claim.sequenceField' }
   end
