@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
-# Presenter class for the projects bookings table - presenter is used in a number of different places.
+# Used to generate key fields for a single row (an Expense Entry) in the Expense Claim HTML page.
 class ExpenseEntryPresenter < BasePresenter
+  include FormField
+
   # Initializer
   #
   # @api public
@@ -13,17 +15,32 @@ class ExpenseEntryPresenter < BasePresenter
 
   attr_reader :expense_entry
 
+  def self.actions_for_claim_table
+    'recalcTotalClaim->expense-claim#recalcTotalClaim'
+  end
+
+  # @return [String] action definitions for use by Stimulus.js on the expense-entry div
+  def actions_for_expense_entry_div
+    'dragstart->expense-entry#dragstart dragenter->expense-entry#dragenter dragover->expense-entry#dragover' +
+      ' drop->expense-entry#drop'
+  end
+
   def row_id
     "expense-entry-#{expense_entry.persisted? ? expense_entry.id : 'empty-row'}"
   end
 
-  def form(ajax_actions)
-    view.form_with model: expense_entry, class: 'form',
-                   data: { controller: 'expense-form', action: "change->expense-form#changeEvent #{ajax_actions}",
-                           expense_form_change_pending: '0', target: 'expense-rows.form', type: 'json' } do |expense_entry_form|
-                        @expense_entry_form = expense_entry_form
-                        yield(expense_entry_form)
-                      end
+  FORM_ACTIONS = 'ajax:complete->expense-claim#ajaxComplete ajax:success->expense-entry#ajaxSuccessThereforeResetErrors'
+
+  # Generates the form used in a row.
+  def form
+    view.form_with(model: expense_entry,
+                   class: 'form',
+                   data: { target: 'expense-claim.form',
+                           expense_entry_changed: expense_entry.persisted? ? '0' : '1',
+                           action: FORM_ACTIONS }) do |expense_entry_form|
+      @expense_entry_form = expense_entry_form
+      yield(expense_entry_form)
+    end
   end
 
   attr_reader :expense_entry_form
@@ -33,76 +50,74 @@ class ExpenseEntryPresenter < BasePresenter
   end
 
   def sequence
-    expense_entry_form.hidden_field :sequence, data: { target: 'expense-rows.sequenceField' }
+    expense_entry_form.hidden_field :sequence, data: { target: 'expense-claim.sequenceField' }
   end
 
   # Renders a date field for the expense entry form
   def date
-    expense_entry_form.date_field :date, class: 'form-control', placeholder: 'Date'
+    form_field :date_field
   end
 
   # Renders a selector for the different categories
   def categories
     expense_entry_form.select :category,
                               view.options_for_select(options_list, expense_entry.category),
-                              { placeholder: 'Category', required: true },
-                              { class: 'form-control', data: { action: 'change->expense-form#categoryChange' } }
+                              {},
+                              field_args(:category, data: { action: 'change->expense-entry#categoryChange' })
   end
 
   # Renders a text field for the description
   def description
-    expense_entry_form.text_field :description, class: 'form-control', placeholder: 'Description'
+    form_field :text_field
   end
 
   # Renders a text field for the description
   # @todo replace with a lookup based on JET data
   def project
-    expense_entry_form.text_field :project, class: 'form-control', placeholder: 'Project code'
+    form_field :text_field
   end
 
   def vat
-    expense_entry_form.select :vat, %w[0 20], { placeholder: 'Category', required: true },
-                              { class: 'form-control', data: { target: 'expense-form.vat' } }
+    expense_entry_form.select :vat, %w[0 20], {},
+                              field_args(:vat, placeholder: 'VAT', data: { target: 'expense-entry.vat' })
   end
 
   def qty
-    expense_entry_form.number_field :qty, class: 'form-control', required: true, min: '1',
-                                          data: { action: 'change->expense-form#recalcClaim', target: 'expense-form.qty' }
+    form_field :number_field, data: { action: 'change->expense-entry#recalcClaim', target: 'expense-entry.qty' }
   end
 
   def unit_cost
-    expense_entry_form.number_field :unit_cost, class: 'form-control', required: true, min: '0.01', step: '0.01',
-                                                data: { action: 'keyup->expense-form#recalcClaim change->expense-form#recalcClaim',
-                                                        target: 'expense-form.unitCost' }
+    form_field :number_field, min: '0.00', step: '0.01',
+                              data: { action: 'change->expense-entry#recalcClaim',
+                                      target: 'expense-entry.unitCost' }
   end
 
   def total_cost
-    view.text_field_tag :total_cost,
-                        expense_entry.vat * expense_entry.qty,
+    view.text_field_tag :total_cost, expense_entry.total_cost,
                         disabled: true,
-                        class: 'form-control', data: { target: 'expense-form.totalCost expense-rows.totalCost' }
+                        class: 'form-control', data: { target: 'expense-entry.totalCost expense-claim.totalCost' }
   end
 
   def delete_button
     if expense_entry.persisted?
       view.link_to(view.expense_entry_path(expense_entry),
-                   method: :delete, remote: true, data: { action: 'ajax:success->expense-entry#deleteRow' },
+                   method: :delete, remote: true, data: { action: 'ajax:success->expense-claim#deleteExpenseEntry' },
                    &method(:delete_icon))
     else
-      view.link_to('_', href: '#', data: { action: 'click->expense-entry#deleteRow' }, &method(:delete_icon))
+      view.link_to('_', href: '#', data: { action: 'click->expense-claim#deleteExpenseEntry' }, &method(:delete_icon))
     end
   end
 
   def insert_button
     view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
-                 data: { action: 'click->expense-entry#insertRow' }) do
+                 data: { action: 'click->expense-claim#insertExpenseEntry' }) do
       view.tag.i class: 'fas fa-plus-square fa-2x expenses-action-icon'
     end
   end
 
   def copy_button
     view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
-                 data: { action: 'click->expense-entry#copyRow' }) do
+                 data: { action: 'click->expense-claim#copyExpenseEntry' }) do
       view.tag.i class: 'fas fa-copy fa-2x expenses-action-icon'
     end
   end

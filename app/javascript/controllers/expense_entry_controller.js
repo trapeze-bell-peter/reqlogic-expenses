@@ -1,21 +1,48 @@
 import { Controller } from "stimulus";
+import Rails from "rails-ujs";
 
+// This controller corresponds to an ExpenseEntry in the database.  Each ExpenseEntry in the HTML/Javascript world
+// is made up of a div -> form.  Both are handled thru one controller, with the form being accessed as a target.
+//
+// This controller has two three areas of concern:
+// * managing the activities when a row gets replaced.  This is usually the result of submitting the form associated
+//   with the row, and getting a new form back (either because its now a saved object, or because an update has
+//   generated errors.
+// * managing the dragging and dropping of rows in the table
+// * updating key fields in the form depending on other changes made in the row by the user.
 export default class ExpenseEntryController extends Controller {
-    static targets = [];
+    static targets = [ 'form', "category", "vat", "qty", "unitCost", "totalCost", "claimTotal" ];
 
+    // First time that we are connected,
     connect() {
     }
 
+    ajaxSuccessThereforeResetErrors(event) {
+        console.log("ajaxSuccessThereforeResetErrors invoked");
+
+        for(let element of this.element.getElementsByClassName('is-invalid')) {
+            element.classList.remove('is-invalid');
+        }
+        for(let element of this.element.getElementsByTagName('small')) {
+            element.remove();
+        }
+    }
+
+    // We store the id (which is either the database id for existing expense_entry, or we store the timestamp of when
+    // we created the new row for objects not yet saved in the database.
     dragstart(event) {
         console.log('dragstart for', this.element);
         event.dataTransfer.effectAllowed = "move";
         event.dataTransfer.setData("text/plain", this.element.id);
     }
 
+    // Ensure we don't do anything when the user traverses an element that could receive a drop.
     dragenter(event) {
         event.preventDefault()
     }
 
+    // We model the fact that we can re-arrange the rows by allowing each row to receive a drop event.  Hence, this
+    // method.
     dragover(event) {
         console.log('drageover for', event);
         event.preventDefault();
@@ -30,56 +57,25 @@ export default class ExpenseEntryController extends Controller {
         event.preventDefault();
     }
 
-    // The backend serves up a div row with the details.
-    replaceRow(event) {
-        console.log('replaceRow invoked');
-        let [data, status, xhr] = event.detail;
-        this.element.replaceWith(data.getElementsByClassName('expenses-row')[0]);
+    // Event handler for change event.  Flag this row as having pending changes.  Next time we push updates to the
+    // backend this row will also be pushed.
+    changeEvent(event) {
+        this.element.dataset.changePending = '1';
     }
 
-    // Event handler for when the user presses the insert on an expesne row.
-    insertRow(event) {
-        event.preventDefault();
-        this.element.insertAdjacentElement('afterend', this.createEmptyRow());
+    // Event handler for when the user selects a particular expenses claim category
+    categoryChange(event) {
+        let dataset = event.srcElement.selectedOptions[0].dataset;
+        this.vatTarget.value = dataset.vat;
+        this.unitCostTarget.value = dataset.unitcost;
+        this.recalcClaim(event);
+        this.changeEvent(event);
     }
 
-    // Event handler to copy row.  It does this by fetching an empty row from the backend and then copying the
-    // input elements across.
-    copyRow(event) {
-        event.preventDefault();
-
-        let parentDiv = this.element.closest('div#expenses-entry-table');
-        let newRow = this.createEmptyRow();
-
-        this.copyInputElements(newRow);
-
-        parentDiv.appendChild(newRow);
-    }
-
-    // Get the empty row out of the template, clone it, and give it and id of the current time.
-    createEmptyRow() {
-        let template = document.getElementById('expense-entry-empty-row');
-        let new_row = template.content.getElementById('expense-entry-empty-row').cloneNode(true);
-        new_row.id = `expense-entry-${Date.now()}`;
-        return new_row;
-    }
-
-    // Given the new row, copy all inputs across from the current row.
-    copyInputElements(newRow) {
-        for(let elementType of ['input', 'select']) {
-            let elements = newRow.getElementsByTagName(elementType);
-            for(let i=0; i< elements.length; i++) {
-                if (elements[i].type!=='hidden') {
-                    elements[i].value = this.element.querySelector(`${elementType}#${elements[i].id}`).value
-                }
-            }
-        }
-    }
-
-    // Event handler for when the user presses the delete on an expense row.  For now we simply mark it as
-    // hidden.  We remove
-    deleteRow(event) {
-        this.element.hidden = 'true';
+    // Event handler for when the user changes a field that affects the total cost of the claim.
+    recalcClaim(event) {
+        this.totalCostTarget.value = (parseFloat(this.unitCostTarget.value) * parseInt(this.qtyTarget.value)).toFixed(2);
+        this.changeEvent(event);
+        this.element.dispatchEvent(new CustomEvent('recalcTotalClaim', { bubbles: true}));
     }
 }
-

@@ -8,15 +8,13 @@ class ExpenseEntriesController < ApplicationController
     @expense_entry = ExpenseEntry.new(new_expense_entry_params)
 
     render partial: 'expense_entry', layout: false, status: :ok,
-           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     ajax_actions: 'ajax:success->expense-entry#replaceRow  ajax:error->expense-entry#replaceRow' }
+           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
   end
 
   # GET /expense_entries/1/edit
   def edit
     render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
-           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     ajax_actions: 'ajax:success->expense-entry#replaceRow ajax:error->expense-entry#replaceRow' }
+           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
   end
 
   # POST /expense_entries
@@ -24,9 +22,8 @@ class ExpenseEntriesController < ApplicationController
   def create
     @expense_entry = ExpenseEntry.create(expense_entry_params)
 
-    render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
-           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                     ajax_actions: 'ajax:error->expense-entry#replaceRow' }
+    render partial: 'expense_entry', layout: false, status: (@expense_entry.valid? ? :ok : :unprocessable_entity),
+           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
   end
 
   # PATCH/PUT /expense_entries/1.json
@@ -36,9 +33,8 @@ class ExpenseEntriesController < ApplicationController
     if @expense_entry.update(expense_entry_params)
       head :ok
     else
-      render partial: 'expense_entry', layout: false, status: :unprocessable_entity,
-             locals: { expense_entry: @expense_entry, expense_claim: @expense_claim,
-                       ajax_actions: 'ajax:error->expense-entries#replaceRow' }
+      render partial: 'expense_entry.haml', layout: false, status: :unprocessable_entity, content_type: 'text/html',
+             locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
     end
   end
 

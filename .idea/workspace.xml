@@ -2,11 +2,27 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="264bd177-eebb-4005-bbea-2b5b6271dbb2" name="Default Changelist" comment="Total Cost of expense line being automatically set">
-      <change beforePath="$PROJECT_DIR$/app/javascript/controllers/expense_form_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/javascript/controllers/expense_form_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/javascript/controllers/expense_rows_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/javascript/controllers/expense_rows_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/expense_claim.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/expense_claim.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/presenters/form_field.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/expense_claims/_form.haml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/views/expense_entries/_expense_entry.haml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/features/deleting_expense_entries_spec.rb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/spec/features/updating_expense_entry_spec.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/expenses.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/expenses.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gemfile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Gemfile.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/controllers/expense_entries_controller.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/controllers/expense_entries_controller.rb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/javascript/controllers/expense_claim_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/javascript/controllers/expense_claim_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/javascript/controllers/expense_form_controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/javascript/controllers/expense_rows_controller.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/javascript/stylesheets/_base.scss" beforeDir="false" afterPath="$PROJECT_DIR$/app/javascript/stylesheets/_base.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/models/expense_entry.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/expense_entry.rb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/presenters/expense_entry_presenter.rb" beforeDir="false" afterPath="$PROJECT_DIR$/app/presenters/expense_entry_presenter.rb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/expense_claims/_form.html.erb" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/expense_claims/_form.html.erb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/expense_claims/_form.html.erb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/views/expense_entries/_expense_entry.html.erb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/environment.rb" beforeDir="false" afterPath="$PROJECT_DIR$/config/environment.rb" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.bundle/" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -23,10 +39,10 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/expenses@db_rollback__expenses.rcov" NAME="db:rollback: expenses Coverage Results" MODIFIED="1553127933704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="expenses" />
-    <SUITE FILE_PATH="coverage/expenses@Development__expenses.rcov" NAME="Development: expenses Coverage Results" MODIFIED="1553891618968" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="expenses" />
+    <SUITE FILE_PATH="coverage/expenses@Development__expenses.rcov" NAME="Development: expenses Coverage Results" MODIFIED="1554104175649" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="expenses" />
     <SUITE FILE_PATH="coverage/expenses@db_seed__expenses.rcov" NAME="db:seed: expenses Coverage Results" MODIFIED="1553142740436" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="expenses" />
     <SUITE FILE_PATH="coverage/expenses@db_migrate__expenses.rcov" NAME="db:migrate: expenses Coverage Results" MODIFIED="1553402117328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="expenses" />
-    <SUITE FILE_PATH="coverage/expenses@Rails_console__expenses.rcov" NAME="Rails console: expenses Coverage Results" MODIFIED="1553924454885" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="expenses" />
+    <SUITE FILE_PATH="coverage/expenses@Rails_console__expenses.rcov" NAME="Rails console: expenses Coverage Results" MODIFIED="1554094062568" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="rcov" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" MODULE_NAME="expenses" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -94,32 +110,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/presenters/expense_entry_presenter.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="517">
-              <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/expense_entries/_expense_entry.html.erb">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="31" column="42" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_rows_controller.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1479">
-              <caret line="51" column="60" selection-start-line="51" selection-start-column="60" selection-end-line="51" selection-end-column="60" />
-              <folding>
-                <element signature="e#0#38#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="435">
+              <caret line="78" lean-forward="true" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -127,17 +122,29 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/controllers/expense_entries_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-707">
-              <caret line="11" column="63" selection-start-line="11" selection-start-column="63" selection-end-line="11" selection-end-column="63" />
+            <state relative-caret-position="569">
+              <caret line="35" column="41" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_form_controller.js">
+        <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_claim_controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="894">
-              <caret line="35" column="58" selection-start-line="35" selection-start-column="58" selection-end-line="35" selection-end-column="58" />
+            <state relative-caret-position="837">
+              <caret line="92" column="49" selection-start-line="92" selection-start-column="49" selection-end-line="92" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="464">
+              <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
               <folding>
                 <element signature="e#0#38#0" expanded="true" />
               </folding>
@@ -146,28 +153,55 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js">
+        <entry file="file://$PROJECT_DIR$/app/views/expense_entries/_expense_entry.haml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="899">
-              <caret line="70" column="48" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="48" />
+            <state relative-caret-position="145">
+              <caret line="5" column="85" selection-start-line="5" selection-start-column="85" selection-end-line="5" selection-end-column="85" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/views/expense_claims/_form.html.erb">
+        <entry file="file://$PROJECT_DIR$/app/javascript/stylesheets/_base.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-614">
-              <caret line="37" column="98" selection-start-line="37" selection-start-column="98" selection-end-line="37" selection-end-column="98" />
+            <state relative-caret-position="261">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/models/expense_claim.rb">
+        <entry file="file://$PROJECT_DIR$/app/presenters/form_field.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="638">
-              <caret line="22" column="63" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+            <state relative-caret-position="663">
+              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spec/features/updating_expense_entry_spec.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/spec/features/deleting_expense_entries_spec.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret selection-end-line="12" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/environment.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -190,6 +224,16 @@
       <find>expenses_entry</find>
       <find>expenses-entry</find>
       <find>row</find>
+      <find>expense-form.vat</find>
+      <find>pending</find>
+      <find>ajax:</find>
+      <find>submit</find>
+      <find>focus</find>
+      <find>insertRow</find>
+      <find>copyRow</find>
+      <find>deleteRow</find>
+      <find>changeToExpenseEntry</find>
+      <find>focusOnExpenseEntry</find>
     </findStrings>
     <replaceStrings>
       <replace>0</replace>
@@ -199,6 +243,7 @@
     </replaceStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$/app/javascript</dir>
+      <dir>$PROJECT_DIR$/app</dir>
     </dirStrings>
   </component>
   <component name="GeneratorOptions">
@@ -211,14 +256,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/config/database.yml" />
-        <option value="$PROJECT_DIR$/db/migrate/20190316222841_enable_hstore_extension.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20190316222957_enable_uuid_extension.rb" />
-        <option value="$PROJECT_DIR$/db/migrate/20190317041905_create_expense_claims.rb" />
-        <option value="$PROJECT_DIR$/config/webpack/environment.js" />
-        <option value="$PROJECT_DIR$/app/javascript/packs/application.js" />
         <option value="$PROJECT_DIR$/app/helpers/application_helper.rb" />
-        <option value="$PROJECT_DIR$/Gemfile" />
         <option value="$PROJECT_DIR$/db/migrate/20190317090618_expense_entry.rb" />
         <option value="$PROJECT_DIR$/app/javascript/controllers/hello_controller.js" />
         <option value="$PROJECT_DIR$/db/migrate/20190317092006_create_expense_entries.rb" />
@@ -242,25 +280,33 @@
         <option value="$PROJECT_DIR$/app/views/expense_entry/create.html.erb" />
         <option value="$PROJECT_DIR$/app/views/expense_entry/new.html.erb" />
         <option value="$PROJECT_DIR$/db/migrate/20190324043043_make_project_mandatory.rb" />
-        <option value="$PROJECT_DIR$/app/models/expense_entry.rb" />
         <option value="$PROJECT_DIR$/app/views/layouts/application.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/expense_claims_controller.rb" />
         <option value="$PROJECT_DIR$/app/javascript/controllers/expenses_controller.js" />
         <option value="$PROJECT_DIR$/app/javascript/controllers/index.js" />
         <option value="$PROJECT_DIR$/app/javascript/controllers/expenses_entry_controller.js" />
-        <option value="$PROJECT_DIR$/app/javascript/controllers/expense_claim_controller.js" />
         <option value="$PROJECT_DIR$/app/views/expense_entries/edit.html.erb" />
         <option value="$PROJECT_DIR$/app/javascript/controllers/drag_item_controller.js" />
         <option value="$PROJECT_DIR$/app/views/expense_entries/new.html.erb" />
-        <option value="$PROJECT_DIR$/app/controllers/expense_entries_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/expense_entries/_expense_entry.html.erb" />
-        <option value="$PROJECT_DIR$/app/javascript/stylesheets/_base.scss" />
-        <option value="$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js" />
         <option value="$PROJECT_DIR$/app/models/expense_claim.rb" />
+        <option value="$PROJECT_DIR$/app/javascript/controllers/expense_row_controller.js" />
         <option value="$PROJECT_DIR$/app/javascript/controllers/expense_form_controller.js" />
-        <option value="$PROJECT_DIR$/app/views/expense_claims/_form.html.erb" />
+        <option value="$PROJECT_DIR$/app/views/expense_entries/_expense_entry.html.erb" />
         <option value="$PROJECT_DIR$/app/javascript/controllers/expense_rows_controller.js" />
+        <option value="$PROJECT_DIR$/app/views/expense_claims/_form.html.erb" />
+        <option value="$PROJECT_DIR$/Gemfile" />
+        <option value="$PROJECT_DIR$/app/models/expense_entry.rb" />
+        <option value="$PROJECT_DIR$/app/views/expense_entries/_expense_entry.haml" />
+        <option value="$PROJECT_DIR$/spec/features/deleting_expense_entries_spec.rb" />
+        <option value="$PROJECT_DIR$/app/views/expense_claims/_form.haml" />
+        <option value="$PROJECT_DIR$/spec/features/updating_expense_entry_spec.rb" />
+        <option value="$PROJECT_DIR$/app/controllers/expense_entries_controller.rb" />
+        <option value="$PROJECT_DIR$/app/javascript/controllers/expense_claim_controller.js" />
         <option value="$PROJECT_DIR$/app/presenters/expense_entry_presenter.rb" />
+        <option value="$PROJECT_DIR$/app/javascript/stylesheets/_base.scss" />
+        <option value="$PROJECT_DIR$/app/presenters/form_field.rb" />
+        <option value="$PROJECT_DIR$/config/environment.rb" />
+        <option value="$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js" />
       </list>
     </option>
   </component>
@@ -272,10 +318,10 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="1574" />
-    <option name="y" value="79" />
-    <option name="width" value="1260" />
-    <option name="height" value="767" />
+    <option name="x" value="114" />
+    <option name="y" value="43" />
+    <option name="width" value="1833" />
+    <option name="height" value="1757" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -417,44 +463,20 @@
             <path>
               <item name="expenses" type="b2602c69:ProjectViewProjectNode" />
               <item name="expenses" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
+              <item name="spec" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="expenses" type="b2602c69:ProjectViewProjectNode" />
               <item name="expenses" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@rails" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="expenses" type="b2602c69:ProjectViewProjectNode" />
-              <item name="expenses" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@rails" type="462c0819:PsiDirectoryNode" />
-              <item name="webpacker" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="expenses" type="b2602c69:ProjectViewProjectNode" />
-              <item name="expenses" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@rails" type="462c0819:PsiDirectoryNode" />
-              <item name="webpacker" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="expenses" type="b2602c69:ProjectViewProjectNode" />
-              <item name="expenses" type="462c0819:PsiDirectoryNode" />
-              <item name="node_modules" type="462c0819:PsiDirectoryNode" />
-              <item name="@rails" type="462c0819:PsiDirectoryNode" />
-              <item name="webpacker" type="462c0819:PsiDirectoryNode" />
-              <item name="lib" type="462c0819:PsiDirectoryNode" />
-              <item name="install" type="462c0819:PsiDirectoryNode" />
+              <item name="spec" type="462c0819:PsiDirectoryNode" />
+              <item name="features" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="RailsProjectView" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -463,7 +485,7 @@
     <property name="RakeTaksPopup.undocumentedIncluded" value="false" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/app/javascript" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.ruby.settings.RubyActiveModuleSdkConfigurable" />
@@ -485,7 +507,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="IRB console.Rails console: expenses">
+  <component name="RunManager" selected="Rails.Development: expenses">
     <configuration name="Rails console: expenses" type="IrbRunConfigurationType" factoryName="IRB console" temporary="true">
       <module name="expenses" />
       <IRB_RUN_CONFIG NAME="RUBY_ARGS" VALUE="" />
@@ -677,7 +699,7 @@
         <item itemvalue="IRB console.Rails console: expenses" />
         <item itemvalue="IRB console.Rails console: expenses" />
         <item itemvalue="IRB console.Rails console: expenses" />
-        <item itemvalue="Rake.db:migrate: expenses" />
+        <item itemvalue="IRB console.Rails console: expenses" />
         <item itemvalue="IRB console.Rails console: expenses" />
       </list>
     </recent_temporary>
@@ -727,7 +749,14 @@
       <workItem from="1553802196813" duration="2868000" />
       <workItem from="1553809584853" duration="13304000" />
       <workItem from="1553855686625" duration="11000" />
-      <workItem from="1553891352731" duration="14051000" />
+      <workItem from="1553891352731" duration="14749000" />
+      <workItem from="1553932020784" duration="1914000" />
+      <workItem from="1553935146658" duration="3658000" />
+      <workItem from="1553940586763" duration="6991000" />
+      <workItem from="1553973865455" duration="31593000" />
+      <workItem from="1554039156668" duration="1686000" />
+      <workItem from="1554055699937" duration="3136000" />
+      <workItem from="1554090057160" duration="11153000" />
     </task>
     <task id="LOCAL-00001" summary="First commit">
       <created>1552797775697</created>
@@ -754,7 +783,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215581000" />
+    <option name="totallyTimeSpent" value="276410000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -769,12 +798,12 @@
     <frame x="114" y="43" width="3726" height="2117" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25920835" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.21083012" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.3294676" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32366896" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32894042" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3231418" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3994795" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -791,6 +820,29 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Database" order="3" weight="0.21055526" />
     </layout>
+    <layout-to-restore>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21083012" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3294676" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3231418" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.3994795" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32964718" />
+      <window_info anchor="bottom" id="Docker" order="7" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.3294676" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.32999474" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info anchor="bottom" id="Messages" order="12" weight="0.32999474" />
+      <window_info anchor="bottom" id="Database Console" order="13" weight="0.32999474" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.21055526" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -802,59 +854,6 @@
     <option name="LAST_COMMIT_MESSAGE" value="Total Cost of expense line being automatically set" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/views/categories/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/initializers/money.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/helpers/application_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="8" column="17" selection-start-line="8" selection-start-column="17" selection-end-line="8" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config.ru">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/migrate/20190322171734_add_defaults_to_expense_entry.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="3" column="75" selection-start-line="3" selection-start-column="75" selection-end-line="3" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/db/schema.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1162">
-          <caret line="48" selection-start-line="48" selection-end-line="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.rvm/gems/ruby-2.6.1/gems/actionview-5.2.2.1/lib/action_view/helpers/url_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="195" column="10" selection-start-line="195" selection-start-column="10" selection-end-line="195" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="87">
-          <caret line="3" column="28" selection-start-line="3" selection-start-column="28" selection-end-line="3" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/expense_entry/create.html.erb" />
     <entry file="file://$PROJECT_DIR$/app/views/categories/_form.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="812">
@@ -961,13 +960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/models/expense_entry.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="12" column="36" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config/application.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="551">
@@ -1037,16 +1029,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/javascript/controllers/drag_item_controller.js" />
-    <entry file="file://$PROJECT_DIR$/app/controllers/expense_entries_controller.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-707">
-          <caret line="11" column="63" selection-start-line="11" selection-start-column="63" selection-end-line="11" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/stylesheets/_base.scss">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/views/expense_claims/edit.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="58">
@@ -1054,16 +1036,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_claim_controller.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="8" column="5" selection-start-line="8" selection-start-column="5" selection-end-line="8" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_row_controller.js" />
+    <entry file="file://$PROJECT_DIR$/app/views/expense_entries/_expense_entry.html.erb" />
     <entry file="file://$PROJECT_DIR$/app/models/expense_claim.rb">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="638">
@@ -1071,51 +1045,110 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/expense_entries/_expense_entry.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_form_controller.js" />
+    <entry file="file://$PROJECT_DIR$/public/packs/js/application-035e707a667f4cc511cf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="31" column="42" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="46" />
+        <state relative-caret-position="29">
+          <caret line="98" column="66" selection-start-line="98" selection-start-column="66" selection-end-line="98" selection-end-column="66" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js">
+    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_rows_controller.js" />
+    <entry file="file://$PROJECT_DIR$/app/views/expense_claims/_form.html.erb" />
+    <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="899">
-          <caret line="70" column="48" selection-start-line="70" selection-start-column="20" selection-end-line="70" selection-end-column="48" />
+        <state relative-caret-position="1218">
+          <caret line="42" selection-start-line="42" selection-end-line="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_form_controller.js">
+    <entry file="file://$PROJECT_DIR$/app/models/expense_entry.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="894">
-          <caret line="35" column="58" selection-start-line="35" selection-start-column="58" selection-end-line="35" selection-end-column="58" />
+        <state relative-caret-position="464">
+          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/views/expense_claims/_form.haml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="841">
+          <caret line="38" column="79" selection-start-line="38" selection-start-column="63" selection-end-line="38" selection-end-column="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/features/deleting_expense_entries_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="12" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/spec/features/updating_expense_entry_spec.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_claim_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="837">
+          <caret line="92" column="49" selection-start-line="92" selection-start-column="49" selection-end-line="92" selection-end-column="49" />
           <folding>
             <element signature="e#0#38#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_rows_controller.js">
+    <entry file="file://$PROJECT_DIR$/app/controllers/expense_entries_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="51" column="60" selection-start-line="51" selection-start-column="60" selection-end-line="51" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#38#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="569">
+          <caret line="35" column="41" selection-start-line="35" selection-start-column="41" selection-end-line="35" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/expense_claims/_form.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/expense_entries/_expense_entry.haml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-614">
-          <caret line="37" column="98" selection-start-line="37" selection-start-column="98" selection-end-line="37" selection-end-column="98" />
+        <state relative-caret-position="145">
+          <caret line="5" column="85" selection-start-line="5" selection-start-column="85" selection-end-line="5" selection-end-column="85" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/stylesheets/_base.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/presenters/expense_entry_presenter.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="517">
-          <caret line="80" column="26" selection-start-line="80" selection-start-column="26" selection-end-line="80" selection-end-column="26" />
+        <state relative-caret-position="435">
+          <caret line="78" lean-forward="true" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/presenters/form_field.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="663">
+          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/environment.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/javascript/controllers/expense_entry_controller.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="19" column="44" selection-start-line="19" selection-start-column="44" selection-end-line="19" selection-end-column="44" />
+          <folding>
+            <element signature="e#0#38#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
