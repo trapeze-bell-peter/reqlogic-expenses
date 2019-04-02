@@ -1,0 +1,61 @@
+- show_only = local_assigns.fetch :show_only, false
+
+- if expense_claim.errors.any?
+  #error_explanation
+    %h2
+      = pluralize(expense_claim.errors.count, "error")
+      prohibited this expense_claim from being saved:
+    %ul
+      - expense_claim.errors.full_messages.each do |message|
+        %li= message
+
+#expense-claim{ data: { controller: "expense-claim" } }
+  #expense-claim-key-data
+    = form_with model: @expense_claim, data: { controller: 'expense-claim' } do |expense_form|
+      .form-group.row
+        = expense_form.label :description, class:  "col-2 col-form-label"
+        .col-10
+          = expense_form.text_field :description, class: "form-control"
+      .form-group.row
+        = expense_form.label :claim_date, class:  "col-2 col-form-label"
+        .col-10
+          = expense_form.date_field :claim_date
+      - unless show_only
+        .form-group.row
+          = expense_form.submit class: "btn btn-primary"
+
+  #expense-entries-header
+    .form-row
+      .form-group.col-2 Date
+      .form-group.col-2 Category
+      .form-group.col-2 Description
+      .form-group.col-1 Project Code
+      .form-group.col-1 VAT
+      .form-group.col-1 Qty
+      .form-group.col-1 Unit Cost
+      .form-group.col-1 Total Cost
+      .form-group.col-1 Actions
+
+  #expenses-claim-table{ data: { action: ExpenseEntryPresenter.actions_for_claim_table,
+                                 target: 'expense-claim.claimTable',
+                                 expense_claim_current_expense_entry: '' } }
+    - @expense_claim.expense_entries.order(:sequence).each do |expense_entry|
+      = render partial: 'expense_entries/expense_entry',
+               locals: { expense_entry: expense_entry, expense_claim: @expense_claim }
+
+  #expenses-claim-total-row
+    %form.form
+      #total-row.form-row
+        .form-group.col-10 Total
+        .form-group.col-1
+          %input.form-control{ data: { target: "expense-claim.totalClaim"}, disabled: "true", type: "text", value: @expense_claim.total }
+
+  %template#expense-entry-empty-row= render partial: 'expense_entries/expense_entry', layout: false, status: :ok,
+                                            locals: { expense_entry: ExpenseEntry.new(expense_claim: expense_claim), expense_claim: @expense_claim }
+
+  -# ToDo move this into a little helper
+
+  - if show_only
+    :javascript
+      $("#expense_form input").prop("disabled", true);
+      $("#expense_form select").prop("disabled", true);

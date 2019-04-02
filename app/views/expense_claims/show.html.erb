@@ -1,14 +1,6 @@
-<p id="notice"><%= notice %></p>
+<p/>
 
-<p>
-  <strong>Description:</strong>
-  <%= @expense_claim.description %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @expense_claim.date %>
-</p>
+<%= render 'form', expense_claim: @expense_claim, show_only: true %>
 
 <%= link_to 'Edit', edit_expense_claim_path(@expense_claim) %> |
 <%= link_to 'Back', expense_claims_path %>
