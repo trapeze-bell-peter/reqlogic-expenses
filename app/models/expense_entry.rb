@@ -12,6 +12,7 @@ class ExpenseEntry < ApplicationRecord
   validates :date, presence: true
   validates :vat, inclusion: [0, 20]
   validates :project, presence: true
+  validates :description, presence: true
 
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]

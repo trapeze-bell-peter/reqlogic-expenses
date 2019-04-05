@@ -1,4 +1,8 @@
+# frozen_string_literal: true
+
 class ExpenseClaim < ApplicationRecord
+  include ExpenseExcelExport
+
   has_many :expense_entries, dependent: :destroy
 
   attribute :claim_date, :date, default: -> { Time.zone.today }

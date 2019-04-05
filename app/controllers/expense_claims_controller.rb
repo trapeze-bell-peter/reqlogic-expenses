@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
+# Controller for expense claim
 class ExpenseClaimsController < ApplicationController
-  before_action :set_expense_claim, only: %i[show edit update destroy]
+  before_action :set_expense_claim, only: %i[show edit update destroy export_excel]
 
   # GET /expense_claims
   # GET /expense_claims.json
@@ -9,8 +12,7 @@ class ExpenseClaimsController < ApplicationController
 
   # GET /expense_claims/1
   # GET /expense_claims/1.json
-  def show
-  end
+  def show; end
 
   # GET /expense_claims/new
   def new
@@ -19,22 +21,19 @@ class ExpenseClaimsController < ApplicationController
   end
 
   # GET /expense_claims/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /expense_claims
   # POST /expense_claims.json
   def create
     @expense_claim = ExpenseClaim.new(expense_claim_params)
 
-    respond_to do |format|
-      if @expense_claim.save
-        format.html { redirect_to @expense_claim, notice: 'Expense claim was successfully created.' }
-        format.json { render :show, status: :created, location: @expense_claim }
-      else
-        format.html { render :new }
-        format.json { render json: @expense_claim.errors, status: :unprocessable_entity }
-      end
+    respond_to :html
+
+    if @expense_claim.save
+      redirect_to @expense_claim, notice: 'Expense claim was successfully created.'
+    else
+      render :new
     end
   end
 
@@ -60,6 +59,14 @@ class ExpenseClaimsController < ApplicationController
       format.html { redirect_to expense_claims_url, notice: 'Expense claim was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # GET /export_excel
+  #
+  # Generates the Excel file
+  def export_excel
+    send_data(@expense_claim.export_excel.stream.read, disposition: 'attachment', type: 'application/excel',
+                                                       filename: @expense_claim.suggested_filename)
   end
 
   private

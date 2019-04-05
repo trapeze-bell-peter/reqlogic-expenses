@@ -10,6 +10,9 @@
         %li= message
 
 #expense-claim{ data: { controller: "expense-claim" } }
+  #expense-claim-actions
+    = link_to export_excel_expense_claim_path(@expense_claim) do
+      %i.fa.fa-2x.fa-file-excel
   #expense-claim-key-data
     = form_with model: @expense_claim, data: { controller: 'expense-claim' } do |expense_form|
       .form-group.row
