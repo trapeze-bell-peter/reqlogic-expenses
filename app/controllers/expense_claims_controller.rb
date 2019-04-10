@@ -40,14 +40,12 @@ class ExpenseClaimsController < ApplicationController
   # PATCH/PUT /expense_claims/1
   # PATCH/PUT /expense_claims/1.json
   def update
-    respond_to do |format|
-      if @expense_claim.update(expense_claim_params)
-        format.html { redirect_to @expense_claim, notice: 'Expense claim was successfully updated.' }
-        format.json { render :show, status: :ok, location: @expense_claim }
-      else
-        format.html { render :edit }
-        format.json { render json: @expense_claim.errors, status: :unprocessable_entity }
-      end
+    respond_to :json
+
+    if @expense_claim.update(expense_claim_params)
+      head :ok
+    else
+      render partial: 'expense_claim_key_data', layout: false, status: :ok, locals: { expense_claim: @expense_claim }
     end
   end
 

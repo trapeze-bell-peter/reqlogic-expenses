@@ -5,14 +5,14 @@
 .expense-entry{ id: expense_entry_presenter.row_id,
                 data: { controller: "expense-entry", action: expense_entry_presenter.actions_for_expense_entry_div },
                 draggable: 'true' }
-  = expense_entry_presenter.form do
+  = expense_entry_presenter.create_form(expense_entry_presenter.form_hash) do
     = expense_entry_presenter.expense_claim_id
     = expense_entry_presenter.sequence
     .form-row.align-items-top
-      .form-group.col-2= expense_entry_presenter.date
+      .form-group.col-2= expense_entry_presenter.form_field :date, :date_field
       .form-group.col-2= expense_entry_presenter.categories
-      .form-group.col-2= expense_entry_presenter.description
-      .form-group.col-1= expense_entry_presenter.project
+      .form-group.col-2= expense_entry_presenter.form_field :description, :text_field
+      .form-group.col-1= expense_entry_presenter.form_field :project, :text_field
       .form-group.col-1= expense_entry_presenter.vat
       .form-group.col-1= expense_entry_presenter.qty
       .form-group.col-1= expense_entry_presenter.unit_cost
