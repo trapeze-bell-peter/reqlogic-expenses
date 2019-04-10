@@ -1,0 +1,15 @@
+div.expense-entry {
+  @extend .form-row;
+
+  &:hover {
+    background-color: lightgray;
+  }
+}
+
+div.field-with-errors .form-control {
+  @extend .is-invalid;
+}
+
+i.expenses-action-icon {
+  vertical-align: middle;
+}
