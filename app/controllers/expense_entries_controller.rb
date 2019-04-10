@@ -23,7 +23,7 @@ class ExpenseEntriesController < ApplicationController
     @expense_entry = ExpenseEntry.create(expense_entry_params)
 
     render partial: 'expense_entry', layout: false, status: (@expense_entry.valid? ? :ok : :unprocessable_entity),
-           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
+           content_type: 'text/html', locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
   end
 
   # PATCH/PUT /expense_entries/1.json

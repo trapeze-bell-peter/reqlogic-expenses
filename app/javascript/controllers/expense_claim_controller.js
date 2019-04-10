@@ -167,8 +167,7 @@ export default class ExpenseClaimController extends Controller {
 
     // Get the empty row out of the template, clone it, and give it and id of the current time.
     createEmptyExpenseEntry() {
-        let template = document.getElementById('expense-entry-empty-row');
-        let newExpenseEntry = template.content.getElementById('expense-entry-empty-row').cloneNode(true);
+        let newExpenseEntry = document.getElementById('expense-entry-empty-row').cloneNode(true);
         newExpenseEntry.id = `expense-entry-${Date.now()}`;
         return newExpenseEntry;
     }
