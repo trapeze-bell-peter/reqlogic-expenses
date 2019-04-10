@@ -2,7 +2,7 @@ import { Controller } from "stimulus";
 import Rails from "rails-ujs";
 
 export default class ExpenseClaimController extends Controller {
-    static targets = [ "form", "sequenceField", "totalCost", "totalClaim", "claimTable" ];
+    static targets = [ "expenseEntryForm", "claimForm", "sequenceField", "totalCost", "totalClaim", "claimTable" ];
 
     connect() {
         console.log("Hello from ExpenseClaimController");
@@ -12,6 +12,37 @@ export default class ExpenseClaimController extends Controller {
     disconnect() {
         this.reSequenceExpenseEntryForms();
         this.submitChangedExpenseEntryForms();
+    }
+
+    // Event handler for when the user hits the Excel button.  Just make double sure we have saved everything
+    // before we start the download.
+    excelDownload() {
+        this.reSequenceExpenseEntryForms();
+        this.submitChangedExpenseEntryForms();
+    }
+
+    // Event
+    changeClaim(event) {
+        Rails.fire(this.claimFormTarget, 'submit');
+    }
+
+    // Event handler for a completed AJAX submission to the backend for the claim fields.  There are two possible
+    // outcomes:
+    // * if this is an existing entry and there are no issues with it, we simply accept the response.
+    // * If a field in the claim has issues then an HTML chunk will be returned
+    //   and we need to replace the existing claim div with the one returned by the backend.
+    ajaxClaimSubmitComplete(event) {
+        console.log('ajaxClaimSubmitComplete#ajaxComplete invoked');
+
+        event.preventDefault();
+
+        let [data, status, xhr] = event.detail;
+
+        if (status!=='OK' || data.responseText !== "") {
+            let wrapper= document.createElement('div');
+            wrapper.innerHTML= data.responseText;
+            event.target.closest('div.expense-claim-key-data').replaceWith(wrapper.firstChild);
+        }
     }
 
     // Event handler for when the user presses the insert on an expense-entry row.  We submit any changed forms,
@@ -95,7 +126,7 @@ export default class ExpenseClaimController extends Controller {
         }
     }
 
-    // Supporting nethod to re-sequence expense entries after something has changed the sequence of rows
+    // Supporting method to re-sequence expense entries after something has changed the sequence of rows
     // (insert, copy, move or delete).  If sequence number has changed, then a submit is fired for the corresponding
     // form.
     reSequenceExpenseEntryForms() {
@@ -120,7 +151,7 @@ export default class ExpenseClaimController extends Controller {
     submitChangedExpenseEntryForms() {
         console.log('Hello from ExpenseClaimController#submitChangedExpenseEntryForms');
 
-        this.formTargets.forEach( form => {
+        this.expenseEntryFormTargets.forEach( form => {
             if (form.dataset.expenseEntryChanged == '1') {
                 form.dataset.expenseEntryChanged = '0';
                 Rails.fire(form, 'submit');

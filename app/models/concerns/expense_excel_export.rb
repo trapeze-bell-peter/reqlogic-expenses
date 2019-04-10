@@ -36,7 +36,7 @@ module ExpenseExcelExport
   # @return [Void]
   def generate_header_row
     HEADER_COLS.each_with_index do |heading, column|
-      @expense_sheet.add_cell(0, column, heading, :right)
+      @expense_sheet.add_cell(0, column, heading, nil, :right)
     end
   end
 
@@ -53,24 +53,13 @@ module ExpenseExcelExport
       @expense_sheet.add_cell(row, 1, expense_entry.category)
       @expense_sheet.add_cell(row, 2, expense_entry.description)
       @expense_sheet.add_cell(row, 3, 'EACH')
-      self.write_unit_cost(row, expense_entry)
-      @expense_sheet.add_cell(row, 4, expense_entry.unit_cost)
+      @expense_sheet.add_cell(row, 4, expense_entry.unit_cost.to_f)
       @expense_sheet.add_cell(row, 5, VAT_MAPPING[expense_entry.vat])
       self.write_date(row, expense_entry)
       @expense_sheet.add_cell(row, 7, expense_entry.project)
     end
   end
   # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
-
-  # Writes the unit cost to the appropriate cell correctly formatted as a Float
-  #
-  # @param [Object] row
-  # @param [Object] expense_entry
-  # @return [Void]
-  def write_unit_cost(row, expense_entry)
-    cell = @expense_sheet.add_cell(row, 4)
-    cell.raw_value = expense_entry.unit_cost
-  end
 
   # Adds the {expense_entry}'s date to the row and formats it correctly.
   #

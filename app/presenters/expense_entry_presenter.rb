@@ -1,19 +1,17 @@
 # frozen_string_literal: true
 
 # Used to generate key fields for a single row (an Expense Entry) in the Expense Claim HTML page.
-class ExpenseEntryPresenter < BasePresenter
-  include FormField
-
+class ExpenseEntryPresenter < StimulusFormPresenter
   # Initializer
   #
   # @api public
   # @param [ActiveView::Template] view
   def initialize(view, expense_entry)
-    super(view)
-    @expense_entry = expense_entry
+    super(view, expense_entry)
   end
 
-  attr_reader :expense_entry
+  alias expense_entry model
+  alias expense_entry_form form
 
   def self.actions_for_claim_table
     'recalcTotalClaim->expense-claim#recalcTotalClaim resequence->expense-claim#reSequenceExpenseEntryForms'
@@ -29,20 +27,13 @@ class ExpenseEntryPresenter < BasePresenter
     "expense-entry-#{expense_entry.persisted? ? expense_entry.id : 'empty-row'}"
   end
 
-  FORM_ACTIONS = 'ajax:complete->expense-claim#ajaxComplete ajax:success->expense-entry#ajaxSuccessThereforeResetErrors'
-
-  # Generates the form used in a expense entry row.
-  def form
-    view.form_with(model: expense_entry,
-                   class: 'form',
-                   data: { target: 'expense-claim.form', expense_entry_changed: '0',
-                           action: FORM_ACTIONS }) do |expense_entry_form|
-      @expense_entry_form = expense_entry_form
-      yield(expense_entry_form)
-    end
+  def form_hash
+    { data: { target: 'expense-claim.expenseEntryForm',
+              expense_entry_changed: '0',
+              action: 'ajax:complete->expense-claim#ajaxComplete '\
+                      'ajax:success->expense-entry#ajaxSuccessThereforeResetErrors' }
+    }
   end
-
-  attr_reader :expense_entry_form
 
   # Generates the hidden field containing the expense claim id.  Used by the RoR backend to associate with the correct
   # expense claim.
@@ -58,11 +49,6 @@ class ExpenseEntryPresenter < BasePresenter
     expense_entry_form.hidden_field :sequence, data: { target: 'expense-claim.sequenceField' }
   end
 
-  # Renders a date field for the expense entry form
-  def date
-    form_field :date_field
-  end
-
   # Renders a selector for the different categories
   def categories
     expense_entry_form.select :category,
@@ -71,30 +57,19 @@ class ExpenseEntryPresenter < BasePresenter
                               field_args(:category, data: { action: 'change->expense-entry#categoryChange' })
   end
 
-  # Renders a text field for the description
-  def description
-    form_field :text_field
-  end
-
-  # Renders a text field for the description
-  # @todo replace with a lookup based on JET data
-  def project
-    form_field :text_field
-  end
-
   def vat
     expense_entry_form.select :vat, %w[0 20], {},
                               field_args(:vat, placeholder: 'VAT', data: { target: 'expense-entry.vat' })
   end
 
   def qty
-    form_field :number_field, data: { action: 'change->expense-entry#recalcClaim', target: 'expense-entry.qty' }
+    form_field :qty, :number_field, data: { action: 'change->expense-entry#recalcClaim', target: 'expense-entry.qty' }
   end
 
   def unit_cost
-    form_field :number_field, min: '0.00', step: '0.01',
-                              data: { action: 'change->expense-entry#recalcClaim',
-                                      target: 'expense-entry.unitCost' }
+    form_field :unit_cost, :number_field, min: '0.00', step: '0.01',
+                                          data: { action: 'change->expense-entry#recalcClaim',
+                                          target: 'expense-entry.unitCost' }
   end
 
   def total_cost
@@ -125,6 +100,18 @@ class ExpenseEntryPresenter < BasePresenter
                  data: { action: 'click->expense-claim#copyExpenseEntry' }) do
       view.tag.i class: 'fas fa-copy fa-2x expenses-action-icon'
     end
+  end
+
+  # Generates, based on the field name, the default hash that the form field would use.
+  #
+  # @api private
+  # @param [String] field_name
+  # @return [Hash]
+  def default_field_hash(field_name)
+    { class: form_field_class(field_name.to_sym),
+      placeholder: field_name.capitalize,
+      data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' }
+    }
   end
 
   private

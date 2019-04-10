@@ -1,31 +1,19 @@
+-# This partial represents the form to manage an entire expense claim.  It consists of a top half with fields
+-# for the expense claim, and then individual rows for each expense entry.
+
 - show_only = local_assigns.fetch :show_only, false
 
 - if expense_claim.errors.any?
   #error_explanation
     %h2
-      = pluralize(expense_claim.errors.count, "error")
-      prohibited this expense_claim from being saved:
-    %ul
-      - expense_claim.errors.full_messages.each do |message|
-        %li= message
+      #{pluralize(expense_claim.errors.count, "error")} prohibited this expense_claim from being saved
 
 #expense-claim{ data: { controller: "expense-claim" } }
   #expense-claim-actions
-    = link_to export_excel_expense_claim_path(@expense_claim) do
+    = link_to export_excel_expense_claim_path(@expense_claim, data: { action: 'click->expense-claim#downloadExcel'}) do
       %i.fa.fa-2x.fa-file-excel
-  #expense-claim-key-data
-    = form_with model: @expense_claim, data: { controller: 'expense-claim' } do |expense_form|
-      .form-group.row
-        = expense_form.label :description, class:  "col-2 col-form-label"
-        .col-10
-          = expense_form.text_field :description, class: "form-control"
-      .form-group.row
-        = expense_form.label :claim_date, class:  "col-2 col-form-label"
-        .col-10
-          = expense_form.date_field :claim_date
-      - unless show_only
-        .form-group.row
-          = expense_form.submit class: "btn btn-primary"
+  #expense-claim-key-data= render partial: 'expense_claim_key_data', layout: false, status: :ok,
+                                            locals: { expense_claim: @expense_claim }
 
   #expense-entries-header
     .form-row
