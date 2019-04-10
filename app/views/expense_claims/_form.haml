@@ -4,7 +4,7 @@
 - show_only = local_assigns.fetch :show_only, false
 
 - if expense_claim.errors.any?
-  #error_explanation
+  .error_explanation
     %h2
       #{pluralize(expense_claim.errors.count, "error")} prohibited this expense_claim from being saved
 
@@ -12,6 +12,7 @@
   #expense-claim-actions
     = link_to export_excel_expense_claim_path(@expense_claim, data: { action: 'click->expense-claim#downloadExcel'}) do
       %i.fa.fa-2x.fa-file-excel
+
   #expense-claim-key-data= render partial: 'expense_claim_key_data', layout: false, status: :ok,
                                             locals: { expense_claim: @expense_claim }
 
@@ -33,6 +34,9 @@
     - @expense_claim.expense_entries.order(:sequence).each do |expense_entry|
       = render partial: 'expense_entries/expense_entry',
                locals: { expense_entry: expense_entry, expense_claim: @expense_claim }
+    - if @expense_claim.expense_entries.count == 0
+      = render partial: 'expense_entries/expense_entry',
+               locals: { expense_entry: ExpenseEntry.new(expense_claim: @expense_claim), expense_claim: @expense_claim }
 
   #expenses-claim-total-row
     %form.form

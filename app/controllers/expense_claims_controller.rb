@@ -12,30 +12,23 @@ class ExpenseClaimsController < ApplicationController
 
   # GET /expense_claims/1
   # GET /expense_claims/1.json
-  def show; end
+  def show;
+    @expense_claim.expense_entries.new if @expense_claim.expense_entries.count == 0
+  end
 
   # GET /expense_claims/new
+  #
+  # Because of the way that the AJAX/Stimulus works, we create an expense claim as part of the new and the redirect
+  # to the Edit.
   def new
-    @expense_claim = ExpenseClaim.new
-    @expense_claim.expense_entries.new
+    respond_to :html
+
+    @expense_claim = ExpenseClaim.create(claim_date: Time.zone.today)
+    redirect_to @expense_claim, notice: 'Expense claim was successfully created.'
   end
 
   # GET /expense_claims/1/edit
   def edit; end
-
-  # POST /expense_claims
-  # POST /expense_claims.json
-  def create
-    @expense_claim = ExpenseClaim.new(expense_claim_params)
-
-    respond_to :html
-
-    if @expense_claim.save
-      redirect_to @expense_claim, notice: 'Expense claim was successfully created.'
-    else
-      render :new
-    end
-  end
 
   # PATCH/PUT /expense_claims/1
   # PATCH/PUT /expense_claims/1.json
