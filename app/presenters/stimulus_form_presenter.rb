@@ -25,7 +25,7 @@ class StimulusFormPresenter < BasePresenter
   # @param [Hash] form_args
   def create_form(form_args, passed_block = nil)
     form_args[:model] = model
-    form_args[:class] = 'form'
+    form_args[:class] = 'form col-12'
 
     view.form_with form_args do |form|
       @form = form

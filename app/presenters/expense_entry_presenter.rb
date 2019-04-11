@@ -27,6 +27,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     "expense-entry-#{expense_entry.persisted? ? expense_entry.id : 'empty-row'}"
   end
 
+  # Specificies the HTML fields to be used by the expense entry form form
   def form_hash
     { data: { target: 'expense-claim.expenseEntryForm',
               expense_entry_changed: '0',

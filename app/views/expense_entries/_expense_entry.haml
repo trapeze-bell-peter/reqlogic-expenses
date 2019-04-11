@@ -11,7 +11,8 @@
     .form-row.align-items-top
       .form-group.col-2= expense_entry_presenter.form_field :date, :date_field
       .form-group.col-2= expense_entry_presenter.categories
-      .form-group.col-2= expense_entry_presenter.form_field :description, :text_field
+      .form-group.col-6= expense_entry_presenter.form_field :description, :text_field
+    .form-row.align-items-top.justify-content-end
       .form-group.col-1= expense_entry_presenter.form_field :project, :text_field
       .form-group.col-1= expense_entry_presenter.vat
       .form-group.col-1= expense_entry_presenter.qty
