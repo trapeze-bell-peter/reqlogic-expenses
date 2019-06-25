@@ -11,16 +11,19 @@
 #expense-claim{ data: { controller: "expense-claim" } }
   #expense-claim-actions
     = link_to export_excel_expense_claim_path(@expense_claim, data: { action: 'click->expense-claim#downloadExcel'}) do
-      %i.fa.fa-2x.fa-file-excel
+      %i.fas.fa-file-excel.fa-2x
+    %button{ type: 'button', data: { toggle: 'modal', target: '#import_csv_modal' } }
+      %i.fas.fa-file-upload.fa-2x
 
   #expense-claim-key-data= render partial: 'expense_claim_key_data', layout: false, status: :ok,
                                             locals: { expense_claim: @expense_claim }
 
   #expense-entries-header
     .form-row
+      .form-group.col-1 Seq
       .form-group.col-2 Date
       .form-group.col-2 Category
-      .form-group.col-2 Description
+      .form-group.col-1 Description
       .form-group.col-1 Project Code
       .form-group.col-1 VAT
       .form-group.col-1 Qty
@@ -54,3 +57,23 @@
     :javascript
       $("#expense_form input").prop("disabled", true);
       $("#expense_form select").prop("disabled", true);
+
+.modal.fade#import_csv_modal{role: 'dialog'}
+  .modal-dialog
+    .modal-content{align: 'center'}
+      .modal-header
+        %h3 Select Excel export from Barclay Card for upload
+      .modal-body
+        = form_tag barclay_csv_import_expense_claim_path, multipart: true do
+          .form-row
+            .custom-file.col-6
+              = file_field_tag :file, class: 'custom-file-input', id: 'file-import-field'
+            = label_tag 'file-import-field', 'Choose', class: 'custom-file-label'
+          .form-row{ align: 'center' }
+            = submit_tag 'Import', class: 'btn btn-primary'
+            %button.btn.btn-secondary{"data-dismiss" => "modal", :type => "button"} Cancel
+
+:javascript
+  $(document).ready(function () {
+    bsCustomFileInput.init()
+  } );

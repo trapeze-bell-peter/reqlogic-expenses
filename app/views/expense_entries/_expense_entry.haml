@@ -7,8 +7,8 @@
                 draggable: 'true' }
   = expense_entry_presenter.create_form(expense_entry_presenter.form_hash) do
     = expense_entry_presenter.expense_claim_id
-    = expense_entry_presenter.sequence
     .form-row.align-items-top
+      .form-group.col-1= expense_entry_presenter.sequence
       .form-group.col-2= expense_entry_presenter.form_field :date, :date_field
       .form-group.col-2= expense_entry_presenter.categories
       .form-group.col-6= expense_entry_presenter.form_field :description, :text_field

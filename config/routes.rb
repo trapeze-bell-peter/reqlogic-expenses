@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :expense_claims do
     member do
       get 'export_excel'
+      post 'barclay_csv_import'
     end
   end
   resources :expense_entries

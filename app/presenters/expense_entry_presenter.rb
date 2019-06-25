@@ -47,7 +47,8 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   # controller.
   # @return [String]
   def sequence
-    expense_entry_form.hidden_field :sequence, data: { target: 'expense-claim.sequenceField' }
+    expense_entry_form.text_field :sequence, class: 'form-control', disabled: true,
+                                             data: { target: 'expense-claim.sequenceField' }
   end
 
   # Renders a selector for the different categories

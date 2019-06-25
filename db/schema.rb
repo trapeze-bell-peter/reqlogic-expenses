@@ -10,10 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_03_24_043043) do
+ActiveRecord::Schema.define(version: 2019_06_18_060545) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "barclay_card_row_data", force: :cascade do |t|
+    t.date "posting_date", null: false
+    t.string "raw_description", null: false
+    t.string "city"
+    t.string "mcc", null: false
+    t.string "mcc_description", null: false
+    t.integer "currency_amount_pence", default: 0, null: false
+    t.string "currency_amount_currency", default: "GBP", null: false
+    t.integer "gbp_amount_pence", default: 0, null: false
+    t.string "gbp_amount_currency", default: "GBP", null: false
+    t.bigint "expense_entry_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["expense_entry_id"], name: "index_barclay_card_row_data_on_expense_entry_id"
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string "name"

@@ -14,9 +14,14 @@
 //
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
-import 'stylesheets/application'
+import 'stylesheets/application';
 
-console.log('Hello World from Webpacker')
+console.log('Hello World from Webpacker');
 
-import 'controllers'
-import 'bootstrap'
+import 'controllers';
+import 'bootstrap';
+
+import '@fortawesome/fontawesome-free/js/all';
+
+import bsCustomFileInput from 'bs-custom-file-input';
+window.bsCustomFileInput = bsCustomFileInput;

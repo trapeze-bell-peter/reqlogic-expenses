@@ -63,7 +63,9 @@ export default class ExpenseEntryController extends Controller {
     categoryChange(event) {
         let dataset = event.srcElement.selectedOptions[0].dataset;
         this.vatTarget.value = dataset.vat;
-        this.unitCostTarget.value = dataset.unitcost;
+        if (dataset.unitcost != "") {
+            this.unitCostTarget.value = dataset.unitcost;
+        }
         this.recalcClaim(event);
         this.changeEvent(event);
     }
