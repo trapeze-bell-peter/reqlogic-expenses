@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 2019_03_24_043043) do
   create_table "categories", force: :cascade do |t|
     t.string "name"
     t.integer "vat"
-    t.integer "unit_cost_pence", default: 0, null: false
+    t.integer "unit_cost_pence"
     t.string "unit_cost_currency", default: "GBP", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
