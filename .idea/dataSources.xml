@@ -7,5 +7,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/expenses_development</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="development@docker" uuid="2b8bc3b1-124a-4a79-a6fe-f7c35ea6cbbd">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/app_development</jdbc-url>
+    </data-source>
   </component>
 </project>

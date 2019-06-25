@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="expenses_development@localhost">
-  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.14">
+  <database-model serializer="dbm" dbms="POSTGRES" family-id="POSTGRES" format-version="4.15">
     <root id="1">
       <ServerVersion>9.5.15</ServerVersion>
     </root>
@@ -82,8 +82,8 @@ sequence|table|1937186|1937188|1
       <CreateRole>1</CreateRole>
       <CreateDb>1</CreateDb>
       <CanLogin>1</CanLogin>
-      <Replication>1</Replication>
       <ConnectionLimit>-1</ConnectionLimit>
+      <Replication>1</Replication>
       <BypassRls>1</BypassRls>
     </role>
     <role id="14" parent="1" name="tguk-nrt-am">
@@ -178,22 +178,22 @@ sequence|table|1937186|1937188|1
     </extension>
     <sequence id="29" parent="21" name="categories_id_seq">
       <ObjectId>1937186</ObjectId>
-      <Owner>expenses</Owner>
       <StateNumber>15945260</StateNumber>
+      <Owner>expenses</Owner>
       <SequenceIdentity>1</SequenceIdentity>
       <CacheSize>1</CacheSize>
     </sequence>
     <sequence id="30" parent="21" name="expense_claims_id_seq">
       <ObjectId>1937148</ObjectId>
-      <Owner>expenses</Owner>
       <StateNumber>15945251</StateNumber>
+      <Owner>expenses</Owner>
       <SequenceIdentity>1</SequenceIdentity>
       <CacheSize>1</CacheSize>
     </sequence>
     <sequence id="31" parent="21" name="expense_entries_id_seq">
       <ObjectId>1937159</ObjectId>
-      <Owner>expenses</Owner>
       <StateNumber>15945252</StateNumber>
+      <Owner>expenses</Owner>
       <SequenceIdentity>1</SequenceIdentity>
       <CacheSize>1</CacheSize>
     </sequence>
@@ -259,8 +259,8 @@ sequence|table|1937186|1937188|1
       <ObjectId>1937045</ObjectId>
       <StateNumber>15945225</StateNumber>
       <ColNames>key</ColNames>
-      <UnderlyingIndexName>ar_internal_metadata_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>ar_internal_metadata_pkey</UnderlyingIndexName>
     </key>
     <column id="43" parent="33" name="id">
       <Position>1</Position>
@@ -322,8 +322,8 @@ sequence|table|1937186|1937188|1
       <ObjectId>1937198</ObjectId>
       <StateNumber>15945260</StateNumber>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>categories_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>categories_pkey</UnderlyingIndexName>
     </key>
     <column id="52" parent="34" name="id">
       <Position>1</Position>
@@ -369,8 +369,8 @@ sequence|table|1937186|1937188|1
       <ObjectId>1937158</ObjectId>
       <StateNumber>15945251</StateNumber>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>expense_claims_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>expense_claims_pkey</UnderlyingIndexName>
     </key>
     <column id="59" parent="35" name="id">
       <Position>1</Position>
@@ -477,8 +477,8 @@ sequence|table|1937186|1937188|1
       <ObjectId>1937171</ObjectId>
       <StateNumber>15945252</StateNumber>
       <ColNames>id</ColNames>
-      <UnderlyingIndexName>expense_entries_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>expense_entries_pkey</UnderlyingIndexName>
     </key>
     <column id="75" parent="36" name="version">
       <Position>1</Position>
@@ -497,8 +497,8 @@ sequence|table|1937186|1937188|1
       <ObjectId>1937037</ObjectId>
       <StateNumber>15945224</StateNumber>
       <ColNames>version</ColNames>
-      <UnderlyingIndexName>schema_migrations_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
+      <UnderlyingIndexName>schema_migrations_pkey</UnderlyingIndexName>
     </key>
   </database-model>
 </dataSource>
