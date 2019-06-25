@@ -39,6 +39,9 @@ gem 'money-rails', '~>1.12'
 # Support for reading and writing Excel files added
 gem 'rubyXL'
 
+# Barclay card generate xls files rather than xlsx.  So need this Gem to read the file :-(
+gem 'spreadsheet'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
