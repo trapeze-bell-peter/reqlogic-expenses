@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_26_150111) do
+ActiveRecord::Schema.define(version: 2019_06_26_174822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,8 @@ ActiveRecord::Schema.define(version: 2019_06_26_150111) do
     t.date "claim_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_expense_claims_on_user_id"
   end
 
   create_table "expense_entries", force: :cascade do |t|
@@ -75,4 +77,5 @@ ActiveRecord::Schema.define(version: 2019_06_26_150111) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "expense_claims", "users"
 end

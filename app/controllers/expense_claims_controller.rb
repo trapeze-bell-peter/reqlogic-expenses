@@ -7,7 +7,7 @@ class ExpenseClaimsController < ApplicationController
   # GET /expense_claims
   # GET /expense_claims.json
   def index
-    @expense_claims = ExpenseClaim.all
+    @expense_claims = current_user.expense_claims.all
   end
 
   # GET /expense_claims/1
@@ -23,7 +23,7 @@ class ExpenseClaimsController < ApplicationController
   def new
     respond_to :html
 
-    @expense_claim = ExpenseClaim.create(claim_date: Time.zone.today)
+    @expense_claim = ExpenseClaim.create(claim_date: Time.zone.today, user: current_user)
     redirect_to @expense_claim, notice: 'Expense claim was successfully created.'
   end
 
@@ -65,7 +65,7 @@ class ExpenseClaimsController < ApplicationController
     respond_to :html
 
     if params[:file]
-      new_expense_claim = ExpenseClaim.barclay_xlsx_import(params[:file])
+      new_expense_claim = ExpenseClaim.barclay_xlsx_import(params[:file], current_user)
       redirect_to new_expense_claim, notice: 'Expenses from Barclay Card imported!'
     else
       redirect_to(root_url, 'Please upload a CSV file')
