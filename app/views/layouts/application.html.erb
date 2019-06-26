@@ -39,11 +39,7 @@
 
     <!-- Page Content -->
     <div class="container-fluid">
-      <% flash.each do |key, value| %>
-        <div class="<%= flash_class(key) %>">
-          <%= value %>
-        </div>
-      <% end %>
+      <%= flash_messages %>
 
       <%= yield %>
     </div>
