@@ -33,6 +33,9 @@ gem 'haml'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# Use Devise for security
+gem 'devise'
+
 # Support for money added
 gem 'money-rails', '~>1.12'
 
