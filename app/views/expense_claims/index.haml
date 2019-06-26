@@ -1,0 +1,31 @@
+%p#notice= notice
+
+%h1 Expense Claims
+
+#expense-claim-index-actions
+  %a{ href: new_expense_claim_path, data: { toggle: 'tooltip', placement: 'top', title: 'New expense claim' } }
+    %i.fas.fa-plus-square.fa-2x
+  %span{ data: { toggle: 'modal', target: '#import_csv_modal' } }
+    %button{ type: 'button', data: { toggle: 'tooltip', placement: 'top', title: 'Import Barclay Expenses' } }
+      %i.fas.fa-file-upload.fa-2x
+
+%br/
+
+%table.table.table-hover
+  %thead
+    %tr
+      %th{:scope => "col"} Description
+      %th{:scope => "col"} Date
+      %th{:colspan => "3", :scope => "col"}
+  %tbody
+    - @expense_claims.each do |expense_claim|
+      %tr
+        %td= expense_claim.description
+        %td= expense_claim.claim_date
+        %td
+          = link_to 'Show', expense_claim
+          = link_to 'Edit', edit_expense_claim_path(expense_claim)
+          = link_to 'Delete', expense_claim, method: :delete
+
+
+= render 'barclay_card_import_modal'

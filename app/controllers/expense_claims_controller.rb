@@ -2,7 +2,7 @@
 
 # Controller for expense claim
 class ExpenseClaimsController < ApplicationController
-  before_action :set_expense_claim, only: %i[show edit update destroy export_excel, barclay_csv_import]
+  before_action :set_expense_claim, only: %i[show edit update destroy export_excel]
 
   # GET /expense_claims
   # GET /expense_claims.json
@@ -60,13 +60,13 @@ class ExpenseClaimsController < ApplicationController
                                                        filename: @expense_claim.suggested_filename)
   end
 
-  # POST /expense_claim/1/barclay_csv_import
+  # POST /expense_claim/barclay_csv_import
   def barclay_csv_import
     respond_to :html
 
     if params[:file]
-      @expense_claim.barclay_xlsx_import(params[:file])
-      redirect_to @expense_claim, notice: 'Expenses from Barclay Card imported!'
+      new_expense_claim = ExpenseClaim.barclay_xlsx_import(params[:file])
+      redirect_to new_expense_claim, notice: 'Expenses from Barclay Card imported!'
     else
       redirect_to(root_url, 'Please upload a CSV file')
     end
