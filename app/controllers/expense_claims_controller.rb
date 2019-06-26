@@ -2,13 +2,11 @@
 
 # Controller for expense claim
 class ExpenseClaimsController < ApplicationController
-  before_action :set_expense_claim, only: %i[show edit update destroy export_excel]
+  load_and_authorize_resource param_method: :expense_claim_params
 
   # GET /expense_claims
   # GET /expense_claims.json
-  def index
-    @expense_claims = current_user.expense_claims.all
-  end
+  def index; end
 
   # GET /expense_claims/1
   # GET /expense_claims/1.json
@@ -73,11 +71,6 @@ class ExpenseClaimsController < ApplicationController
   end
 
   private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_expense_claim
-    @expense_claim = ExpenseClaim.find(params[:id])
-  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_claim_params

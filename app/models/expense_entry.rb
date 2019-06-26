@@ -15,6 +15,9 @@ class ExpenseEntry < ApplicationRecord
   validates :project, presence: true
   validates :description, presence: true
 
+  # User is defined by who this expense claim belongs to
+  delegate :user, to: :expense_claim
+
   # Factory to create an ExpenseEntry and corresponding BarclayCardRowDatum from the xlsx file
   def self.create_from_xlsx_row(expense_claim, row)
     expense_entry = ExpenseEntry.new(expense_claim: expense_claim)

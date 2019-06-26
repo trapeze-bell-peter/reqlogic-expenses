@@ -1,11 +1,13 @@
 class ExpenseEntriesController < ApplicationController
-  before_action :set_expense_entry, only: %i[edit update destroy]
+  load_and_authorize_resource param_method: :expense_entry_params, only: %i[edit update destroy]
 
   # GET /expense_entries/new
   def new
     respond_to :html
 
     @expense_entry = ExpenseEntry.new(new_expense_entry_params)
+
+    authorize! :manage, @expense_entry
 
     render partial: 'expense_entry', layout: false, status: :ok,
            locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
@@ -21,6 +23,8 @@ class ExpenseEntriesController < ApplicationController
   # POST /expense_entries.json
   def create
     @expense_entry = ExpenseEntry.create(expense_entry_params)
+
+    authorize! :manage, @expense_entry
 
     render partial: 'expense_entry', layout: false, status: (@expense_entry.valid? ? :ok : :unprocessable_entity),
            content_type: 'text/html', locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }

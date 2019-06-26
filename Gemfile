@@ -33,6 +33,9 @@ gem 'haml'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# Provide suitable authorisation checking for editing
+gem 'cancancan'
+
 # Use Devise for security
 gem 'devise'
 
