@@ -12,8 +12,6 @@
   #expense-claim-actions
     = link_to export_excel_expense_claim_path(@expense_claim, data: { action: 'click->expense-claim#downloadExcel'}) do
       %i.fas.fa-file-excel.fa-2x
-    %button{ type: 'button', data: { toggle: 'modal', target: '#import_csv_modal' } }
-      %i.fas.fa-file-upload.fa-2x
 
   #expense-claim-key-data= render partial: 'expense_claim_key_data', layout: false, status: :ok,
                                             locals: { expense_claim: @expense_claim }
