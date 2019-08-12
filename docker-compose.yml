@@ -1,8 +1,9 @@
-version: '3.6'
+version: '3.7'
 
 services:
   db:
     image: postgres:latest
+    hostname: expenses-db
     restart: always
     ports:
       - 5432:5432

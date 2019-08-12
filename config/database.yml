@@ -7,10 +7,10 @@ default: &default
 
 development:
   <<: *default
-  url: postgres://0.0.0.0/
-  database: app_development
+  url: <%= "postgres://#{ENV['POSTGRES_URL'] || 'expenses-db'}/" %>
+  database: <%= "#{`git symbolic-ref --short HEAD`.strip.underscore}_development" %>
 
 test:
   <<: *default
-  url: postgres://0.0.0.0/
-  database: app_test
+  url: <%= "postgres://#{ENV['POSTGRES_URL'] || 'expenses-db'}/" %>
+  database: <%= "#{`git symbolic-ref --short HEAD`.strip.underscore}_test" %>

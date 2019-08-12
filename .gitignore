@@ -36,3 +36,5 @@ yarn-debug.log*
 \.idea/workspace\.xml
 
 *.dump
+
+db/barclay_card_data/jul-19\.xls
