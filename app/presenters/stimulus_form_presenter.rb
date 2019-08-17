@@ -81,7 +81,7 @@ class StimulusFormPresenter < BasePresenter
   #   data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' }
   # }
   #
-  # field_args('date', class: :date_field, placeholder: 'My special Date') =>
+  # field_args('date', class: :date_field, placeholder: 'My Special Date') =>
   # { class: :date, placeholder: 'My Special Date',
   #   data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' }
   # }

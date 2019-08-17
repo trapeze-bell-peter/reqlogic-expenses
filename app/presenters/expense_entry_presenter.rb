@@ -59,6 +59,12 @@ class ExpenseEntryPresenter < StimulusFormPresenter
                               field_args(:category, data: { action: 'change->expense-entry#categoryChange' })
   end
 
+  def description
+    expense_entry_form.text_field :description,
+                                  class: 'form-control',
+                                  data: { target: 'expense-entry.description' }
+  end
+
   def vat
     expense_entry_form.select :vat, %w[0 20], {},
                               field_args(:vat, placeholder: 'VAT', data: { target: 'expense-entry.vat' })
@@ -71,7 +77,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   def unit_cost
     form_field :unit_cost, :number_field, min: '0.00', step: '0.01',
                                           data: { action: 'change->expense-entry#recalcClaim',
-                                          target: 'expense-entry.unitCost' }
+                                                  target: 'expense-entry.unitCost' }
   end
 
   def total_cost
@@ -83,7 +89,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   def delete_button
     if expense_entry.persisted?
       view.link_to(view.expense_entry_path(expense_entry),
-                   method: :delete, remote: true, data: { action: 'ajax:success->expense-claim#deleteExpenseEntry' },
+                   method: :delete, remote: true, data: { action: 'click->expense-claim#deleteExpenseEntry' },
                    &method(:delete_icon))
     else
       view.link_to('_', href: '#', data: { action: 'click->expense-claim#deleteExpenseEntry' }, &method(:delete_icon))

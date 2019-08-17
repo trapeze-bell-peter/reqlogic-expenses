@@ -4,14 +4,14 @@ import Rails from "rails-ujs";
 // This controller corresponds to an ExpenseEntry in the database.  Each ExpenseEntry in the HTML/Javascript world
 // is made up of a div -> form.  Both are handled thru one controller, with the form being accessed as a target.
 //
-// This controller has two three areas of concern:
+// This controller has three areas of concern:
 // * managing the activities when a row gets replaced.  This is usually the result of submitting the form associated
 //   with the row, and getting a new form back (either because its now a saved object, or because an update has
 //   generated errors.
 // * managing the dragging and dropping of rows in the table
 // * updating key fields in the form depending on other changes made in the row by the user.
 export default class ExpenseEntryController extends Controller {
-    static targets = [ 'form', "category", "vat", "qty", "unitCost", "totalCost", "claimTotal" ];
+    static targets = [ 'form', "category", "description", "vat", "qty", "unitCost", "totalCost", "claimTotal" ];
 
     // First time that we are connected,
     connect() {
@@ -75,5 +75,13 @@ export default class ExpenseEntryController extends Controller {
         this.totalCostTarget.value = (parseFloat(this.unitCostTarget.value) * parseInt(this.qtyTarget.value)).toFixed(2);
         this.changeEvent(event);
         this.element.dispatchEvent(new CustomEvent('recalcTotalClaim', { bubbles: true}));
+    }
+
+    // Event handler for when the user hits the cross to remove the contents of the description field.
+    // Invokes preventDefault() to stop a focusIn event being generated that causes the row with the
+    // empty description being sent to the backend.
+    clearDescription(event) {
+        this.descriptionTarget.value = "";
+        event.preventDefault();
     }
 }

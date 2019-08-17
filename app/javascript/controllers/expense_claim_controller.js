@@ -11,7 +11,7 @@ export default class ExpenseClaimController extends Controller {
     // Event handler for when the controller gets disconnected.  We resequence and then submit any changed rows.
     disconnect() {
         this.reSequenceExpenseEntryForms();
-        this.submitChangedExpenseEntryForms();
+        this.submitAllExpenseEntryForms();
     }
 
     // Event handler for when the user hits the Excel button.  Just make double sure we have saved everything
@@ -32,8 +32,6 @@ export default class ExpenseClaimController extends Controller {
     // * If a field in the claim has issues then an HTML chunk will be returned
     //   and we need to replace the existing claim div with the one returned by the backend.
     ajaxClaimSubmitComplete(event) {
-        console.log('ajaxClaimSubmitComplete#ajaxComplete invoked');
-
         event.preventDefault();
 
         let [data, status, xhr] = event.detail;
@@ -146,8 +144,7 @@ export default class ExpenseClaimController extends Controller {
         this.submitChangedExpenseEntryForms();
     }
 
-    // Helper method to submit any expense entry forms that are flagged as having changed.  Any hidden expense entry
-    // divs are not submitted on purpose, but instead removed from the DOM.
+    // Helper method to submit any expense entry forms that are flagged as having changed.
     submitChangedExpenseEntryForms() {
         console.log('Hello from ExpenseClaimController#submitChangedExpenseEntryForms');
 
@@ -156,6 +153,14 @@ export default class ExpenseClaimController extends Controller {
                 form.dataset.expenseEntryChanged = '0';
                 Rails.fire(form, 'submit');
             }
+        });
+    }
+
+    // Helper method that pushes all forms to the backend.  Used after a controller disconnect to ensure
+    // that backend matches what the user is seeing.
+    submitAllExpenseEntryForms() {
+        this.expenseEntryFormTargets.forEach( form => {
+            Rails.fire(form, 'submit');
         });
     }
 
@@ -184,6 +189,4 @@ export default class ExpenseClaimController extends Controller {
             }
         }
     }
-
-
 }
