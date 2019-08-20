@@ -55,7 +55,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   def categories
     expense_entry_form.select :category,
                               view.options_for_select(options_list, expense_entry.category),
-                              {},
+                              {include_blank: true},
                               field_args(:category, data: { action: 'change->expense-entry#categoryChange' })
   end
 
