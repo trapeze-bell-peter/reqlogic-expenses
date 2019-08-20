@@ -26,6 +26,17 @@ export default class ExpenseEntryController extends Controller {
         }
     }
 
+    // See https://jsfiddle.net/a6tgy9so/1/.  On receiving the mousedown for the sequence field, we make the whole
+    // expense_entry div draggable.
+    mousedown(event) {
+        this.element.setAttribute('draggable', 'true');
+    }
+
+    // On receiving the mouseup event for the sequence field, we remove the draggable from the div
+    mouseup(event) {
+        this.element.setAttribute('draggable', 'false');
+    }
+
     // We store the id (which is either the database id for existing expense_entry, or we store the timestamp of when
     // we created the new row for objects not yet saved in the database.
     dragstart(event) {
