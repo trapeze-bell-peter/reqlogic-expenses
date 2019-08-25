@@ -56,6 +56,8 @@ export default class ExpenseEntryController extends Controller {
         return true;
     }
 
+    // Event handler for when the user drops the row they are dragging onto an existing row.  Causes us to insert
+    // the dragged row ahead of the dropped row and then to resequence the rows.
     drop(event) {
         console.log('drop for', this.element);
         let id = event.dataTransfer.getData("text/plain");
