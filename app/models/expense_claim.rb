@@ -5,7 +5,7 @@ require 'spreadsheet'
 class ExpenseClaim < ApplicationRecord
   include ExpenseExcelExport
 
-  belongs_to :user, dependent: :destroy
+  belongs_to :user
 
   has_many :expense_entries, dependent: :destroy
 
