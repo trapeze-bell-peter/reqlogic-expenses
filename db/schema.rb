@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_26_174822) do
+ActiveRecord::Schema.define(version: 2019_08_19_131802) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "barclay_card_row_data", force: :cascade do |t|
-    t.date "posting_date", null: false
+    t.date "transaction_date", null: false
     t.string "raw_description", null: false
     t.string "city"
     t.string "mcc", null: false
@@ -77,5 +77,6 @@ ActiveRecord::Schema.define(version: 2019_06_26_174822) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "barclay_card_row_data", "expense_entries"
   add_foreign_key "expense_claims", "users"
 end

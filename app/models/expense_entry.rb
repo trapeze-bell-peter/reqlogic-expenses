@@ -2,7 +2,7 @@
 
 class ExpenseEntry < ApplicationRecord
   belongs_to :expense_claim
-  has_one :barclay_card_row_datum
+  has_one :barclay_card_row_datum, dependent: :destroy
 
   monetize :unit_cost_pence
 
@@ -18,13 +18,7 @@ class ExpenseEntry < ApplicationRecord
   # User is defined by who this expense claim belongs to
   delegate :user, :user_id, to: :expense_claim
 
-  # Factory to create an ExpenseEntry and corresponding BarclayCardRowDatum from the xlsx file
-  def self.create_from_xlsx_row(expense_claim, row)
-    expense_entry = ExpenseEntry.new(expense_claim: expense_claim)
-    expense_entry.build_barclay_card_row_datum(BarclayCardRowDatum.attributes_from_xlsx(row))
-    expense_entry.attributes = expense_entry.barclay_card_row_datum.attributes_for_expense_entry
-    expense_entry.save!
-  end
+
 
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]
