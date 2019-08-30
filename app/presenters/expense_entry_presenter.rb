@@ -59,12 +59,19 @@ class ExpenseEntryPresenter < StimulusFormPresenter
                               field_args(:category, data: { action: 'change->expense-entry#categoryChange' })
   end
 
+  # Generate form field for description entry.
   def description
-    expense_entry_form.text_field :description,
-                                  class: 'form-control',
-                                  data: { target: 'expense-entry.description' }
+    form_field :description, :text_field, class: 'form-control', data: { target: 'expense-entry.description' }
   end
 
+  # Helper method to generate the HTML for drop down of matching CC events.  Works closely with the HAML partial.
+  # If suitable matches exist, then it yields back to the HAML to produce the HTML.
+  def matching_cc_dropdown
+    matching_cc_list = expense_entry.barclay_card_row_datum&.prioritised_match_list
+    yield matching_cc_list unless matching_cc_list.blank?
+  end
+
+  # Helper method to create the HTML for the VAT select dropdown.
   def vat
     expense_entry_form.select :vat, %w[0 20], {},
                               field_args(:vat, placeholder: 'VAT', data: { target: 'expense-entry.vat' })
@@ -96,6 +103,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     end
   end
 
+  # Helper to generate the insert button for each expense entry.
   def insert_button
     view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
                  data: { action: 'click->expense-claim#insertExpenseEntry' }) do
@@ -103,6 +111,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     end
   end
 
+  # Helper to generate the copy button for each expense entry.
   def copy_button
     view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
                  data: { action: 'click->expense-claim#copyExpenseEntry' }) do

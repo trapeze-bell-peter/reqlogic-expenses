@@ -14,9 +14,20 @@
       .form-group.col-6
         .input-group
           = expense_entry_presenter.description
-          %button.btn.bg-transparent{ style: "margin-left: -40px; z-index: 100;",
-                                      data: { action: "click->expense-entry#clearDescription"} }
-            %i.fa.fa-times
+          .input-group-append
+            - expense_entry_presenter.matching_cc_dropdown do |matching_cc_list|
+              .dropdown.dropleft
+                %button.btn.btn-outline-secondary.dropdown-toggle{ type: "button",
+                                                                   aria_haspopup: true, aria_expanded: false,
+                                                                   data: { toggle: 'dropdown' } }
+                .dropdown-menu
+                  - matching_cc_list.each_pair do |category, matches|
+                    %h6.dropdown-header= category
+                    - matches.each do |match|
+                      %a.dropdown-item{ h_ref: '#', data: { action: "click->expense-entry#copyDescriptionFromCC"} }= match
+            %button.btn.btn-outline-secondary{ data: { action: "click->expense-entry#clearDescription" } }
+              %i.fa.fa-times
+
     .form-row.align-items-top.justify-content-end
       .form-group.col-1= expense_entry_presenter.form_field :project, :text_field
       .form-group.col-1= expense_entry_presenter.vat

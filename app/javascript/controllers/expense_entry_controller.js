@@ -97,4 +97,11 @@ export default class ExpenseEntryController extends Controller {
         this.descriptionTarget.value = "";
         event.preventDefault();
     }
+
+    // Event handler for when the user selects a description in the CC dropdown.  Copies it into the current description
+    // and generates a change event.
+    copyDescriptionFromCC(event) {
+        this.descriptionTarget.value = event.srcElement.text;
+        this.descriptionTarget.changeEvent(new Event('change'));
+    }
 }
