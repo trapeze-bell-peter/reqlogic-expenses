@@ -5,11 +5,11 @@ export default class ExpenseClaimController extends Controller {
     static targets = [ "expenseEntryForm", "claimForm", "sequenceField", "totalCost", "totalClaim", "claimTable" ];
 
     connect() {
-        console.log("Hello from ExpenseClaimController");
     }
 
-    // Event handler for when the controller gets disconnected.  We resequence and then submit any changed rows.
-    disconnect() {
+    // Event handler for when the page gets unloaded.  We re-sequence and then submit all rows to ensure database
+    // matches what user is seeing in browser.
+    resubmitAll() {
         this.reSequenceExpenseEntryForms();
         this.submitAllExpenseEntryForms();
     }
@@ -97,7 +97,6 @@ export default class ExpenseClaimController extends Controller {
         this.data.set('currentExpenseEntry', newCurrentExpenseEntryId);
     }
 
-
     // Event handler for when the user makes a change to an input field.  We mark the row having been edited as
     // requiring to be submitted.  This means that the next time the user clicks in another expense entry row
     // {focusOnExpenseEntry} will submit this row. In practice this means that every time the user clicks into a new
@@ -111,8 +110,6 @@ export default class ExpenseClaimController extends Controller {
     // * If this is a new entry, or an existing entry with issues, then an HTML chunk will be returned
     //   and we need to replace the existing expense entry div with the one returned by the backend.
     ajaxComplete(event) {
-        console.log('ExpenseClaimController#ajaxSuccess invoked');
-
         event.preventDefault();
 
         let [data, status, xhr] = event.detail;
@@ -128,8 +125,6 @@ export default class ExpenseClaimController extends Controller {
     // (insert, copy, move or delete).  If sequence number has changed, then a submit is fired for the corresponding
     // form.
     reSequenceExpenseEntryForms() {
-        console.log('Hello from ExpenseClaimController#reSequenceExpenseEntryForms');
-
         let sequenceIndex = 0;
 
         this.sequenceFieldTargets.forEach( sequenceField => {
@@ -146,8 +141,6 @@ export default class ExpenseClaimController extends Controller {
 
     // Helper method to submit any expense entry forms that are flagged as having changed.
     submitChangedExpenseEntryForms() {
-        console.log('Hello from ExpenseClaimController#submitChangedExpenseEntryForms');
-
         this.expenseEntryFormTargets.forEach( form => {
             if (form.dataset.expenseEntryChanged == '1') {
                 form.dataset.expenseEntryChanged = '0';
@@ -164,13 +157,14 @@ export default class ExpenseClaimController extends Controller {
         });
     }
 
+    // Event handler for the custom event recalcTotalClaim.  Sums all the individual total costs together.
     recalcTotalClaim(event) {
         let overallCost = 0.0;
         this.totalCostTargets.forEach( totalCostField => { overallCost += parseFloat(totalCostField.value); });
         this.totalClaimTarget.value = overallCost.toFixed(2);
     }
 
-    // Get the empty row out of the template, clone it, and give it and id of the current time.
+    // Get the empty row out of the template, clone it, and give it an id of the current time.
     createEmptyExpenseEntry() {
         let template = document.getElementById('expense-entry-empty-row');
         let newExpenseEntry = template.content.getElementById('expense-entry-empty-row').cloneNode(true);

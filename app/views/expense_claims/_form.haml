@@ -8,7 +8,7 @@
     %h2
       #{pluralize(expense_claim.errors.count, "error")} prohibited this expense_claim from being saved
 
-#expense-claim{ data: { controller: "expense-claim" } }
+#expense-claim{ data: { controller: "expense-claim", action: 'beforeunload@window->expense-claim#resubmitAll' } }
   #expense-claim-actions
     = link_to export_excel_expense_claim_path(@expense_claim, data: { action: 'click->expense-claim#downloadExcel'}) do
       %i.fas.fa-file-excel.fa-2x
