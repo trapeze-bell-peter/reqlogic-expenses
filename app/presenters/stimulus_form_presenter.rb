@@ -59,7 +59,7 @@ class StimulusFormPresenter < BasePresenter
     end
   end
 
-  # @param [String] field_name
+  # @param [String, Symbol] field_name
   def form_field_class(field_name = nil)
     field_name ||= caller_locations.first.label
     'form-control' + (model.errors[field_name].present? ? ' is-invalid' : '')
@@ -86,7 +86,7 @@ class StimulusFormPresenter < BasePresenter
   #   data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' }
   # }
   #
-  # @param [String] field_name
+  # @param [String, Symbol] field_name
   # @param [Hash] other_args
   # @return [Hash]
   def field_args(field_name, other_args)

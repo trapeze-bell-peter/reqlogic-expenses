@@ -19,7 +19,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
 
   # @return [String] action definitions for use by Stimulus.js on the expense-entry div
   def actions_for_expense_entry_div
-    'dragstart->expense-entry#dragstart dragenter->expense-entry#dragenter dragover->expense-entry#dragover' +
+    'dragstart->expense-entry#dragstart dragenter->expense-entry#dragenter dragover->expense-entry#dragover' \
       ' drop->expense-entry#drop'
   end
 
@@ -27,13 +27,12 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     "expense-entry-#{expense_entry.persisted? ? expense_entry.id : 'empty-row'}"
   end
 
-  # Specificies the HTML fields to be used by the expense entry form form
+  # Specifies the HTML fields to be used by the expense entry form form
   def form_hash
     { data: { target: 'expense-claim.expenseEntryForm',
               expense_entry_changed: '0',
               action: 'ajax:complete->expense-claim#ajaxComplete '\
-                      'ajax:success->expense-entry#ajaxSuccessThereforeResetErrors' }
-    }
+                      'ajax:success->expense-entry#ajaxSuccessThereforeResetErrors' } }
   end
 
   # Generates the hidden field containing the expense claim id.  Used by the RoR backend to associate with the correct
@@ -55,7 +54,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   def categories
     expense_entry_form.select :category,
                               view.options_for_select(options_list, expense_entry.category),
-                              {include_blank: true},
+                              { include_blank: true },
                               field_args(:category, data: { action: 'change->expense-entry#categoryChange' })
   end
 
@@ -96,7 +95,9 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   def delete_button
     if expense_entry.persisted?
       view.link_to(view.expense_entry_path(expense_entry),
-                   method: :delete, remote: true, data: { action: 'click->expense-claim#deleteExpenseEntry' },
+                   method: :delete, remote: true,
+                   data: { action: 'click->expense-claim#deleteExpenseEntry', toggle: 'tooltip', placement: 'top' },
+                   title: 'Delete row',
                    &method(:delete_icon))
     else
       view.link_to('_', href: '#', data: { action: 'click->expense-claim#deleteExpenseEntry' }, &method(:delete_icon))
@@ -106,7 +107,8 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   # Helper to generate the insert button for each expense entry.
   def insert_button
     view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
-                 data: { action: 'click->expense-claim#insertExpenseEntry' }) do
+                 data: { action: 'click->expense-claim#insertExpenseEntry', toggle: 'tooltip', placement: 'top' },
+                 title: 'Insert empty row') do
       view.tag.i class: 'fas fa-plus-square fa-2x expenses-action-icon'
     end
   end
@@ -114,7 +116,8 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   # Helper to generate the copy button for each expense entry.
   def copy_button
     view.link_to(view.new_expense_entry_path(expense_claim_id: expense_entry.expense_claim_id),
-                 data: { action: 'click->expense-claim#copyExpenseEntry' }) do
+                 data: { action: 'click->expense-claim#copyExpenseEntry', toggle: 'tooltip', placement: 'top' },
+                 title: 'Copy row to bottom') do
       view.tag.i class: 'fas fa-copy fa-2x expenses-action-icon'
     end
   end
@@ -127,8 +130,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   def default_field_hash(field_name)
     { class: form_field_class(field_name.to_sym),
       placeholder: field_name.capitalize,
-      data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' }
-    }
+      data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' } }
   end
 
   private
