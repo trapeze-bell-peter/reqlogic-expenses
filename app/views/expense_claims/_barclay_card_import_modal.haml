@@ -13,10 +13,6 @@
             %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel
 
 :javascript
-  $(document).ready(function () {
-    bsCustomFileInput.init();
-  } );
-
   $('input[type="file"]').change(function(e){
       var fileName = e.target.files[0].name;
       $('.custom-file-label').html(fileName);

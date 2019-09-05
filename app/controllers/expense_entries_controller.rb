@@ -32,7 +32,7 @@ class ExpenseEntriesController < ApplicationController
 
   # PATCH/PUT /expense_entries/1.json
   def update
-    respond_to :json
+    respond_to :html, :json, :js
 
     if @expense_entry.update(expense_entry_params)
       head :ok
@@ -65,6 +65,7 @@ class ExpenseEntriesController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_entry_params
     params.require(:expense_entry)
-          .permit(:expense_claim_id, :sequence, :date, :category, :description, :project, :vat, :qty, :unit_cost)
+          .permit(:expense_claim_id, :sequence, :date, :category, :description, :project, :vat, :qty, :unit_cost,
+                  :receipt)
   end
 end

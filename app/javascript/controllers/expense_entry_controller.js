@@ -104,4 +104,11 @@ export default class ExpenseEntryController extends Controller {
         this.descriptionTarget.value = event.srcElement.text;
         this.descriptionTarget.changeEvent(new Event('change'));
     }
+
+    // Event handler for when the user hits the receipt upload button.  Copies the destination from the current form
+    // to the modal's form.
+    receiptUpload(event) {
+        let modal = document.getElementById('receipt_upload_modal');
+        modal.getElementsByTagName('form')[0].action = this.element.getElementsByTagName('form')[0].action;
+    }
 }

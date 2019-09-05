@@ -49,9 +49,9 @@
   %template#expense-entry-empty-row= render partial: 'expense_entries/expense_entry', layout: false, status: :ok,
                                             locals: { expense_entry: ExpenseEntry.new(expense_claim: expense_claim), expense_claim: @expense_claim }
 
-  -# ToDo move this into a little helper
-
   - if show_only
     :javascript
       $("#expense_form input").prop("disabled", true);
       $("#expense_form select").prop("disabled", true);
+
+= render 'receipt_upload_modal'

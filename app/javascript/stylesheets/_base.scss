@@ -10,6 +10,12 @@ div.field-with-errors .form-control {
   @extend .is-invalid;
 }
 
+button.expenses-button {
+  color: $link-color;
+  background-color: transparent;
+  border-width: 0pt;
+}
+
 i.expenses-action-icon {
   vertical-align: middle;
 }

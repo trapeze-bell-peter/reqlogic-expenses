@@ -27,6 +27,12 @@
                       %a.dropdown-item{ h_ref: '#', data: { action: "click->expense-entry#copyDescriptionFromCC"} }= match
             %button.btn.btn-outline-secondary{ data: { action: "click->expense-entry#clearDescription" } }
               %i.fa.fa-times
+      .form-group.col-1
+        %span{ data: { toggle: 'modal', target: '#receipt_upload_modal' } }
+          %button.expenses-button{ type: 'button', data: { toggle: 'tooltip', placement: 'top',
+                                                           title: 'Attach receipt image',
+                                                           action: 'click->expense-entry#receiptUpload' } }
+            %i.fas.fa-paperclip.fa-2x.expenses-action-icon
 
     .form-row.align-items-top.justify-content-end
       .form-group.col-1= expense_entry_presenter.form_field :project, :text_field

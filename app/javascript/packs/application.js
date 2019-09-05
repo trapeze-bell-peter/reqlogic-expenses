@@ -24,4 +24,7 @@ import 'bootstrap';
 import '@fortawesome/fontawesome-free/js/all';
 
 import bsCustomFileInput from 'bs-custom-file-input';
-window.bsCustomFileInput = bsCustomFileInput;
+bsCustomFileInput.init();
+
+import * as ActiveStorage from "activestorage";
+ActiveStorage.start();

@@ -3,6 +3,7 @@
 class ExpenseEntry < ApplicationRecord
   belongs_to :expense_claim
   has_one :barclay_card_row_datum, dependent: :destroy
+  has_one_attached :receipt
 
   monetize :unit_cost_pence
 
