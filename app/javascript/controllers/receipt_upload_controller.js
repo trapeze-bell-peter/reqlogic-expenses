@@ -10,5 +10,6 @@ export default class ReceiptUploadController extends Controller {
 
     dismissUploadModal(event) {
         $(this.modalTarget).modal('hide');
+        this.modalTarget.querySelector('#receipt-upload-field').disabled = false;
     }
 }
