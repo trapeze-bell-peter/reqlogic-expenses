@@ -9,10 +9,10 @@
                     data: { action: 'direct-uploads:end->receipt-upload#dismissUploadModal ajax:complete->expense-claim#ajaxComplete' } do |form|
           .form-row
             = form.file_field :file, class: 'custom-file-input', id: 'receipt-upload-field', direct_upload: true,
-                                     name: 'expense_entry[receipt]'
+                                     data: { action: 'receipt-upload#fileSelected' }, name: 'expense_entry[receipt]'
 
             = form.label 'receipt-upload-field', 'Choose', class: 'custom-file-label'
-          .form-row#receipt-image-placeholder
+          .form-row#receipt-image-placeholder{ data: { target: 'receipt-upload.receiptImagePlaceholder' } }
 
           .form-row.btn-toolbar{ align: 'center' }
             = form.submit 'Upload', class: 'btn btn-primary mx-auto'

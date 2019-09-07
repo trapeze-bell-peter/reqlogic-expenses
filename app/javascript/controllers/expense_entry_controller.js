@@ -109,7 +109,7 @@ export default class ExpenseEntryController extends Controller {
     // Event handler for when the user hits the receipt upload button:
     // * copies the destination from the current form
     // * removes a previous child if it existed
-    // to the modal's form.  Copies the hidden image tag into the modal.
+    // * ensures the file selector field is enabled
     receiptUpload(event) {
         let modal = document.getElementById('receipt_upload_modal');
         modal.getElementsByTagName('form')[0].action = this.element.getElementsByTagName('form')[0].action;
@@ -122,5 +122,7 @@ export default class ExpenseEntryController extends Controller {
         let image = this.receiptImageTarget.cloneNode(true);
         image.hidden = false;
         imageDiv.appendChild(image);
+
+        modal.querySelector('#receipt-upload-field').disabled = false;
     }
 }
