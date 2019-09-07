@@ -4,13 +4,16 @@
       .modal-header
         %h3 Select JPG/PDF receipt for upload
       .modal-body
-        = form_with url: expense_entry_path, method: :patch,
-                                             data: { action: 'direct-uploads:end->receipt-upload#dismissUploadModal' } do |form|
+        = form_with url: expense_entry_path,
+                    method: :patch,
+                    data: { action: 'direct-uploads:end->receipt-upload#dismissUploadModal ajax:complete->expense-claim#ajaxComplete' } do |form|
           .form-row
             = form.file_field :file, class: 'custom-file-input', id: 'receipt-upload-field', direct_upload: true,
                                      name: 'expense_entry[receipt]'
 
             = form.label 'receipt-upload-field', 'Choose', class: 'custom-file-label'
+          .form-row#receipt-image-placeholder
+
           .form-row.btn-toolbar{ align: 'center' }
             = form.submit 'Upload', class: 'btn btn-primary mx-auto'
             %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel

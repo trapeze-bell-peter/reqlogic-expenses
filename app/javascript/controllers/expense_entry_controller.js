@@ -11,7 +11,8 @@ import Rails from "rails-ujs";
 // * managing the dragging and dropping of rows in the table
 // * updating key fields in the form depending on other changes made in the row by the user.
 export default class ExpenseEntryController extends Controller {
-    static targets = [ 'form', "category", "description", "vat", "qty", "unitCost", "totalCost", "claimTotal" ];
+    static targets = [ 'form', "category", "description", "vat", "qty", "unitCost", "totalCost", "claimTotal",
+                       'receiptImage' ];
 
     // First time that we are connected,
     connect() {
@@ -105,10 +106,21 @@ export default class ExpenseEntryController extends Controller {
         this.descriptionTarget.changeEvent(new Event('change'));
     }
 
-    // Event handler for when the user hits the receipt upload button.  Copies the destination from the current form
-    // to the modal's form.
+    // Event handler for when the user hits the receipt upload button:
+    // * copies the destination from the current form
+    // * removes a previous child if it existed
+    // to the modal's form.  Copies the hidden image tag into the modal.
     receiptUpload(event) {
         let modal = document.getElementById('receipt_upload_modal');
         modal.getElementsByTagName('form')[0].action = this.element.getElementsByTagName('form')[0].action;
+
+        let imageDiv = modal.querySelector("#receipt-image-placeholder");
+        if (imageDiv.lastElementChild != null) {
+            imageDiv.removeChild(imageDiv.lastElementChild);
+        }
+
+        let image = this.receiptImageTarget.cloneNode(true);
+        image.hidden = false;
+        imageDiv.appendChild(image);
     }
 }

@@ -34,7 +34,12 @@ class ExpenseEntriesController < ApplicationController
   def update
     respond_to :html, :json, :js
 
-    if @expense_entry.update(expense_entry_params)
+    update_successful = @expense_entry.update(expense_entry_params)
+
+    if update_successful && expense_entry_params['receipt']
+      render partial: 'expense_entry.haml', layout: false, status: :ok, content_type: 'text/html',
+             locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
+    elsif update_successful
       head :ok
     else
       render partial: 'expense_entry.haml', layout: false, status: :unprocessable_entity, content_type: 'text/html',

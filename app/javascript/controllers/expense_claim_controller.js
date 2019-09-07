@@ -117,7 +117,10 @@ export default class ExpenseClaimController extends Controller {
         if (status!=='OK' || data.responseText !== "") {
             let wrapper= document.createElement('div');
             wrapper.innerHTML= data.responseText;
-            event.target.closest('div.expense-entry').replaceWith(wrapper.firstChild);
+
+            let newExpenseEntry = wrapper.firstChild;
+            let oldExpenseEntry = this.claimTableTarget.querySelector(`#${newExpenseEntry.id}`);
+            this.claimTableTarget.replaceChild(newExpenseEntry, oldExpenseEntry);
         }
     }
 

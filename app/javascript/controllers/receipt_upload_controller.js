@@ -9,7 +9,6 @@ export default class ReceiptUploadController extends Controller {
     }
 
     dismissUploadModal(event) {
-        console.log('Hello World from dismissUploadModal()');
         $(this.modalTarget).modal('hide');
     }
 }
