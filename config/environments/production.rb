@@ -1,4 +1,7 @@
 Rails.application.configure do
+  # Prepare the ingress controller used to receive mail
+  # config.action_mailbox.ingress = :postfix
+
   # Settings specified here will take precedence over those in config/application.rb.
   # Setup email server via MAILGUN.
   ActionMailer::Base.smtp_settings = {

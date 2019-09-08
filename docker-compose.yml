@@ -12,6 +12,45 @@ services:
     volumes:
       - database_data:/var/lib/postgresql/data
 
+  sidekiq:
+    build:
+      context: .
+      dockerfile: docker/app/ruby-on-rails.dockerfile
+    command: bundle exec sidekiq -v
+    environment:
+      POSTGRES_URL: 'postgres://db/'
+      RAILS_CACHE_URL: 'redis://rails-cache:6380/'
+    links:
+      - db
+      - sidekiq-cache
+      - rails-cache
+    volumes:
+      - '.:/app'
+
+  sidekiq-cache:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6379:6379
+    volumes:
+      - ./docker/redis/sidekiq.conf:/usr/local/etc/redis/redis.conf
+
+  rails-cache:
+    image: redis
+    command: redis-server /usr/local/etc/redis/redis.conf
+    ports:
+      - 6380:6380
+    volumes:
+      - ./docker/redis/rails-cache.conf:/usr/local/etc/redis/redis.conf
+
+  mailcatcher:
+    image: zolweb/docker-mailcatcher:latest
+    ports:
+      - "1025:1025"
+      - "1080:1080"
+
 volumes:
   database_data:
+    driver: local
+  tmp:
     driver: local

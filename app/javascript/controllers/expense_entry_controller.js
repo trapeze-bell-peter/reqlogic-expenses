@@ -113,6 +113,7 @@ export default class ExpenseEntryController extends Controller {
     receiptUpload(event) {
         let modal = document.getElementById('receipt_upload_modal');
         modal.getElementsByTagName('form')[0].action = this.element.getElementsByTagName('form')[0].action;
+        modal.querySelector('#receipt-upload-field').disabled = false;
 
         let imageDiv = modal.querySelector("#receipt-image-placeholder");
         if (imageDiv.lastElementChild != null) {
@@ -122,7 +123,5 @@ export default class ExpenseEntryController extends Controller {
         let image = this.receiptImageTarget.cloneNode(true);
         image.hidden = false;
         imageDiv.appendChild(image);
-
-        modal.querySelector('#receipt-upload-field').disabled = false;
     }
 }

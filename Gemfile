@@ -22,7 +22,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'haml'
 
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 4.0'
+gem 'redis'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -47,6 +47,9 @@ gem 'rubyXL'
 
 # Barclay card generate xls files rather than xlsx.  So need this Gem to read the file :-(
 gem 'spreadsheet'
+
+# Background processing
+gem 'sidekiq'
 
 group :development, :test do
   gem 'factory_bot_rails'
