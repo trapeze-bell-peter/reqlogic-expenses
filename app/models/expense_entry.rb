@@ -19,8 +19,6 @@ class ExpenseEntry < ApplicationRecord
   # User is defined by who this expense claim belongs to
   delegate :user, :user_id, to: :expense_claim
 
-
-
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]
   def total_cost

@@ -1,0 +1,19 @@
+.modal.fade#receipt_from_email_modal{ role: 'dialog',
+                                      data: { controller: 'receipt-from-email', target: 'receipt-from-email.modal' } }
+  .modal-dialog#receipt-from_email
+    .modal-content{align: 'center'}
+      .modal-header
+        %h3 Copy the below Email address and forward receipt to it
+      .modal-body
+        = form_with url: expense_entry_path,
+                    method: :patch do |form|
+          = form.hidden_field :email_receipt_token, class: 'form-control', readonly: true,
+                                                    name: 'expense_entry[email_receipt_token]',
+                                                    data: { target: 'receipt-from-email.emailReceiptToken' }
+          .form-row
+            = form.text_field :email_receipt_token, class: 'form-control', readonly: true, name: '',
+                                                    data: { target: 'receipt-from-email.emailAddress' }
+          .form-row.btn-toolbar{ align: 'center' }
+            = form.submit 'Copy to Clipboard', class: 'btn btn-primary mx-auto',
+                                               data: { action: 'receipt-from-email#copyToClipboard' }
+            %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel

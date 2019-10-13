@@ -1,3 +1,3 @@
 class ApplicationMailbox < ActionMailbox::Base
-  # routing /something/i => :somewhere
+  routing /receipts\.([[:alnum:]]{8})@tguk-expenses\.com/ => :receipts
 end

@@ -12,7 +12,7 @@ import Rails from "rails-ujs";
 // * updating key fields in the form depending on other changes made in the row by the user.
 export default class ExpenseEntryController extends Controller {
     static targets = [ 'form', "category", "description", "vat", "qty", "unitCost", "totalCost", "claimTotal",
-                       'receiptImage' ];
+                       'receiptImage', 'emailReceiptToken' ];
 
     // First time that we are connected,
     connect() {
@@ -123,5 +123,10 @@ export default class ExpenseEntryController extends Controller {
         let image = this.receiptImageTarget.cloneNode(true);
         image.hidden = false;
         imageDiv.appendChild(image);
+    }
+
+    emailReceipt(event) {
+        let modal = document.getElementById('receipt_from_email_modal');
+        modal.getElementsByTagName('form')[0].action = this.element.getElementsByTagName('form')[0].action;
     }
 }

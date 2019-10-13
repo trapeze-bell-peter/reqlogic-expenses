@@ -24,9 +24,9 @@ module.exports = environment;
  * To use jQuery in views
  */
 environment.loaders.append('expose', {
-        test: require.resolve('jquery'),
-        use: [{
-                loader: 'expose-loader',
-                options: '$'
-        }]
+    test: require.resolve('jquery'),
+    use: [{
+        loader: 'expose-loader',
+        options: '$'
+    }]
 });

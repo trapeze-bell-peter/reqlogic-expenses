@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_08_105947) do
+ActiveRecord::Schema.define(version: 2019_09_08_120915) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,7 @@ ActiveRecord::Schema.define(version: 2019_09_08_105947) do
     t.string "unit_cost_currency", default: "GBP", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "email_receipt_token"
     t.index ["expense_claim_id"], name: "index_expense_entries_on_expense_claim_id"
   end
 

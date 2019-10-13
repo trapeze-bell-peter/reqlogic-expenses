@@ -50,6 +50,7 @@
                                             locals: { expense_entry: ExpenseEntry.new(expense_claim: expense_claim), expense_claim: @expense_claim }
 
   = render 'receipt_upload_modal'
+  = render 'receipt_from_email_modal'
 
   - if show_only
     :javascript
