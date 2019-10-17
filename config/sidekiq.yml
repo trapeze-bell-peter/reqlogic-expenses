@@ -1,0 +1,10 @@
+# Set the number of sidekiq concurrent connections to something that Heroku will allow.
+:concurrency: 10
+
+:retry: false
+
+:queues:
+  - default
+  - mailers
+  - action_mailbox_routing
+  - active_storage_analysis

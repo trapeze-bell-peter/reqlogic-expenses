@@ -2,8 +2,11 @@
 
 class ExpenseEntry < ApplicationRecord
   belongs_to :expense_claim
+
   has_one :barclay_card_row_datum, dependent: :destroy
+
   has_one_attached :receipt
+  has_one :email_receipt
 
   monetize :unit_cost_pence
 
