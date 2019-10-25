@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_054859) do
+ActiveRecord::Schema.define(version: 2019_10_18_203000) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2019_10_16_054859) do
   create_table "email_receipts", force: :cascade do |t|
     t.string "title"
     t.bigint "expense_entry_id", null: false
+    t.json "embedded_images"
     t.index ["expense_entry_id"], name: "index_email_receipts_on_expense_entry_id"
   end
 

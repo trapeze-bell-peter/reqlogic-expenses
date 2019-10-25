@@ -29,5 +29,5 @@ bsCustomFileInput.init();
 import * as ActiveStorage from "activestorage";
 ActiveStorage.start();
 
-require("trix")
-require("@rails/actiontext")
+require("trix");
+require("@rails/actiontext");
