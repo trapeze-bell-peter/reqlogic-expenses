@@ -10,4 +10,8 @@ Rails.application.routes.draw do
   resources :expense_entries
 
   root 'expense_claims#index'
+
+  # Enable the sidekiq console.
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
 end
