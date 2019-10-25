@@ -15,6 +15,18 @@ class ExpenseClaim < ApplicationRecord
 
   accepts_nested_attributes_for :expense_entries
 
+  # Calculates the total cost of the expense claim
+  # @return [Money]
+  def total
+    Money.new(self.expense_entries.sum('unit_cost_pence * qty'))
+  end
+
+  def expense_entries_with_receipts
+    self.expense_entries.order(:sequence).to_a.keep_if do |expense_entry|
+      expense_entry.receipt.attached? || expense_entry.email_receipt
+    end
+  end
+
   # Provides a static method to add sequence numbers to an existing database.
   # @return [Void]
   def self.resequence
@@ -25,9 +37,5 @@ class ExpenseClaim < ApplicationRecord
         expense_entry.update!(sequence: i + offset)
       end
     end
-  end
-
-  def total
-    Money.new(self.expense_entries.sum('unit_cost_pence * qty'))
   end
 end

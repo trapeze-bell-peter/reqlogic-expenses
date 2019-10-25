@@ -15,8 +15,7 @@ class StimulusFormPresenter < BasePresenter
   # Constructor
   # @param [ActiveView::Template] view
   def initialize(view, model)
-    super(view)
-    @model = model
+    super(view, model)
   end
 
   attr_reader :model
