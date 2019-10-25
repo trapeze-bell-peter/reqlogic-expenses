@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="expenses_development@localhost" uuid="46cecc39-171e-4a0d-bc63-93fa6b820f87">
+    <data-source source="LOCAL" name="master_development@expenses-db" uuid="46cecc39-171e-4a0d-bc63-93fa6b820f87">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/expenses_development</jdbc-url>
+      <jdbc-url>jdbc:postgresql://expenses-db:5432/master_development</jdbc-url>
     </data-source>
-    <data-source source="LOCAL" name="development@docker" uuid="2b8bc3b1-124a-4a79-a6fe-f7c35ea6cbbd">
+    <data-source source="LOCAL" name="master_test@expenses-db" uuid="062c1fc0-0564-49cf-941b-5d50252e9891">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/app_development</jdbc-url>
+      <jdbc-url>jdbc:postgresql://expenses-db:5432/master_test</jdbc-url>
     </data-source>
   </component>
 </project>
