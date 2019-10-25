@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
@@ -36,8 +38,17 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Provide suitable authorisation checking for editing
 gem 'cancancan'
 
+# Gem to access convert_api for converting PDF to set of images
+gem 'convert_api'
+
 # Use Devise for security
 gem 'devise'
+
+# Give ability to view images.
+gem 'image_processing', '~> 1.2'
+
+# Gem to access Azure storage container
+gem 'azure-storage'
 
 # Support for money added
 gem 'money-rails', '~>1.12'
@@ -53,13 +64,15 @@ gem 'sidekiq'
 
 group :development, :test do
   gem 'factory_bot_rails'
-  gem 'rspec-rails', '~> 3.8'
+  gem 'rspec-rails', '~> 3.9'
+  gem 'rubocop'
+  gem 'rubocop-rspec'
 end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
+  gem 'web-console', '>= 3.3.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
