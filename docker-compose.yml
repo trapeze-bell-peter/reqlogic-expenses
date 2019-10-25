@@ -49,6 +49,17 @@ services:
       - "1025:1025"
       - "1080:1080"
 
+  dns-proxy-server:
+    image: defreitas/dns-proxy-server:latest
+    hostname: dns.mageddo
+    volumes:
+      - /opt/dns-proxy-server/conf:/app/conf
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /etc/resolv.conf:/etc/resolv.conf
+    network_mode: bridge
+    ports:
+      - "5380:5380"
+
 volumes:
   database_data:
     driver: local
