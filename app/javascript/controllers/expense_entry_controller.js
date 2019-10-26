@@ -120,9 +120,11 @@ export default class ExpenseEntryController extends Controller {
             imageDiv.removeChild(imageDiv.lastElementChild);
         }
 
-        let image = this.receiptImageTarget.cloneNode(true);
-        image.hidden = false;
-        imageDiv.appendChild(image);
+        if (this.hasReceiptImageTarget) {
+            let image = this.receiptImageTarget.cloneNode(true);
+            image.hidden = false;
+            imageDiv.appendChild(image);
+        }
     }
 
     emailReceipt(event) {

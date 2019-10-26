@@ -17,7 +17,7 @@ export default class ReceiptUploadController extends Controller {
         newImage.src = URL.createObjectURL(event.target.files[0]);
 
         let existingImage = this.receiptImagePlaceholderTarget.firstChild;
-        if (existingImage === undefined) {
+        if (existingImage == null) {
             this.receiptImagePlaceholderTarget.appendChild(newImage)
         } else {
             this.receiptImagePlaceholderTarget.replaceChild(newImage, existingImage);
