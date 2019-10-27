@@ -16,4 +16,8 @@ module ApplicationHelper
     end
     nil
   end
+
+  def email_recipient
+    Rails.env.development? ? 'receipt-development' : 'receipt'
+  end
 end

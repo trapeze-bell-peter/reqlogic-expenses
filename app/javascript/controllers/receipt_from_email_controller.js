@@ -20,7 +20,7 @@ export default class ReceiptFromEmailController extends Controller {
         console.log('ReceiptFromEmail modal has been shown');
         const token = [...Array(30)].map(() => Math.random().toString(36)[2]).join('').substring(0, 8);
         this.emailReceiptTokenTarget.value = token;
-        this.emailAddressTarget.value = `receipt-development.${token}@tguk-expenses.com`;
+        this.emailAddressTarget.value = `${this.data.get('addressee')}.${token}@tguk-expenses.com`;
     }
 
     // Event handler for when the user hits the 'Copy to Clipboard' button.  Selects the text, copies to the clipboard
