@@ -2,7 +2,7 @@
 
 - expense_entry_presenter = ExpenseEntryPresenter.new(self, expense_entry)
 
-.expense-entry{ id: expense_entry_presenter.row_id,
+.expense-entry{ id: expense_entry_presenter.row_id, class: expense_entry_presenter.background,
                 data: { controller: "expense-entry", action: expense_entry_presenter.actions_for_expense_entry_div } }
   = expense_entry_presenter.create_form(expense_entry_presenter.form_hash) do
     = expense_entry_presenter.expense_claim_id

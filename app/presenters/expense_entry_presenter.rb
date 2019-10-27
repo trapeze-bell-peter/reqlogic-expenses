@@ -17,6 +17,10 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     'recalcTotalClaim->expense-claim#recalcTotalClaim resequence->expense-claim#reSequenceExpenseEntryForms'
   end
 
+  def background
+     expense_entry.receipt.attached? || expense_entry.email_receipt ? 'alert-success' : nil
+  end
+
   # @return [String] action definitions for use by Stimulus.js on the expense-entry div
   def actions_for_expense_entry_div
     'dragstart->expense-entry#dragstart dragenter->expense-entry#dragenter dragover->expense-entry#dragover' \
