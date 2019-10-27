@@ -33,3 +33,6 @@ module Expenses
     config.action_mailbox.ingress = :mailgun
   end
 end
+
+# Setup the key for the ConvertApi web service that translates PDF into JPG.
+ConvertApi.config.api_secret = Rails.application.credentials.dig(:convertapi, :key)

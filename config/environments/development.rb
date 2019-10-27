@@ -66,5 +66,5 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Allow traffic from localtunnel
-  config.hosts << 'tguk-expenses.localtunnel.me'
+  config.hosts << 'tguk-expenses.ngrok.io'
 end

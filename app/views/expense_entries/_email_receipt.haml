@@ -1,1 +1,15 @@
-.email-body= expense_entry.email_receipt.body
+%h4 Email
+
+%div= email_receipt.body
+
+- if email_receipt.attachments.count > 0
+  %h4 Attachments
+  %ul
+    - email_receipt.attachments.each do |attachment|
+      %li= attachment.filename
+
+  - email_receipt.attachments.each do |attachment|
+    - next unless attachment.image? && !email_receipt.embedded_images&.include?(attachment.id)
+
+    %h4.page-break= attachment.filename
+    = image_tag(attachment, class: 'converted-pdf')
