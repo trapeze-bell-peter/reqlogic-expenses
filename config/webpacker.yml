@@ -8,7 +8,8 @@ default: &default
   cache_path: tmp/cache/webpacker
   check_yarn_integrity: false
   webpack_compile_output: true
-
+  quiet: false
+  
   # Additional paths webpack should lookup modules
   # ['app/assets', 'engine/foo/app/assets']
   resolved_paths: []
@@ -68,7 +69,6 @@ development:
     compress: true
     disable_host_check: true
     use_local_ip: false
-    quiet: false
     headers:
       'Access-Control-Allow-Origin': '*'
     watch_options:
