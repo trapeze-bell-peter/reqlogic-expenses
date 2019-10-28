@@ -12,11 +12,11 @@
     "popper.js": "^1.14.7",
     "rails-ujs": "^5.2.2-1",
     "stimulus": "^1.1.1",
-    "trix": "^1.0.0"
+    "trix": "^1.0.0",
+    "@fortawesome/fontawesome-free": "^5.9.0",
+    "expose-loader": "^0.7.5"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^5.9.0",
-    "expose-loader": "^0.7.5",
     "webpack-dev-server": "^3.2.1"
   }
 }
