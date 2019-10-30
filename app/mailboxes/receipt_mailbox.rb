@@ -25,7 +25,8 @@ class ReceiptMailbox < ApplicationMailbox
   end
 
   # Process the inbound email.  If a receipt is already attached to the expense_entry, then the new email replaces this
-  # email receipt.  If not, a new email receipt is created.
+  # email receipt.  If not, a new email receipt is created.  Likewise, if a receipt image is attached to the expense
+  # entry then this is purged first.
   #
   # Any attachments of the incoming email are saved to ActiveStorage. If the attachment is a PDF it is converted into a
   # series of JPG files replacing the original PDF.  This allows us to render the original PDF in the print out of the
@@ -47,7 +48,7 @@ class ReceiptMailbox < ApplicationMailbox
     @email_receipt.title = mail.subject
     @email_receipt.embedded_images = []
 
-    remove_old_attachments
+    remove_old_receipts_and_attachments
     attachments_in_email_receipt
     extract_body
     @email_receipt.save!
@@ -55,7 +56,9 @@ class ReceiptMailbox < ApplicationMailbox
 
   private
 
-  def remove_old_attachments
+  # @api private
+  def remove_old_receipts_and_attachments
+    expense_entry.receipt.purge if expense_entry.receipt.attached?
     @email_receipt.attachments.purge
   end
 
@@ -70,7 +73,7 @@ class ReceiptMailbox < ApplicationMailbox
                                                       filename: attachment.filename,
                                                       content_type: attachment.content_type)
 
-      if attachment.content_type =~ /^application\/pdf/
+      if attachment.content_type =~ /^application\/pdf/ || attachment.filename =~ /\.pdf$/i
         convert_pdf_to_jpgs(attachment, blob)
       elsif mail.multipart? && mail.html_part
         replace_embedded_image_in_html(attachment, blob)
@@ -107,11 +110,11 @@ class ReceiptMailbox < ApplicationMailbox
     # Remove the beginning and end < >
     content_id = attachment.content_id[1...-1]
 
-    element = document.at_css("img[src='cid:#{content_id}']")
+    element = @document.at_css("img[src='cid:#{content_id}']")
 
     return unless element
 
-    document.at_css("img[src='cid:#{content_id}']")&.replace(new_attachment_tag(attachment, blob))
+    @document.at_css("img[src='cid:#{content_id}']")&.replace(new_attachment_tag(attachment, blob))
     @email_receipt.embedded_images << blob.id
   end
 

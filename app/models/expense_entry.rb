@@ -22,9 +22,16 @@ class ExpenseEntry < ApplicationRecord
   # User is defined by who this expense claim belongs to
   delegate :user, :user_id, to: :expense_claim
 
+  before_update :delete_email_receipt, if: -> { self.receipt.attached? && self.receipt.changed? }
+
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]
   def total_cost
     self.qty * self.unit_cost
+  end
+
+  # If we are uploading an image receipt, then remove
+  def delete_email_receipt
+    self.email_receipt.destroy!
   end
 end
