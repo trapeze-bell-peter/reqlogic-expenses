@@ -1,3 +1,6 @@
+- content_for :menu_back do
+  = tag.li link_to('back', edit_expense_claim_path(@expense_claim), class: 'nav-link'), class: 'nav-item'
+
 %h1 Claim
 %h2 Summary
 

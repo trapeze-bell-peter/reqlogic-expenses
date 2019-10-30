@@ -26,6 +26,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
+            <%= content_for :menu_back %>
             <li class="nav-item">
               <%= link_to 'Expenses', expense_claims_path, class: 'nav-link' %>
             </li>
