@@ -4,7 +4,7 @@
   = form_with url: expense_entry_path, scope: :expense_entry, class: 'form-horizontal', method: :patch,
               data: { action: 'submit->receipt#dismissReceiptModal' } do |form|
     .form-group
-      = form.text_field :image_receipt_url, class: 'form-control'
+      = form.text_field :image_receipt_url, class: 'form-control', data: { target: 'receipt.imageReceiptUrl' }
 
     .form-group.btn-toolbar{ align: 'center' }
       = form.submit 'Fetch Image', class: 'btn btn-primary mx-auto'

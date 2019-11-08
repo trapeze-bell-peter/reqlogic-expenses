@@ -22,4 +22,5 @@
           #email-receipt.tab-pane.fade{"aria-labelledby" => "contact-tab", :role => "tabpanel"}
             = render 'receipt_from_email_form'
 
+        .form-group#receipt-email-placeholder{ data: { target: 'receipt.emailReceiptPlaceholder' } }
         .form-group#receipt-image-placeholder{ data: { target: 'receipt.receiptImagePlaceholder' } }

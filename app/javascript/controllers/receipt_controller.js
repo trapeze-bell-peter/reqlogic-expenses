@@ -1,7 +1,8 @@
 import { Controller } from "stimulus";
 
 export default class ReceiptController extends Controller {
-    static targets = [ 'modal', 'filename', 'emailAddress', 'emailReceiptToken', 'receiptImagePlaceholder' ];
+    static targets = [ 'modal', 'filename', 'emailAddress', 'emailReceiptToken', 'receiptImagePlaceholder',
+                       'imageReceiptUrl', 'receiptImagePlaceholder' ];
 
     // First time that we are connected,
     connect() {
@@ -19,13 +20,18 @@ export default class ReceiptController extends Controller {
         console.log('Receipt modal has been shown');
 
         this.resetFilenameField();
+        this.resetImageUrlField();
         this.setEmailReceiptToken();
-
     }
 
     resetFilenameField() {
         // this.filenameTarget.nextElementSibling.innerHTML = '';
         this.filenameTarget.disabled = false;
+    }
+
+    // When we bring up the modal, we need to clear the Image URL text field as it will need refilling.
+    resetImageUrlField() {
+        this.imageReceiptUrlTarget.value = '';
     }
 
     // Used to create a random token to send the email receipt to, so it can be associated with the email.
