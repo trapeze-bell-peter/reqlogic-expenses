@@ -31,7 +31,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = { address: '0.0.0.0', port: 1025 }
 
   # Set the active job queye adapter to Sidekiq/Redis
-  config.active_job.queue_adapter = :sidekiq
+  # config.active_job.queue_adapter = :sidekiq
   # Alternatively, when debugging, you can set to in-line (or :async)
   # config.active_job.queue_adapter = :inline
 

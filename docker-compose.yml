@@ -1,7 +1,7 @@
 version: '3.7'
 
 services:
-  db:
+  expenses-db:
     image: postgres:latest
     hostname: expenses-db
     ports:
@@ -21,7 +21,7 @@ services:
       POSTGRES_URL: 'postgres://db/'
       RAILS_CACHE_URL: 'redis://rails-cache:6380/'
     links:
-      - db
+      - expenses-db
       - sidekiq-cache
       - rails-cache
     volumes:
