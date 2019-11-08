@@ -28,17 +28,12 @@
             %button.btn.btn-outline-secondary{ data: { action: "click->expense-entry#clearDescription" } }
               %i.fa.fa-times
       .form-group.col-1
-        %span{ data: { toggle: 'modal', target: '#receipt_upload_modal' } }
-          %button.expenses-button{ type: 'button', data: { toggle: 'tooltip', placement: 'top',
-                                                           title: 'Attach receipt image',
+        %span{ data: { toggle: 'modal', target: '#receipt-modal' } }
+          %button.expenses-button{ type: 'button', data: { toggle: 'tooltip',
+                                                           placement: 'top',
+                                                           title: 'Receipt',
                                                            action: 'click->expense-entry#receiptUpload' } }
-            %i.fas.fa-paperclip.fa-2x.expenses-action-icon
-        %span{ data: { toggle: 'modal', target: '#receipt_from_email_modal' } }
-          %button.expenses-button{ type: 'button', data: { toggle: 'tooltip', placement: 'top',
-                                                           title: 'Copy to clipboard receipt ref',
-                                                           action: 'click->expense-entry#emailReceipt' } }
-            %i.fas.fa-paper-plane.fa-2x.expenses-action-icon
-
+            %i.fas.fa-receipt.fa-2x.expenses-action-icon
     .form-row.align-items-top.justify-content-end
       .form-group.col-1= expense_entry_presenter.form_field :project, :text_field
       .form-group.col-1= expense_entry_presenter.vat

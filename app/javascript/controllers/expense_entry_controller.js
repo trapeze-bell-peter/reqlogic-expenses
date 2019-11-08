@@ -111,9 +111,10 @@ export default class ExpenseEntryController extends Controller {
     // * removes a previous child if it existed
     // * ensures the file selector field is enabled
     receiptUpload(event) {
-        let modal = document.getElementById('receipt_upload_modal');
-        modal.getElementsByTagName('form')[0].action = this.element.getElementsByTagName('form')[0].action;
-        modal.querySelector('#receipt-upload-field').disabled = false;
+        let modal = document.getElementById('receipt-modal');
+        let action = this.element.getElementsByTagName('form')[0].action;
+        let forms = modal.querySelectorAll('form');
+        forms.forEach(form => { form.action = action; });
 
         let imageDiv = modal.querySelector("#receipt-image-placeholder");
         if (imageDiv.lastElementChild != null) {

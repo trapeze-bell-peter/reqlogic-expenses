@@ -72,6 +72,6 @@ class ExpenseEntriesController < ApplicationController
   def expense_entry_params
     params.require(:expense_entry)
           .permit(:expense_claim_id, :sequence, :date, :category, :description, :project, :vat, :qty, :unit_cost,
-                  :receipt, :email_receipt_token)
+                  :receipt, :email_receipt_token, :image_receipt_url)
   end
 end

@@ -15,4 +15,12 @@ RSpec.describe ReceiptMailbox, type: :mailbox do
       expect(expense_entry.email_receipt.embedded_images.count).to eq 0
     end
   end
+
+  describe 'Upload of image removes existing image and email receipt' do
+    skip
+  end
+
+  describe 'Receiving email receipt removes existing image and email receipt' do
+    skip
+  end
 end

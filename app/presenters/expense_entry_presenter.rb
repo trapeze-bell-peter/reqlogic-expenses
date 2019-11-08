@@ -138,9 +138,10 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   end
 
   def receipt_image
-    if expense_entry.receipt.attached?
-      view.image_tag expense_entry.receipt, class: "img-fluid", hidden: true, data: { target: 'expense-entry.receiptImage' }
-    end
+    return unless expense_entry.receipt.attached?
+
+    view.image_tag expense_entry.receipt, class: 'img-fluid',
+                                          hidden: true, data: { target: 'expense-entry.receiptImage' }
   end
 
   private

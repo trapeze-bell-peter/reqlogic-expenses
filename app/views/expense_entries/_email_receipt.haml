@@ -1,6 +1,6 @@
 %h4 Email
 
-%div= email_receipt.body
+.email-body{width: '100%'}= email_receipt.body
 
 - if email_receipt.attachments.count > 0
   %h4 Attachments

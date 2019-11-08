@@ -1,5 +1,4 @@
 
-
 # Factory class to generate ExpenseClaim record and associated ExpenseEntry records based on BarclayCard XLS file.
 class BarclayCardImporter
   # Static method that is given a file object for a BarclayCard csv report, and imports it into the database.

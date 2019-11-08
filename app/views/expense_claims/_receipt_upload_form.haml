@@ -1,0 +1,19 @@
+#receipt-upload{ data: { target: 'receipt-upload' } }
+  %h4 Select JPG/PDF receipt for upload
+
+  = form_with url: expense_entry_path,
+              class: 'form-horizontal',
+              method: :patch,
+              data: { action: 'direct-uploads:end->receipt#dismissReceiptModal ajax:complete->expense-claim#ajaxComplete' } do |form|
+    .form-group
+      .custom-file
+        = form.file_field :file, class: 'custom-file-input',
+                                 id: 'receipt-upload-field',
+                                 direct_upload: true,
+                                 data: { action: 'receipt#fileSelected', target: 'receipt.filename' }, name: 'expense_entry[receipt]'
+
+        = form.label 'receipt-upload-field', 'Choose', class: 'custom-file-label'
+
+    .form-group.btn-toolbar{ align: 'center' }
+      = form.submit 'Upload', class: 'btn btn-primary mx-auto'
+      %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel

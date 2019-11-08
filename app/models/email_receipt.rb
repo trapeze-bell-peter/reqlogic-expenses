@@ -6,4 +6,7 @@ class EmailReceipt < ApplicationRecord
 
   has_rich_text :body
   has_many_attached :attachments
+
+  # User is defined by who this expense claim belongs to
+  delegate :user, :user_id, to: :expense_entry
 end

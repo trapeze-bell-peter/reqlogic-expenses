@@ -1,0 +1,11 @@
+#receipt_image_url_form
+  %h4 Paste in the URL of an image (Google Photos or similar)
+
+  = form_with url: expense_entry_path, scope: :expense_entry, class: 'form-horizontal', method: :patch,
+              data: { action: 'submit->receipt#dismissReceiptModal' } do |form|
+    .form-group
+      = form.text_field :image_receipt_url, class: 'form-control'
+
+    .form-group.btn-toolbar{ align: 'center' }
+      = form.submit 'Fetch Image', class: 'btn btn-primary mx-auto'
+      %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel

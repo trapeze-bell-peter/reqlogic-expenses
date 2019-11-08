@@ -1,0 +1,15 @@
+#receipt_from_email_form{ data: { target: 'receipt-from-email' } }
+  %h4 Copy the below Email address and forward receipt to it
+
+  = form_with url: expense_entry_path, method: :patch, class: 'form-horizontal' do |form|
+    = form.hidden_field :email_receipt_token, class: 'form-control', readonly: true,
+                                              name: 'expense_entry[email_receipt_token]',
+                                              data: { target: 'receipt.emailReceiptToken' }
+    .form-group
+      = form.text_field :email_receipt_token, class: 'form-control', readonly: true, name: '',
+                                              data: { target: 'receipt.emailAddress' }
+
+    .form-group.btn-toolbar{ align: 'center' }
+      = form.submit 'Copy to Clipboard', class: 'btn btn-primary mx-auto',
+                                         data: { action: 'receipt#copyToClipboard' }
+      %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel
