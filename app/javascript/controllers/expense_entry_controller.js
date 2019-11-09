@@ -70,7 +70,7 @@ export default class ExpenseEntryController extends Controller {
     // Event handler for change event.  Flag this row as having pending changes.  Next time we push updates to the
     // backend this row will also be pushed.
     changeEvent(event) {
-        this.element.dataset.changePending = '1';
+        this.formTarget.dataset.expenseEntryChanged = '1';
     }
 
     // Event handler for when the user selects a particular expenses claim category

@@ -137,7 +137,10 @@ export default class ExpenseClaimController extends Controller {
             let owningExpenseEntryDiv = sequenceField.closest('div.expense-entry');
             if (!owningExpenseEntryDiv.hidden && parseInt(sequenceField.value)!=sequenceIndex) {
                 sequenceField.value = sequenceIndex;
-                sequenceField.form.dataset.expenseEntryChanged = '1';
+                // Don't submit if its a new field.
+                if (owningExpenseEntryDiv.id.match(/new-[0-9+]/) == null) {
+                    sequenceField.form.dataset.expenseEntryChanged = '1';
+                }
             }
             sequenceIndex++;
         } );
@@ -174,7 +177,7 @@ export default class ExpenseClaimController extends Controller {
     createEmptyExpenseEntry() {
         let template = document.querySelector('template#expense-entry-empty-row')
         let newExpenseEntry = document.importNode(template.content, true).querySelector('div');
-        newExpenseEntry.id = `expense-entry-${Date.now()}`;
+        newExpenseEntry.id = `new-${Date.now()}`;
         return newExpenseEntry;
     }
 

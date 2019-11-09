@@ -24,7 +24,7 @@ class ExpenseEntriesController < ApplicationController
 
     @expense_entry = ExpenseEntry.create(expense_entry_params)
 
-    render partial: 'expense_entry', layout: false, status: (@expense_entry.valid? ? :ok : :unprocessable_entity),
+    render partial: 'expense_entry.haml', layout: false, status: (@expense_entry.valid? ? :ok : :unprocessable_entity),
            content_type: 'text/html', locals: { expense_entry: @expense_entry }
   end
 
