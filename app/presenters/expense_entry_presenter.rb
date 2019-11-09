@@ -50,7 +50,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   # controller.
   # @return [String]
   def sequence
-    expense_entry_form.text_field :sequence, class: 'form-control', disabled: true,
+    expense_entry_form.text_field :sequence, class: 'form-control', readonly: true,
                                              data: { target: 'expense-claim.sequenceField' }
   end
 
