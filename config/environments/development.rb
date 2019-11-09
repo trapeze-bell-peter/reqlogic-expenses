@@ -6,9 +6,7 @@ Sidekiq.configure_server do |config|
 end
 
 Sidekiq.configure_client do |config|
-  config.redis = { url: 'redis://0.0.0.0:6379/0' }
-  config.logger.level = Logger::DEBUG
-  Rails.logger = Sidekiq.logger
+  config.redis = { url: 'redis://sidekiq-cache:6379/0' }
 end
 
 Rails.application.configure do
@@ -65,6 +63,7 @@ Rails.application.configure do
   # Set so we can test Devise self registration
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
-  # Allow traffic from localtunnel
+  # Allow traffic from ngrok and reporting on that traffic
   config.hosts << 'tguk-expenses.ngrok.io'
+  config.web_console.whiny_requests = false
 end

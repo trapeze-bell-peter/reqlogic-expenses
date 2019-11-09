@@ -29,6 +29,7 @@ services:
 
   sidekiq-cache:
     image: redis
+    hostname: sidekiq-cache
     command: redis-server /usr/local/etc/redis/redis.conf
     ports:
       - 6379:6379
@@ -37,6 +38,7 @@ services:
 
   rails-cache:
     image: redis
+    hostname: rails-cache
     command: redis-server /usr/local/etc/redis/redis.conf
     ports:
       - 6380:6380
