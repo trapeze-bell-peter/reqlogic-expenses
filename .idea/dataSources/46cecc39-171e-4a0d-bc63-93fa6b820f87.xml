@@ -9,16 +9,16 @@
       <Owner>postgres</Owner>
       <IntrospectionStateNumber>1430</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|17233|17235|1
-sequence|table|17220|17222|1
-sequence|table|17189|17191|1
+      <Relations>sequence|table|17189|17191|1
 sequence|table|17201|17203|1
-sequence|table|25425|25427|1
-sequence|table|17011|17013|1
 sequence|table|17027|17029|1
 sequence|table|17039|17041|1
 sequence|table|17051|17053|1
 sequence|table|17067|17069|1
+sequence|table|25425|25427|1
+sequence|table|17011|17013|1
+sequence|table|17233|17235|1
+sequence|table|17220|17222|1
 </Relations>
     </database>
     <database id="3" parent="1" name="master_test">

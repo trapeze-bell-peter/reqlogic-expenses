@@ -22,7 +22,7 @@ class ExpenseClaimsController < ApplicationController
     respond_to :html
 
     @expense_claim = ExpenseClaim.create(claim_date: Time.zone.today, user: current_user)
-    redirect_to @expense_claim, notice: 'Expense claim was successfully created.'
+    redirect_to edit_expense_claim_path(@expense_claim), notice: 'Expense claim was successfully created.'
   end
 
   # GET /expense_claims/1/edit

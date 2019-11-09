@@ -6,28 +6,26 @@ class ExpenseEntriesController < ApplicationController
     respond_to :html
 
     @expense_entry = ExpenseEntry.new(new_expense_entry_params)
-
     authorize! :manage, @expense_entry
 
-    render partial: 'expense_entry', layout: false, status: :ok,
-           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
+    render partial: 'expense_entry', layout: false, status: :ok, locals: { expense_entry: @expense_entry }
   end
 
   # GET /expense_entries/1/edit
   def edit
     render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
-           locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
+           locals: { expense_entry: @expense_entry }
   end
 
   # POST /expense_entries
   # POST /expense_entries.json
   def create
+    authorize! :manage, ExpenseClaim.find(expense_entry_params[:expense_claim_id])
+
     @expense_entry = ExpenseEntry.create(expense_entry_params)
 
-    authorize! :manage, @expense_entry
-
     render partial: 'expense_entry', layout: false, status: (@expense_entry.valid? ? :ok : :unprocessable_entity),
-           content_type: 'text/html', locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
+           content_type: 'text/html', locals: { expense_entry: @expense_entry }
   end
 
   # PATCH/PUT /expense_entries/1.json
@@ -39,12 +37,12 @@ class ExpenseEntriesController < ApplicationController
     if update_successful && expense_entry_params['receipt']
       @expense_entry.receipt.attach(expense_entry_params['receipt'])
       render partial: 'expense_entry.haml', layout: false, status: :ok, content_type: 'text/html',
-             locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
+             locals: { expense_entry: @expense_entry }
     elsif update_successful
       head :ok
     else
       render partial: 'expense_entry.haml', layout: false, status: :unprocessable_entity, content_type: 'text/html',
-             locals: { expense_entry: @expense_entry, expense_claim: @expense_claim }
+             locals: { expense_entry: @expense_entry }
     end
   end
 

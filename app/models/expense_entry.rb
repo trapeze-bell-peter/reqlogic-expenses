@@ -24,7 +24,8 @@ class ExpenseEntry < ApplicationRecord
   # User is defined by who this expense claim belongs to
   delegate :user, :user_id, to: :expense_claim
 
-  # before_update :delete_email_receipt, if: -> { self.email_receipt && self.receipt.attached? && self.receipt.changed? }
+  after_initialize { self.sequence ||= self.expense_claim.expense_entries.count }
+  before_update :delete_email_receipt, if: -> { self.email_receipt && self.receipt.attached? && self.receipt.changed? }
 
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]
@@ -37,6 +38,7 @@ class ExpenseEntry < ApplicationRecord
     self.email_receipt.destroy!
   end
 
+  # Used to receive an image from Google.
   def image_receipt_url=(url)
     document = Nokogiri::HTML(URI.open(url))
     google_image_url = document.css('meta[property="og:image"]').attribute('content').value

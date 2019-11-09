@@ -107,7 +107,7 @@ export default class ExpenseClaimController extends Controller {
 
     // Event handler for a completed AJAX submission to the backend.  There are two possible outcomes:
     // * if this is an existing entry and there are no issues with it, we simply accept the response.
-    // * If this is a new entry, or an existing entry with issues, then an HTML chunk will be returned
+    // * If this is an existing entry with issues, then an HTML chunk will be returned
     //   and we need to replace the existing expense entry div with the one returned by the backend.
     ajaxComplete(event) {
         event.preventDefault();
@@ -119,7 +119,10 @@ export default class ExpenseClaimController extends Controller {
             wrapper.innerHTML= data.responseText;
 
             let newExpenseEntry = wrapper.firstChild;
-            let oldExpenseEntry = this.claimTableTarget.querySelector(`#${newExpenseEntry.id}`);
+            let sequenceIdToReplace = newExpenseEntry.querySelector('#expense_entry_sequence').value;
+            let oldExpenseEntry =
+                this.claimTableTarget.querySelector(`#expense_entry_sequence[value='${sequenceIdToReplace}']`).closest('.expense-entry');
+
             this.claimTableTarget.replaceChild(newExpenseEntry, oldExpenseEntry);
         }
     }
@@ -169,8 +172,8 @@ export default class ExpenseClaimController extends Controller {
 
     // Get the empty row out of the template, clone it, and give it an id of the current time.
     createEmptyExpenseEntry() {
-        let template = document.getElementById('expense-entry-empty-row');
-        let newExpenseEntry = template.content.getElementById('expense-entry-empty-row').cloneNode(true);
+        let template = document.querySelector('template#expense-entry-empty-row')
+        let newExpenseEntry = document.importNode(template.content, true).querySelector('div');
         newExpenseEntry.id = `expense-entry-${Date.now()}`;
         return newExpenseEntry;
     }

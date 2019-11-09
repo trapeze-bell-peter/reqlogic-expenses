@@ -39,7 +39,7 @@
                locals: { expense_entry: expense_entry, expense_claim: @expense_claim }
     - if @expense_claim.expense_entries.count == 0
       = render partial: 'expense_entries/expense_entry',
-               locals: { expense_entry: ExpenseEntry.new(expense_claim: @expense_claim), expense_claim: @expense_claim }
+               locals: { expense_entry: ExpenseEntry.new(expense_claim: @expense_claim) }
 
   #expenses-claim-total-row
     %form.form
@@ -48,8 +48,8 @@
         .form-group.col-1
           %input.form-control{ data: { target: "expense-claim.totalClaim"}, disabled: "true", type: "text", value: @expense_claim.total }
 
-  %template#expense-entry-empty-row= render partial: 'expense_entries/expense_entry', layout: false, status: :ok,
-                                            locals: { expense_entry: ExpenseEntry.new(expense_claim: expense_claim), expense_claim: @expense_claim }
+  %template#expense-entry-empty-row= render partial: 'expense_entries/expense_entry',
+                                            locals: { expense_entry: ExpenseEntry.new(expense_claim: @expense_claim) }
 
   = render 'receipt_modal'
 
