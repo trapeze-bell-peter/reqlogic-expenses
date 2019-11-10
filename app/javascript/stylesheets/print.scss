@@ -26,6 +26,18 @@
   h3 + img {
     page-break-before: avoid;
   }
+
+  img.receipt-img {
+    width: auto;
+    height: auto;
+    max-width: 200mm;
+  }
+
+  img.converted-pdf {
+    width: auto;
+    height: auto;
+    max-width: 200mm;
+  }
 }
 
 
