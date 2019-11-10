@@ -47,7 +47,7 @@ module ExpenseExcelExport
   # @return [Void]
   # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def insert_expense_entries
-    self.expense_entries.order(:sequence).find_each.with_index do |expense_entry, index|
+    self.expense_entries.order(:sequence).each.with_index do |expense_entry, index|
       row = index + 1
       @expense_sheet.add_cell(row, 0, expense_entry.qty)
       @expense_sheet.add_cell(row, 1, expense_entry.category)
