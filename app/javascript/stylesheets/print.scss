@@ -13,8 +13,18 @@
   h1 {
     page-break-before: always;
   }
+
   .page-break {
     page-break-before: always;
+  }
+
+  h3::before {
+    page-break-before: auto;
+    page-break-after: avoid;
+  }
+
+  h3 + img {
+    page-break-before: avoid;
   }
 }
 
