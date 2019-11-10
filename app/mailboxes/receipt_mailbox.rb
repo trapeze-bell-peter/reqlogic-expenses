@@ -114,22 +114,13 @@ class ReceiptMailbox < ApplicationMailbox
 
     return unless element
 
-    @document.at_css("img[src='cid:#{content_id}']")&.replace(new_attachment_tag(attachment, blob))
+    @document.at_css("img[src='cid:#{content_id}']")&.attributes['src'] = url_for(attachment)
     @email_receipt.embedded_images << blob.id
-  end
-
-  # Generates the replacement image reference for the email body
-  def new_attachment_tag(attachment, blob)
-    <<-HTML.squish
-      <action-text-attachment sgid="#{blob.attachable_sgid}"
-                              content-type="#{attachment.content_type}"
-                              filename="#{attachment.filename}" />
-    HTML
   end
 
   # Extracts the body of the email text.  If HTML ensures it is encoded in UTF-8.
   def extract_body
-    @email_receipt.body =
+    @email_receipt.email_body =
       if mail.multipart? && mail.html_part
         @document.at_css('body').inner_html.encode('utf-8')
       elsif mail.multipart? && mail.text_part

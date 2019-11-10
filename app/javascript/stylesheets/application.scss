@@ -3,6 +3,9 @@
 @import 'variables';
 @import 'base';
 
+@import 'trix';
+@import '@rails/actiontext'
+
 img.receipt-img {
   width:100%;
   max-width:600px;
@@ -17,4 +20,8 @@ div.input-group small {
   // Positions the warning underneath the box.
   position: absolute;
   bottom: -20px;
+}
+
+div.email-body {
+  all: unset;
 }
