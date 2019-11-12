@@ -8,7 +8,9 @@ Rails.application.routes.draw do
     post 'barclay_csv_import', on: :collection
   end
 
-  resources :expense_entries
+  resources :expense_entries do
+    delete 'destroy_receipt', on: :member
+  end
 
   root 'expense_claims#index'
 

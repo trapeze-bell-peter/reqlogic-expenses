@@ -1,5 +1,4 @@
 import { Controller } from "stimulus";
-import Rails from "rails-ujs";
 
 // This controller corresponds to an ExpenseEntry in the database.  Each ExpenseEntry in the HTML/Javascript world
 // is made up of a div -> form.  Both are handled thru one controller, with the form being accessed as a target.
@@ -108,6 +107,7 @@ export default class ExpenseEntryController extends Controller {
 
     // Event handler for when the user hits the receipt upload button:
     // * copies the destination from the current form
+    // * sets the delete action to point at the current expense entry
     // * removes a previous child if it existed
     // * ensures the file selector field is enabled
     receiptUpload(event) {
@@ -115,6 +115,9 @@ export default class ExpenseEntryController extends Controller {
         let action = this.element.getElementsByTagName('form')[0].action;
         let forms = modal.querySelectorAll('form');
         forms.forEach(form => { form.action = action; });
+
+        let deleteButtons = modal.querySelectorAll(".delete-btn");
+        deleteButtons.forEach(deleteButton => { deleteButton.href = `${action}/destroy_receipt` });
 
         let imageDiv = modal.querySelector("#receipt-image-placeholder");
         if (imageDiv.lastElementChild != null) {
@@ -126,10 +129,5 @@ export default class ExpenseEntryController extends Controller {
             image.hidden = false;
             imageDiv.appendChild(image);
         }
-    }
-
-    emailReceipt(event) {
-        let modal = document.getElementById('receipt_from_email_modal');
-        modal.getElementsByTagName('form')[0].action = this.element.getElementsByTagName('form')[0].action;
     }
 }

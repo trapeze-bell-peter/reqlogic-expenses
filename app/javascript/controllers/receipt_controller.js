@@ -40,6 +40,7 @@ export default class ReceiptController extends Controller {
         this.emailReceiptTokenTarget.value = token;
         this.emailAddressTarget.value = `${this.data.get('addressee')}.${token}@tguk-expenses.com`;
     }
+
     // Event handler for when the user hits the 'Copy to Clipboard' button.  Selects the text, copies to the clipboard
     // and hides the modal.  Note, that the form also generates a PATCH request in the usual way.
     copyToClipboard(event) {

@@ -1,5 +1,5 @@
 class ExpenseEntriesController < ApplicationController
-  load_and_authorize_resource param_method: :expense_entry_params, only: %i[edit update destroy]
+  load_and_authorize_resource param_method: :expense_entry_params, only: %i[edit update destroy destroy_receipt]
 
   # GET /expense_entries/new
   def new
@@ -53,6 +53,16 @@ class ExpenseEntriesController < ApplicationController
     @expense_entry.destroy
 
     head :ok
+  end
+
+  # DELETE /expense_entry/:id/destroy_receipt
+  def destroy_receipt
+    respond_to :html, :json, :js
+
+    @expense_entry.destroy_receipt
+
+    render partial: 'expense_entry.haml', layout: false, status: :ok, content_type: 'text/html',
+           locals: { expense_entry: @expense_entry }
   end
 
   private

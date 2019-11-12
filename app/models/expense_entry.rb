@@ -33,6 +33,11 @@ class ExpenseEntry < ApplicationRecord
     self.qty * self.unit_cost
   end
 
+  def destroy_receipt
+    self.receipt.purge
+    self.email_receipt&.destroy!
+  end
+
   # If we are uploading an image receipt, then remove
   def delete_email_receipt
     self.email_receipt.destroy!

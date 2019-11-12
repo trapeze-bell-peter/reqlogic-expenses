@@ -48,19 +48,13 @@ class ReceiptMailbox < ApplicationMailbox
     @email_receipt.title = mail.subject
     @email_receipt.embedded_images = []
 
-    remove_old_receipts_and_attachments
+    expense_entry.destroy_receipt
     attachments_in_email_receipt
     extract_body
     @email_receipt.save!
   end
 
   private
-
-  # @api private
-  def remove_old_receipts_and_attachments
-    expense_entry.receipt.purge if expense_entry.receipt.attached?
-    @email_receipt.attachments.purge
-  end
 
   # Extracts the attachments, saves them to ActiveStorage and returns an array of the Blobs holding the extracted
   # images

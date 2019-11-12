@@ -16,4 +16,7 @@
 
     .form-group.btn-toolbar{ align: 'center' }
       = form.submit 'Upload', class: 'btn btn-primary mx-auto'
+      = link_to 'Delete', destroy_receipt_expense_entry_path(1), method: :delete,
+                          class: 'delete-btn btn btn-primary mx-auto', remote: true,
+                          data: { action: 'ajax:complete->expense-claim#ajaxComplete ajax:complete->receipt#dismissReceiptModal' }
       %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel
