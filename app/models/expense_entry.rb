@@ -25,7 +25,7 @@ class ExpenseEntry < ApplicationRecord
   delegate :user, :user_id, to: :expense_claim
 
   after_initialize { self.sequence ||= self.expense_claim.expense_entries.count }
-  before_update :delete_email_receipt, if: -> { self.email_receipt && self.receipt.attached? && self.receipt.changed? }
+  before_update :destroy_email_receipt, if: -> { self.email_receipt && self.receipt.attached? && self.receipt.changed? }
 
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]
@@ -35,11 +35,11 @@ class ExpenseEntry < ApplicationRecord
 
   def destroy_receipt
     self.receipt.purge
-    self.email_receipt&.destroy!
+    self.destroy_email_receipt
   end
 
   # If we are uploading an image receipt, then remove
-  def delete_email_receipt
+  def destroy_email_receipt
     self.email_receipt.destroy!
   end
 
