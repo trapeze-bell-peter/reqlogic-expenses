@@ -10,8 +10,8 @@ class ExpenseClaimsController < ApplicationController
 
   # GET /expense_claims/1
   # GET /expense_claims/1.json
-  def show;
-    @expense_claim.expense_entries.new if @expense_claim.expense_entries.count == 0
+  def show
+    @expense_claim.expense_entries.new if @expense_claim.expense_entries.count.zero?
   end
 
   # GET /expense_claims/new

@@ -49,12 +49,13 @@ class ReceiptMailbox < ApplicationMailbox
 
   private
 
+  EMAIL_NOTIFICATION_CLASS = '"alert alert-success alert-block"'
+
   def inform_user_of_email
-    ActionCable.server.broadcast "notifications:#{expense_entry.expense_claim.user_id}",
-                                 html: <<~HTML
-                                         <div class='alert alert-success alert-block text-center'>
-                                           Email receipt for #{expense_entry.description}
-                                         </div>
-                                       HTML
+    NotificationsChannel.broadcast_to(
+      @expense_entry.expense_claim.user_id,
+      expense_entry_id: @expense_entry.id,
+      msg_html: "<div class=#{EMAIL_NOTIFICATION_CLASS}>Email receipt for #{expense_entry.description} received</div>"
+    )
   end
 end

@@ -60,6 +60,7 @@ class ExpenseEntriesController < ApplicationController
     respond_to :html, :json, :js
 
     @expense_entry.destroy_receipt
+    @expense_entry.reload
 
     render partial: 'expense_entry.haml', layout: false, status: :ok, content_type: 'text/html',
            locals: { expense_entry: @expense_entry }

@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     delete 'destroy_receipt', on: :member
   end
 
+  mount ActionCable.server => '/cable'
+
   root 'expense_claims#index'
 
   # Enable the sidekiq console.

@@ -41,7 +41,6 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
-
   config.action_mailer.perform_caching = false
 
   # Print deprecation notices to the Rails logger.
@@ -62,6 +61,9 @@ Rails.application.configure do
 
   # Set so we can test Devise self registration
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # Configure the actioncable server
+  config.action_cable.url = 'ws://tguk-expenses.ngrok.io/cable'
 
   # Allow traffic from ngrok and reporting on that traffic
   config.hosts << 'tguk-expenses.ngrok.io'
