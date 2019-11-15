@@ -19,12 +19,8 @@
   }
 
   h3::before {
-    page-break-before: auto;
+    page-break-before: always;
     page-break-after: avoid;
-  }
-
-  h3 + img {
-    page-break-before: avoid;
   }
 
   img.receipt-img {
