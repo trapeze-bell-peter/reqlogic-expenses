@@ -58,5 +58,5 @@
       = render 'expense_entries/email_receipt', email_receipt: expense_entry.email_receipt
       .page-break
     - elsif expense_entry.receipt.attached?
-      %h3{class: expense_entry.sequence>1}  Receipt for #{expense_entry.sequence>1}: #{expense_entry.description}
+      %h3{class: expense_entry.sequence>1 && 'page-break'}  Receipt for #{expense_entry.sequence}: #{expense_entry.description}
       = image_tag expense_entry.receipt, class: 'receipt-img'
