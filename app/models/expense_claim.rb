@@ -15,6 +15,21 @@ class ExpenseClaim < ApplicationRecord
 
   accepts_nested_attributes_for :expense_entries
 
+  scope :sorted_claims, lambda {
+    joins(:expense_entries)
+      .select('expense_claims.*, MIN(expense_entries.date) AS first_date, MAX(expense_entries.date) AS last_date')
+      .group('expense_claims.id')
+      .order('first_date')
+  }
+
+  def from_date
+    self.expense_entries.minimum(:date)
+  end
+
+  def to_date
+    self.expense_entries.maximum(:date)
+  end
+
   # Calculates the total cost of the expense claim
   # @return [Money]
   def total

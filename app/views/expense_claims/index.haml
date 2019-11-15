@@ -13,13 +13,19 @@
   %thead
     %tr
       %th{scope: "col"} Description
-      %th{:scope => "col"} Date
+      %th{scope: "col"} Claim Date
+      %th{scope: "col"} Earliest Date
+      %th{scope: "col"} Latest Date
+      %th{scope: "col"} Total
       %th{:colspan => "3", :scope => "col"}
   %tbody
-    - @expense_claims.each do |expense_claim|
+    - @expense_claims.sorted_claims.each do |expense_claim|
       %tr
         %td= expense_claim.description
         %td= expense_claim.claim_date
+        %td= expense_claim.first_date
+        %td= expense_claim.last_date
+        %td= expense_claim.total
         %td
           = link_to 'Show', expense_claim, class: 'btn btn-primary'
           = link_to 'Edit', edit_expense_claim_path(expense_claim), class: 'btn btn-primary'
