@@ -38,7 +38,7 @@ class ExpenseClaim < ApplicationRecord
 
   def expense_entries_with_receipts
     self.expense_entries.order(:sequence).to_a.keep_if do |expense_entry|
-      expense_entry.receipt.attached? || expense_entry.email_receipt
+      expense_entry.receipt.attached? || expense_entry.old_email_receipt
     end
   end
 

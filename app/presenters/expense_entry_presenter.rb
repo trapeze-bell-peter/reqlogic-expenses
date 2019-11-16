@@ -18,7 +18,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   end
 
   def background
-     expense_entry.receipt.attached? || expense_entry.email_receipt ? 'alert-success' : nil
+     expense_entry.receipt.attached? || expense_entry.old_email_receipt ? 'alert-success' : nil
   end
 
   # @return [String] action definitions for use by Stimulus.js on the expense-entry div

@@ -7,7 +7,7 @@ RSpec.describe ReceiptMailbox, type: :mailbox do
     let!(:expense_entry) { FactoryBot.create :expense_entry_for_email }
 
     it 'correctly matches the incoming email to the expense entry' do
-      expect { subject }.to change(EmailReceipt, :count).by(1)
+      expect { subject }.to change(OldEmailReceipt, :count).by(1)
     end
 
     it 'identifies the PDF as not being an embedded image' do

@@ -41,7 +41,7 @@ class ReceiptMailbox < ApplicationMailbox
   #
   # @return [Void]
   def process
-    EmailReceipt.find_or_create_by!(expense_entry_id: expense_entry.id) do |email_receipt|
+    OldEmailReceipt.find_or_create_by!(expense_entry_id: expense_entry.id) do |email_receipt|
       email_receipt.mail = mail
     end
     inform_user_of_email

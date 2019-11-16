@@ -8,7 +8,7 @@ class ExpenseEntry < ApplicationRecord
   has_one :barclay_card_row_datum, dependent: :destroy
 
   has_one_attached :receipt
-  has_one :email_receipt
+  has_one :old_email_receipt
 
   monetize :unit_cost_pence
 
@@ -25,7 +25,7 @@ class ExpenseEntry < ApplicationRecord
   delegate :user, :user_id, to: :expense_claim
 
   after_initialize { self.sequence ||= self.expense_claim.expense_entries.count }
-  before_update :destroy_email_receipt, if: -> { self.email_receipt && self.receipt.attached? && self.receipt.changed? }
+  before_update :destroy_email_receipt, if: -> { self.old_email_receipt && self.receipt.attached? && self.receipt.changed? }
 
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]

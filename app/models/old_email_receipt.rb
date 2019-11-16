@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # Used to store details of a receipt sent as an email.
-class EmailReceipt < ApplicationRecord
+class OldEmailReceipt < ApplicationRecord
   belongs_to :expense_entry
 
   has_many_attached :attachments
