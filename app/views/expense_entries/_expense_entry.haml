@@ -45,4 +45,5 @@
         = expense_entry_presenter.insert_button
         = expense_entry_presenter.copy_button
 
-    = expense_entry_presenter.receipt_image
+    - if expense_entry.receipt
+      = ReceiptPresenter.create_receipt_presenter(self, expense_entry.receipt).render_for_modal

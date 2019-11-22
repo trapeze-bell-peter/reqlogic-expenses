@@ -1,15 +1,19 @@
+- receipt = expense_entry.receipt
+
+%h3{class: expense_entry.sequence>1 && 'page-break'} Receipt for #{expense_entry.sequence}: #{expense_entry.description}
+
 %h4 Email
 
-.email-body{width: '100%'}= email_receipt.email_body.html_safe
+.email-body{width: '100%'}= receipt.email_body.html_safe
 
-- if email_receipt.attachments.count > 0
+- if receipt.attachments.count > 0
   %h4 Attachments
   %ul
-    - email_receipt.attachments.each do |attachment|
+    - receipt.attachments.each do |attachment|
       %li= attachment.filename
 
-  - email_receipt.attachments.each do |attachment|
-    - next unless attachment.image? && !email_receipt.embedded_images&.include?(attachment.id)
+  - receipt.attachments.each do |attachment|
+    - next unless attachment.image? && !receipt.embedded_images&.include?(attachment.id)
 
     %h4.page-break= attachment.filename
     = image_tag(attachment, class: 'converted-pdf')

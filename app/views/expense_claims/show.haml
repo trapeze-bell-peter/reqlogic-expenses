@@ -53,10 +53,4 @@
 
 - @expense_claim.expense_entries_with_receipts.each do |expense_entry|
   %section
-    - if expense_entry.old_email_receipt
-      %h3{class: expense_entry.sequence>1 && 'page-break'} Receipt for #{expense_entry.sequence}: #{expense_entry.description}
-      = render 'expense_entries/email_receipt', email_receipt: expense_entry.old_email_receipt
-      .page-break
-    - elsif expense_entry.receipt.attached?
-      %h3{class: expense_entry.sequence>1 && 'page-break'}  Receipt for #{expense_entry.sequence}: #{expense_entry.description}
-      = image_tag expense_entry.receipt, class: 'receipt-img'
+    = render "expense_entries/#{expense_entry.receipt.class.to_s.underscore}", expense_entry: expense_entry

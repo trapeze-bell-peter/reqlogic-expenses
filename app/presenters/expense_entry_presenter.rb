@@ -18,7 +18,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   end
 
   def background
-     expense_entry.receipt.attached? || expense_entry.old_email_receipt ? 'alert-success' : nil
+    expense_entry.receipt ? 'alert-success' : nil
   end
 
   # @return [String] action definitions for use by Stimulus.js on the expense-entry div
@@ -135,13 +135,6 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     { class: form_field_class(field_name.to_sym),
       placeholder: field_name.capitalize,
       data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' } }
-  end
-
-  def receipt_image
-    return unless expense_entry.receipt.attached?
-
-    view.image_tag expense_entry.receipt, class: 'img-fluid',
-                                          hidden: true, data: { target: 'expense-entry.receiptImage' }
   end
 
   private
