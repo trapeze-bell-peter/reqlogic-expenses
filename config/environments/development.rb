@@ -66,6 +66,10 @@ Rails.application.configure do
   config.action_cable.url = 'ws://tguk-expenses.ngrok.io/cable'
 
   # Allow traffic from ngrok and reporting on that traffic
-  config.hosts << 'tguk-expenses.ngrok.io'
+  config.hosts << "tguk-expenses.eu.ngrok.io.ngrok.io"
   config.web_console.whiny_requests = false
+
+  # Because we are coming to the web console potentially through ngrok, we need to add that IP address to the
+  # whitelist for the web console so that we have it if Rails hits a problem.
+  config.web_console.whitelisted_ips = `curl -s http://ipv4bot.whatismyipaddress.com/`
 end
