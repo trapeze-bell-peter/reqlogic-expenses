@@ -52,5 +52,5 @@
 %h1 Receipts
 
 - @expense_claim.expense_entries_with_receipts.each do |expense_entry|
-  %section
+  %section.receipt
     = render "expense_entries/#{expense_entry.receipt.class.to_s.underscore}", expense_entry: expense_entry

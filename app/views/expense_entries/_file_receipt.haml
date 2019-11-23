@@ -1,4 +1,4 @@
 %h3{class: expense_entry.sequence>1 && 'page-break'}  Receipt for #{expense_entry.sequence}: #{expense_entry.description}
 
 - expense_entry.receipt.attachments.to_a.keep_if(&:image?).each do |attachment|
-  = image_tag attachment, class: 'receipt-img'
+  = image_tag(attachment, class: expense_entry.receipt.receipt_size.to_s.parameterize)

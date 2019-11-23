@@ -10,29 +10,30 @@
     display: none;
   }
 
+  section.receipt {
+    page-break-inside: avoid;
+  }
+
   h1 {
     page-break-before: always;
   }
 
-  .page-break {
-    page-break-before: always;
-  }
-
-  h3::before {
-    page-break-before: always;
+  h3 h4 {
     page-break-after: avoid;
   }
 
-  img.receipt-img {
-    width: auto;
-    height: auto;
-    max-width: 200mm;
+  img.a4 {
+    width: 90%;
+    page-break-after: always;
+    display: block;
   }
 
-  img.converted-pdf {
-    width: auto;
-    height: auto;
-    max-width: 200mm;
+  img.train-receipt {
+    width: 40%;
+  }
+
+  img.till-receipt {
+    width: 30%
   }
 }
 

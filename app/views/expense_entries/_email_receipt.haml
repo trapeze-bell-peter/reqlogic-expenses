@@ -1,6 +1,6 @@
 - receipt = expense_entry.receipt
 
-%h3{class: expense_entry.sequence>1 && 'page-break'} Receipt for #{expense_entry.sequence}: #{expense_entry.description}
+%h3 Receipt for #{expense_entry.sequence}: #{expense_entry.description}
 
 %h4 Email
 
@@ -16,4 +16,4 @@
     - next unless attachment.image? && !receipt.embedded_images&.include?(attachment.id)
 
     %h4.page-break= attachment.filename
-    = image_tag(attachment, class: 'converted-pdf')
+    = image_tag(attachment, class: receipt.receipt_size.to_s.parameterize)

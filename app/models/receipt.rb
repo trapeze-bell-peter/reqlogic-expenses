@@ -3,8 +3,9 @@
 # Used to store details of a receipt associated with an expense_entry
 class Receipt < ApplicationRecord
   belongs_to :expense_entry
-
   has_many_attached :attachments
+
+  enum receipt_size: %i[till_receipt a4 train_ticket]
 
   # User is defined by who this expense claim belongs to
   delegate :user, :user_id, to: :expense_entry
