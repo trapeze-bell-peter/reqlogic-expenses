@@ -17,15 +17,6 @@ class EmailReceipt < Receipt
     extract_body
   end
 
-  # Utility to move all details from the OldEmailReceipt model to this model.
-  def self.copy_from_old_email_receipt
-    OldEmailReceipt.all.each do |old_email_receipt|
-      email_receipt = EmailReceipt.create! old_email_receipt.attributes.except('id')
-      ActiveStorage::Attachment.where(record_type: 'EmailReceipt', record_id: old_email_receipt.id)
-                               .update_all(record_id: email_receipt.id, record_type: 'Receipt')
-    end
-  end
-
   private
 
   # Extracts the attachments, saves them to ActiveStorage and returns an array of the Blobs holding the extracted
