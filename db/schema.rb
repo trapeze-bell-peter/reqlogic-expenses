@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_16_180539) do
+ActiveRecord::Schema.define(version: 2019_11_22_214739) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -104,14 +104,6 @@ ActiveRecord::Schema.define(version: 2019_11_16_180539) do
     t.datetime "updated_at", null: false
     t.string "email_receipt_token"
     t.index ["expense_claim_id"], name: "index_expense_entries_on_expense_claim_id"
-  end
-
-  create_table "old_email_receipts", force: :cascade do |t|
-    t.string "title"
-    t.bigint "expense_entry_id", null: false
-    t.json "embedded_images"
-    t.text "email_body", null: false
-    t.index ["expense_entry_id"], name: "index_old_email_receipts_on_expense_entry_id"
   end
 
   create_table "receipts", force: :cascade do |t|
