@@ -8,7 +8,7 @@ class Receipt < ApplicationRecord
   enum receipt_size: %i[till_receipt a4 train_ticket]
 
   # User is defined by who this expense claim belongs to
-  delegate :user, :user_id, to: :expense_entry
+  delegate :user, :user_id, :description, to: :expense_entry
 
   # evaluate whether the attachment is a PDF.
   def self.is_pdf?(attachment)

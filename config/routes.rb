@@ -8,9 +8,14 @@ Rails.application.routes.draw do
     post 'barclay_csv_import', on: :collection
   end
 
+  # If we create a new receipt, then this needs attaching to an expense entry, hence the nested routing.  However,
+  # for updates and destroys, we only need the receipt id.
   resources :expense_entries do
-    delete 'destroy_receipt', on: :member
+    resources :email_receipts, only: :create
+    resources :file_receipts, only: :create
   end
+  resources :email_receipts, only: [:update, :destroy]
+  resources :file_receipts, only: [:update, :destroy]
 
   mount ActionCable.server => '/cable'
 

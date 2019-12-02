@@ -18,14 +18,66 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   end
 
   def background
-    expense_entry.receipt ? 'alert-success' : nil
+    expense_entry.receipt&.arrived? ? 'alert-success' : nil
   end
 
-  # @return [String] action definitions for use by Stimulus.js on the expense-entry div
-  def actions_for_expense_entry_div
-    'dragstart->expense-entry#dragstart dragenter->expense-entry#dragenter dragover->expense-entry#dragover' \
-      ' drop->expense-entry#drop'
+  # @return [Hash] the data hash for the div on the controller.  Defines the controller, the actions and the paths
+  #   to be used
+  def data_for_controller
+    {
+      controller: CONTROLLER,
+      action: ACTIONS_FOR_EXPENSE_ENTRY_DIV
+    }
+    .merge(receipt_path_and_action(EmailReceipt))
+    .merge(receipt_path_and_action(FileReceipt))
   end
+
+  private
+
+  # Most of the data that goes into the expense entries' controlling div is fixed.  Therefore, we create at startup
+  # a set of constants for that element.  This includes the actions, the paths to the relevant receipt controller
+  # and the action on that receipt controller.
+  CONTROLLER = 'expense-entry'
+  UNDERSCORED_CONTROLLER = CONTROLLER.underscore
+
+  ACTIONS_FOR_EXPENSE_ENTRY_DIV = %w(dragstart dragenter dragover drop).map{ |e| "#{e}->#{CONTROLLER}##{e}" }.join(' ')
+
+  UPDATE_PATH_METHOD = { EmailReceipt => :email_receipt_path, FileReceipt => :file_receipt_path }.freeze
+  CREATE_PATH_METHOD = { EmailReceipt => "#{UNDERSCORED_CONTROLLER}_email_receipts_path".to_sym,
+                         FileReceipt => "#{UNDERSCORED_CONTROLLER}_file_receipts_path".to_sym
+                       }.freeze
+
+  # The different receipt classes need to be referenced as underscored names for the paths.  Rather than calculate these
+  # each time we store them in a class cache.
+  @@underscored_class = {}
+
+  # If the receipt exists, then generate a path to the receipt, otherwise generate a create PATH via expense_entry.
+  def receipt_path_and_action(receipt_class)
+    _underscored_class = underscored_class(receipt_class)
+    action_key = "#{UNDERSCORED_CONTROLLER}_#{_underscored_class}_action"
+    method_key = "#{UNDERSCORED_CONTROLLER}_#{_underscored_class}_method"
+
+    if expense_entry.receipt&.class == receipt_class
+      { action_key => _update_path_for_receipt(receipt_class), method_key => 'PUT' }
+    else
+      { action_key => _create_path_for_receipt(receipt_class), method_key => 'POST' }
+    end
+  end
+
+  # Generates the appropriate URL path for updating an existing receipt.  Takes account of the class of the receipt
+  def _update_path_for_receipt(receipt_class)
+    view.send(UPDATE_PATH_METHOD[receipt_class], expense_entry.receipt.id || 1)
+  end
+
+  def _create_path_for_receipt(receipt_class)
+    view.send(CREATE_PATH_METHOD[receipt_class], expense_entry_id: (expense_entry.id || 1))
+  end
+
+  def underscored_class(receipt_class)
+    @@underscored_class[receipt_class] ||= receipt_class.to_s.underscore
+  end
+
+  public
 
   def row_id
     "expense-entry-#{expense_entry.persisted? ? expense_entry.id : 'empty-row'}"

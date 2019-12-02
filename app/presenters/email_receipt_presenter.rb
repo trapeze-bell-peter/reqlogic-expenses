@@ -2,6 +2,8 @@
 
 # Presenter class for the projects bookings table - presenter is used in a number of different places.
 class EmailReceiptPresenter < BasePresenter
+  include UploadFormPresenter
+
   # Initializer
   #
   # @api public
@@ -13,8 +15,12 @@ class EmailReceiptPresenter < BasePresenter
   alias email_receipt model
 
   def render_for_modal
-    # view.image_tag email_receipt.attachments.first, class: 'img-fluid',
-    #                hidden: true,
-    #                data: { target: 'expense-entry.receiptImage' }
+    if email_receipt.attachments.first
+      view.image_tag email_receipt.attachments.first, class: 'img-fluid', hidden: true,
+                                                      data: { target: 'expense-entry.receiptImage' }
+    elsif email_receipt.email_body
+      view.tag.div email_receipt.email_body.html_safe, class: 'email-in-modal overflow-auto', hidden: true,
+                                                       data: { target: 'expense-entry.receiptImage' }
+    end
   end
 end

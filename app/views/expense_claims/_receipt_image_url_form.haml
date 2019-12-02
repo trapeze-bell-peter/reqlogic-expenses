@@ -1,14 +1,12 @@
 #receipt_image_url_form
   %h4 Paste in the URL of an image (Google Photos or similar)
 
-  = form_with url: expense_entry_path, scope: :expense_entry, class: 'form-horizontal', method: :patch,
-              data: { action: 'submit->receipt#dismissReceiptModal' } do |form|
+  = FileReceiptPresenter.create_upload_form(self, 'receipt-image-url-form', :file_receipt) do |receipt_form_presenter|
     .form-group
-      = form.text_field :image_receipt_url, class: 'form-control', data: { target: 'receipt.imageReceiptUrl' }
+      = receipt_form_presenter.text_field :image_receipt_url, class: 'form-control',
+                                                              data: { target: 'receipt.imageReceiptUrl', name: 'file_receipt[image_receipt_url]' }
 
     .form-group.btn-toolbar{ align: 'center' }
-      = form.submit 'Fetch Image', class: 'btn btn-primary mx-auto'
-      = link_to 'Delete', destroy_receipt_expense_entry_path(1), method: :delete,
-                          class: 'delete-btn btn btn-primary mx-auto', remote: true,
-                          data: { action: 'ajax:complete->expense-claim#ajaxComplete ajax:complete->receipt#dismissReceiptModal' }
-      %button.btn.btn-secondary.mx-auto{"data-dismiss" => "modal", :type => "button"} Cancel
+      = receipt_form_presenter.submit 'Fetch Image', class: 'btn btn-primary mx-auto'
+      = receipt_form_presenter.destroy_btn
+      = receipt_form_presenter.cancel_btn

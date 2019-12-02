@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe EmailReceiptController, type: :controller do
+RSpec.describe EmailReceiptsController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do

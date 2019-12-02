@@ -63,10 +63,10 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   # Configure the actioncable server
-  config.action_cable.url = 'ws://tguk-expenses.ngrok.io/cable'
+  config.action_cable.url = 'ws://tguk-expenses.eu.ngrok.io/cable'
 
   # Allow traffic from ngrok and reporting on that traffic
-  config.hosts << "tguk-expenses.eu.ngrok.io.ngrok.io"
+  config.hosts << "tguk-expenses.eu.ngrok.io"
   config.web_console.whiny_requests = false
 
   # Because we are coming to the web console potentially through ngrok, we need to add that IP address to the

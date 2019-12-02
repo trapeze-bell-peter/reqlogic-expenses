@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_23_055041) do
+ActiveRecord::Schema.define(version: 2019_11_24_190348) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,7 +102,6 @@ ActiveRecord::Schema.define(version: 2019_11_23_055041) do
     t.string "unit_cost_currency", default: "GBP", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "email_receipt_token"
     t.index ["expense_claim_id"], name: "index_expense_entries_on_expense_claim_id"
   end
 
@@ -115,6 +114,7 @@ ActiveRecord::Schema.define(version: 2019_11_23_055041) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "receipt_size", default: 0, null: false
+    t.string "email_receipt_token"
     t.index ["expense_entry_id"], name: "index_receipts_on_expense_entry_id"
   end
 

@@ -4,6 +4,11 @@
 class EmailReceipt < Receipt
   attr_reader :mail, :embedded_images, :document
 
+  # Because of the way that the upload mechanisms work, things are async, so we check wether we have an upload
+  def arrived?
+    self.email_body
+  end
+
   # Virtual setter that will extract all the key info from the incoming email receipt and update this object
   # accordingly.
   def mail=(incoming_mail)
@@ -11,7 +16,7 @@ class EmailReceipt < Receipt
     @embedded_images = []
     @document = Nokogiri::HTML(incoming_mail.html_part.body.decoded) if incoming_mail.multipart? && incoming_mail.html_part
 
-    self.expense_entry.receipt.purge
+    self.attachments.purge
     self.title = mail.subject
     attachments_in_email_receipt
     extract_body
@@ -30,7 +35,7 @@ class EmailReceipt < Receipt
                                                       filename: attachment.filename,
                                                       content_type: attachment.content_type)
 
-      if is_pdf?(attachment)
+      if Receipt.is_pdf?(attachment)
         convert_pdf_to_jpgs(attachment, blob)
       elsif mail.multipart? && mail.html_part
         replace_embedded_image_in_html(attachment, blob)
@@ -39,7 +44,7 @@ class EmailReceipt < Receipt
   end
 
   # Replace the HTML for embedded images associated with the specific attachment with a reference to the Blob in
-  # in active storage.
+  # active storage.
   #
   # @api private
   #

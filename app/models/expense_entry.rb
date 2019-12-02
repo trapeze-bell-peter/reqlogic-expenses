@@ -40,20 +40,4 @@ class ExpenseEntry < ApplicationRecord
   def destroy_email_receipt
     self.email_receipt.destroy!
   end
-
-  EMAIL_NOTIFICATION_CLASS = '"alert alert-success alert-block"'
-
-  # Used to receive an image from Google.
-  def image_receipt_url=(url)
-    document = Nokogiri::HTML(URI.open(url))
-    google_image_url = document.css('meta[property="og:image"]').attribute('content').value
-    google_image_url = /(https:\/\/.*\.googleusercontent.com\/.*)=w[0-9]+-h[0-9]+.+/.match(google_image_url)[1]
-    receipt.attach(io: URI.open(google_image_url), filename: "Receipt for #{self.sequence}", content_type: 'image/jpeg')
-
-    NotificationsChannel.broadcast_to(
-      self.expense_claim.user_id,
-      expense_entry_id: self.id,
-      msg_html: "<div class=#{EMAIL_NOTIFICATION_CLASS}>Google image retrieved for #{self.description}</div>"
-    )
-  end
 end
