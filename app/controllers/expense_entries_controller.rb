@@ -1,6 +1,11 @@
+# frozen_string_literal: true
 
-
+# Used to provide actions on a single expense entry row.  The frontend Stimulus works by sending changes to individual
+# rows.  These are processed by this controller.  Depending on the action and the outcome, a revised expense entry may
+# row be returned.
 class ExpenseEntriesController < ApplicationController
+  include ExpenseEntryRenderConcern
+
   load_and_authorize_resource param_method: :expense_entry_params, only: %i[edit update destroy]
 
   # GET /expense_entries/new
@@ -15,8 +20,7 @@ class ExpenseEntriesController < ApplicationController
 
   # GET /expense_entries/1/edit
   def edit
-    render partial: 'expense_entry', layout: false, status: (@expense_entry ? :ok : :unprocessable_entity),
-           locals: { expense_entry: @expense_entry }
+    render_updated_expense_entry(@expense_entry)
   end
 
   # POST /expense_entries
@@ -26,8 +30,7 @@ class ExpenseEntriesController < ApplicationController
 
     @expense_entry = ExpenseEntry.create(expense_entry_params)
 
-    render partial: 'expense_entry.haml', layout: false, status: (@expense_entry.valid? ? :ok : :unprocessable_entity),
-           content_type: 'text/html', locals: { expense_entry: @expense_entry }
+    render_updated_expense_entry(@expense_entry.valid?)
   end
 
   # PATCH/PUT /expense_entries/1.json
@@ -38,13 +41,11 @@ class ExpenseEntriesController < ApplicationController
 
     if update_successful && expense_entry_params['receipt']
       @expense_entry.receipt.attach(expense_entry_params['receipt'])
-      render partial: 'expense_entry.haml', layout: false, status: :ok, content_type: 'text/html',
-             locals: { expense_entry: @expense_entry }
+      render_updated_expense_entry(true)
     elsif update_successful
       head :ok
     else
-      render partial: 'expense_entry.haml', layout: false, status: :unprocessable_entity, content_type: 'text/html',
-             locals: { expense_entry: @expense_entry }
+      render_updated_expense_entry(false)
     end
   end
 

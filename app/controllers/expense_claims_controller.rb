@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Controller for expense claim
+# Controller for expense claim.
 class ExpenseClaimsController < ApplicationController
   load_and_authorize_resource param_method: :expense_claim_params
 
@@ -59,6 +59,8 @@ class ExpenseClaimsController < ApplicationController
   end
 
   # POST /expense_claim/barclay_csv_import
+  #
+  # Used to receive a CSV export from the Barclay card site, and process it.
   def barclay_csv_import
     respond_to :html
 

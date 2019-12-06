@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Provides basic controller for managing CRUD for categories.
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[show edit update destroy]
 
