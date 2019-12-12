@@ -105,14 +105,18 @@ export default class ExpenseClaimController extends Controller {
         event.target.form.dataset.expenseEntryChanged = '1';
     }
 
-    // Event handler for a completed AJAX submission to the backend.  There are two possible outcomes:
-    // * if this is an existing entry and there are no issues with it, we simply accept the response.
-    // * If this is an existing entry with issues, then an HTML chunk will be returned
-    //   and we need to replace the existing expense entry div with the one returned by the backend.
+    // Event handler for a completed AJAX submission to the backend.  There are three possible outcomes:
+    // * ok, and no further action required.  Usually when the expense entry itself has been directly updated.
+    // * ok, but replace existing expense entry.  Mainly when the receipt modal has been used/
+    // * not ok, then expense entry with error issues is returned.
     ajaxComplete(event) {
         event.preventDefault();
 
         let [data, status, xhr] = event.detail;
+
+        if (status==='OK') {
+            $('#receipt-modal').modal('hide');
+        }
 
         if (status!=='OK' || data.responseText !== "") {
             let wrapper= document.createElement('div');

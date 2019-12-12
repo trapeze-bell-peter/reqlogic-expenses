@@ -1,8 +1,8 @@
 import { Controller } from "stimulus";
 
 export default class ReceiptController extends Controller {
-    static targets = [ 'modal', 'filename', 'emailAddress', 'emailReceiptToken', 'receiptImagePlaceholder',
-                       'imageReceiptUrl', 'receiptImagePlaceholder' ];
+    static targets = [ 'modal', 'filename', 'emailAddress', 'emailReceiptToken', 'imageReceiptUrl',
+                       'newReceiptImagePlaceholder', 'receiptSizeLabel' ];
 
     // First time that we are connected,
     connect() {
@@ -12,20 +12,25 @@ export default class ReceiptController extends Controller {
         // Thanks to https://mikerogers.io/2019/09/19/listening-to-bootstrap-events-in-stimulus-controllers.html for
         // providing the info that the Bootstrap modal event is generated in a way that prevents Stimulus from attaching
         // to it.
-        $(this.modalTarget).on('show.bs.modal', (event) => { this.show() } );
+        $(this.modalTarget).on('show.bs.modal', (event) => { this.show(event) } );
     }
 
     // Event handler called when the modal is exposed.
-    show() {
+    show(event) {
         console.log('Receipt modal has been shown');
 
-        this.resetFilenameField();
+        this.expenseEntryDiv = event.relatedTarget.closest('.expense-entry');
+
+        this.resetImageAndFilenameField();
         this.resetImageUrlField();
         this.setEmailReceiptToken();
     }
 
-    resetFilenameField() {
-        // this.filenameTarget.nextElementSibling.innerHTML = '';
+    resetImageAndFilenameField() {
+        if (this.newReceiptImagePlaceholderTarget.firstChild!=null) {
+            this.newReceiptImagePlaceholderTarget.firstChild.remove();
+        }
+        this.filenameTarget.nextElementSibling.innerHTML = '';
         this.filenameTarget.disabled = false;
     }
 
@@ -52,24 +57,20 @@ export default class ReceiptController extends Controller {
     // Event handler for when the user selects a new file for upload.  This replaces the existing image, or inserts a
     // new one.  Ensures that the image being displayed matches the image the user will upload.
     fileSelected(event) {
-        this.filenameTarget
         $('.custom-file-label').html(event.target.files[0].name);
 
         let newImage = document.createElement("img");
-        newImage.className = "img-fluid";
+        newImage.className = "img-fluid receipt-img";
         newImage.dataset.target = "expense-entry.receiptImage";
         newImage.src = URL.createObjectURL(event.target.files[0]);
 
-        let existingImage = this.receiptImagePlaceholderTarget.firstChild;
-        if (existingImage == null) {
-            this.receiptImagePlaceholderTarget.appendChild(newImage)
-        } else {
-            this.receiptImagePlaceholderTarget.replaceChild(newImage, existingImage);
-        }
+        this.newReceiptImagePlaceholderTarget.appendChild(newImage)
     }
 
-    // Event handler for when the modal is dismissed as a result of the user pressing 'Upload'
-    dismissReceiptModal(event) {
+    setReceiptSize(event) {
+        this.receiptSizeLabelTargets.forEach( receiptSizeLabel => {
+            receiptSizeLabel.firstChild.checked = receiptSizeLabel.classList.contains('active');
+        });
         $(this.modalTarget).modal('hide');
     }
 }

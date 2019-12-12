@@ -5,6 +5,10 @@ class Receipt < ApplicationRecord
   belongs_to :expense_entry
   has_many_attached :attachments
 
+  after_update do |receipt|
+    Receipt.where(expense_entry_id: receipt.expense_entry_id).where.not(id: receipt.id).destroy_all
+  end
+
   enum receipt_size: %i[till_receipt a4 train_ticket]
 
   # User is defined by who this expense claim belongs to

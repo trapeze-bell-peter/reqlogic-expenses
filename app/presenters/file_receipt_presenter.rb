@@ -25,6 +25,6 @@ class FileReceiptPresenter < BasePresenter
 
     return if image.nil?
 
-    view.image_tag image, class: 'img-fluid', hidden: true, data: { target: 'expense-entry.receiptImage' }
+    view.image_tag image, class: 'img-fluid receipt-img', hidden: true, data: { target: 'expense-entry.receiptImage' }
   end
 end

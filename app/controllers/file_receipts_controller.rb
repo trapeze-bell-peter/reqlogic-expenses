@@ -13,7 +13,7 @@ class FileReceiptsController < ApplicationController
     authorize! :edit, @expense_entry
 
     file_receipt = FileReceipt.new(expense_entry: @expense_entry)
-    success = file_receipt.update(file_receipt_params)
+    success = file_receipt.update(receipt_params)
     render_updated_expense_entry(success)
   end
 
@@ -22,6 +22,6 @@ class FileReceiptsController < ApplicationController
   # Note that the ReceiptsControllerConcern uses the method receipt_params to check the incoming params.  This
   # differs for EmailReceipt and for FileReceipt.
   def receipt_params
-    params.require(:file_receipt).permit(:source_file, :image_receipt_url)
+    params.require(:file_receipts).permit(:source_file, :image_receipt_url, :receipt_size)
   end
 end

@@ -1,18 +1,22 @@
 #receipt-upload{ data: { target: 'receipt-upload' } }
   %h4 Select JPG/PDF receipt for upload
 
-  = FileReceiptPresenter.create_upload_form(self, 'file-upload-form', :file_receipt) do |receipt_form_presenter|
+  = FileReceiptPresenter.create_upload_form(self, 'file-upload-form', :file_receipts) do |receipt_form_presenter|
     .form-group
       .custom-file
         = receipt_form_presenter.file_field :source_file, class: 'custom-file-input',
                                                           id: 'receipt-upload-field',
                                                           direct_upload: true,
                                                           data: { action: 'receipt#fileSelected', target: 'receipt.filename' },
-                                                          name: 'file_receipt[source_file]'
+                                                          name: 'file_receipts[source_file]'
 
         = receipt_form_presenter.label 'receipt-upload-field', 'Choose', class: 'custom-file-label'
 
+    = receipt_form_presenter.receipt_size_radio_group
+
+    .form-group#new-receipt-image-placeholder{ data: { target: 'receipt.newReceiptImagePlaceholder' } }
+
     .form-group.btn-toolbar{ align: 'center' }
       = receipt_form_presenter.submit 'Upload', class: 'btn btn-primary mx-auto'
-      = receipt_form_presenter.destroy_btn
       = receipt_form_presenter.cancel_btn
+

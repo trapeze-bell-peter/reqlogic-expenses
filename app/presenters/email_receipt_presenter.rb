@@ -16,7 +16,7 @@ class EmailReceiptPresenter < BasePresenter
 
   def render_for_modal
     if email_receipt.attachments.first
-      view.image_tag email_receipt.attachments.first, class: 'img-fluid', hidden: true,
+      view.image_tag email_receipt.attachments.first, class: 'email-in-modal img-fluid', hidden: true,
                                                       data: { target: 'expense-entry.receiptImage' }
     elsif email_receipt.email_body
       view.tag.div email_receipt.email_body.html_safe, class: 'email-in-modal overflow-auto', hidden: true,

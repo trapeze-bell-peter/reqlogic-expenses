@@ -22,6 +22,6 @@ class EmailReceiptsController < ApplicationController
   # Note that the ReceiptsControllerConcern uses the method receipt_params to check the incoming params.  This
   # differs for EmailReceipt and for FileReceipt.
   def receipt_params
-    params.require(:email_receipt).permit(:email_receipt_token, :email_address)
+    params.require(:email_receipts).permit(:email_receipt_token, :email_address)
   end
 end

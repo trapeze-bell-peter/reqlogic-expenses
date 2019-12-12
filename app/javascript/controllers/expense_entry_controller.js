@@ -10,12 +10,14 @@ import { Controller } from "stimulus";
 // * managing the dragging and dropping of rows in the table
 // * updating key fields in the form depending on other changes made in the row by the user.
 export default class ExpenseEntryController extends Controller {
-    static targets = [ 'form', "category", "description", "vat", "qty", "unitCost", "totalCost", "claimTotal",
-                       'receiptImage', 'emailReceiptToken' ];
+    static targets = [ "form", "category", "description", "vat", "qty", "unitCost", "totalCost", "claimTotal",
+        "receiptImage", "emailReceiptToken" ];
 
     // First time that we are connected,
     connect() {
         this.modal = document.getElementById('receipt-modal');
+        this.currentReceiptForm = this.modal.querySelector('#current-receipt-form');
+        this.imageDiv = this.modal.querySelector("#current-receipt-image-placeholder");
     }
 
     ajaxSuccessThereforeResetErrors(event) {
@@ -107,17 +109,45 @@ export default class ExpenseEntryController extends Controller {
     }
 
     // Event handler for when the user hits the receipt upload button:
+    // * copy the current image into the Current Receipt tab and set URL target
     // * copies the destination from the current form
     // * sets the delete action to point at the current expense entry
     // * removes a previous child if it existed
     // * ensures the file selector field is enabled
     receiptUpload(event) {
+        this.setupExistingReceiptForm();
         this.setupUploadForm('file-upload-form', 'fileReceipt');
         this.setupUploadForm('receipt-image-url-form', 'fileReceipt');
         this.setupUploadForm('receipt-from-email-form', 'emailReceipt');
+    }
 
-        this.copyImageToModal();
-        this.setupDeleteButtons();
+
+    // If an image has already been uploaded, then a reference to it is held in the expense-entry div.  Copy that
+    // reference to the modal so the user sees what has already been uploaded.
+    setupExistingReceiptForm() {
+        let isEmailReceipt = this.data.get('emailReceiptMethod') == 'PUT';
+        this.currentReceiptForm.action = this.data.get( (isEmailReceipt) ? 'emailReceiptAction' : 'fileReceiptAction');
+
+        if (this.imageDiv.lastElementChild != null) {
+            this.imageDiv.removeChild(this.imageDiv.lastElementChild);
+        }
+
+        // Show resize buttons on current form so long as current receipt not an email.
+        this.setupReceiptSizeButtons(this.currentReceiptForm, !isEmailReceipt);
+
+        if (this.hasReceiptImageTarget) {
+            let image = this.receiptImageTarget.cloneNode(true);
+            this.copyImageToModal(image);
+        } else {
+            this.imageDiv.innerHTML = "<p>No receipt uploaded</p>";
+        }
+
+        this.setupDeleteButton();
+    }
+
+    copyImageToModal(image) {
+        image.hidden = false;
+        this.imageDiv.appendChild(image);
     }
 
     // Common code to configure each form according to what already exists.
@@ -126,29 +156,34 @@ export default class ExpenseEntryController extends Controller {
         let action = `${target_name}Action`;
         let method = `${target_name}Method`;
 
+        this.setupReceiptSizeButtons(form, form!=='receipt-from-email-form');
+
         form.querySelector("input[type='hidden'][name='_method']").disabled = this.data.get(method) == 'POST';
         form.action = this.data.get(action);
     }
 
-    // If an image has already been uploaded, then a reference to it is held in the expense-entry div.  Copy that
-    // reference to the modal so the user sees what has already been uploaded.
-    copyImageToModal() {
-        let imageDiv = this.modal.querySelector("#receipt-image-placeholder");
+    setupReceiptSizeButtons(form, show) {
+        let receiptSize = this.data.get('receiptSize');
 
-        if (imageDiv.lastElementChild != null) {
-            imageDiv.removeChild(imageDiv.lastElementChild);
-        }
-
-        if (this.hasReceiptImageTarget) {
-            let image = this.receiptImageTarget.cloneNode(true);
-            image.hidden = false;
-            imageDiv.appendChild(image);
-        }
+        form.querySelectorAll('.receipt-size').forEach(receiptSizeButton => {
+            if (show) {
+                receiptSizeButton.hidden = false;
+                if (receiptSizeButton.firstElementChild.value == receiptSize) {
+                    receiptSizeButton.classList.add("active");
+                    receiptSizeButton.firstElementChild.checked = true;
+                } else {
+                    receiptSizeButton.classList.remove("active");
+                    receiptSizeButton.firstElementChild.checked = false;
+                }
+            } else {
+                receiptSizeButton.hidden = true;
+            }
+        });
     }
 
     // Puts the correct action on each of the Delete buttons depending on what type of receipt we are currently dealing
     // with.
-    setupDeleteButtons() {
+    setupDeleteButton() {
         var action;
 
         if (this.data.get('fileReceiptMethod') == 'PUT') {
@@ -159,11 +194,9 @@ export default class ExpenseEntryController extends Controller {
             action = '#';
         }
 
-        let deleteButtons = this.modal.querySelectorAll(".delete-btn");
-        deleteButtons.forEach(deleteButton => {
-            deleteButton.href = action;
-            deleteButton.disabled = action=='#';
-            deleteButton.method = 'DELETE';
-        });
+        let deleteButton = this.modal.querySelector(".delete-btn");
+        deleteButton.href = action;
+        deleteButton.disabled = action=='#';
+        deleteButton.method = 'DELETE';
     }
 }

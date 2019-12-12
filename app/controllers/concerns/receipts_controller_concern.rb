@@ -6,8 +6,8 @@ module ReceiptsControllerConcern
   extend ActiveSupport::Concern
 
   included do
-    before_action :set_expense_entry
     before_action :set_receipt, only: %i[update destroy]
+    before_action :set_expense_entry
   end
 
   # PUT /email_receipts/:id or PUT /file_receipts/:id
@@ -30,18 +30,18 @@ module ReceiptsControllerConcern
 
     authorize! :destroy, @expense_entry
 
-    @receipt.destroy ? head(:ok) : render_updated_expense_entry(false)
+    @receipt.destroy ? render_updated_expense_entry(true) : render_updated_expense_entry(false)
   end
 
   private
 
   # @api private
-  def set_expense_entry
-    @expense_entry = ExpenseEntry.find(@receipt&.expense_entry_id || params[:expense_entry_id])
+  def set_receipt
+    @receipt = Receipt.find(params[:id])
   end
 
   # @api private
-  def set_receipt
-    @receipt = Receipt.find(params[:id])
+  def set_expense_entry
+    @expense_entry = ExpenseEntry.find(@receipt&.expense_entry_id || params[:expense_entry_id])
   end
 end

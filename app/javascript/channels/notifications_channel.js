@@ -9,6 +9,14 @@ consumer.subscriptions.create("NotificationsChannel", {
     console.log('Incoming notification');
 
     document.getElementById('notifications').innerHTML = data.msg_html;
-    document.getElementById(`expense-entry-${data.expense_entry_id}`).classList.add('alert-success');
+
+    fetch(`/expense_entries/${data.expense_entry_id}/edit`)
+        .then( (response) => { return response.text(); } )
+        .then( (expense_entry_html) => {
+            let wrapper= document.createElement('div');
+            wrapper.innerHTML= expense_entry_html;
+            let existing_div = document.getElementById(`expense-entry-${data.expense_entry_id}`);
+            existing_div.replaceWith(wrapper.firstChild);
+        });
   }
 });

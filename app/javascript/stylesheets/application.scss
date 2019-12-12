@@ -21,10 +21,10 @@ div.input-group small {
   bottom: -20px;
 }
 
-div.email-body {
-  // all: unset;
+div#receipt-dialog {
+  max-width: max-content;
 }
 
-div.email-in-modal {
+.email-in-modal {
   height: 20em;
 }

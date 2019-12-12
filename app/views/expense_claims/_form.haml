@@ -51,7 +51,7 @@
   %template#expense-entry-empty-row= render partial: 'expense_entries/expense_entry',
                                             locals: { expense_entry: ExpenseEntry.new(expense_claim: @expense_claim) }
 
-  = render 'receipt_modal'
+  = render 'receipts/receipt_modal'
 
   - if show_only
     :javascript

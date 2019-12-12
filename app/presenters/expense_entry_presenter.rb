@@ -21,8 +21,8 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     expense_entry.receipt&.arrived? ? 'alert-success' : nil
   end
 
-  # @return [Hash] the data hash for the div on the controller.  Defines the controller, the actions and the paths
-  #   to be used
+  # @return [Hash] the data hash for the div on the controller.  Defines the controller, the actions, the paths
+  #   to be used, and the receipt size to be set in the modal
   def data_for_controller
     {
       controller: CONTROLLER,
@@ -30,6 +30,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     }
     .merge(receipt_path_and_action(EmailReceipt))
     .merge(receipt_path_and_action(FileReceipt))
+    .merge(receipt_size)
   end
 
   private
@@ -57,7 +58,7 @@ class ExpenseEntryPresenter < StimulusFormPresenter
     action_key = "#{UNDERSCORED_CONTROLLER}_#{_underscored_class}_action"
     method_key = "#{UNDERSCORED_CONTROLLER}_#{_underscored_class}_method"
 
-    if expense_entry.receipt&.class == receipt_class
+    if expense_entry.receipt.class == receipt_class
       { action_key => _update_path_for_receipt(receipt_class), method_key => 'PUT' }
     else
       { action_key => _create_path_for_receipt(receipt_class), method_key => 'POST' }
@@ -75,6 +76,10 @@ class ExpenseEntryPresenter < StimulusFormPresenter
 
   def underscored_class(receipt_class)
     @@underscored_class[receipt_class] ||= receipt_class.to_s.underscore
+  end
+
+  def receipt_size
+    { "#{UNDERSCORED_CONTROLLER}_receipt_size" => expense_entry.receipt&.receipt_size }
   end
 
   public

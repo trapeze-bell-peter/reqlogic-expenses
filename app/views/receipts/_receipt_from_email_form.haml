@@ -1,7 +1,7 @@
 #receipt_from_email
   %h4 Copy the below Email address and forward receipt to it
 
-  = EmailReceiptPresenter.create_upload_form(self, 'receipt-from-email-form', :email_receipt) do |receipt_form_presenter|
+  = EmailReceiptPresenter.create_upload_form(self, 'receipt-from-email-form', :email_receipts) do |receipt_form_presenter|
     = receipt_form_presenter.hidden_field :email_receipt_token, class: 'form-control', readonly: true,
                                                                 data: { target: 'receipt.emailReceiptToken' }
 
@@ -12,5 +12,4 @@
     .form-group.btn-toolbar{ align: 'center' }
       = receipt_form_presenter.submit 'Copy to Clipboard', class: 'btn btn-primary mx-auto',
                                          data: { action: 'receipt#copyToClipboard' }
-      = receipt_form_presenter.destroy_btn
       = receipt_form_presenter.cancel_btn
