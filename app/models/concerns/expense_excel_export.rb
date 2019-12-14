@@ -54,7 +54,8 @@ module ExpenseExcelExport
       @expense_sheet.add_cell(row, 2, expense_entry.description)
       @expense_sheet.add_cell(row, 3, 'EACH')
       @expense_sheet.add_cell(row, 4, expense_entry.unit_cost.to_f)
-      @expense_sheet.add_cell(row, 5, VAT_MAPPING[expense_entry.vat])
+      # ToDo: challenge why this is always supposed to be E1.  Surely a bug in the ReqLogic import.
+      @expense_sheet.add_cell(row, 5, 'E1')
       self.write_date(row, expense_entry)
       @expense_sheet.add_cell(row, 7, expense_entry.project)
     end
