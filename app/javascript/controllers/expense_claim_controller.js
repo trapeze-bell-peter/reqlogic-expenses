@@ -80,6 +80,7 @@ export default class ExpenseClaimController extends Controller {
         let owningExpenseEntryDiv = event.currentTarget.closest('div.expense-entry');
         owningExpenseEntryDiv.remove();
         this.reSequenceExpenseEntryForms();
+        this.recalcTotalClaim(event);
     }
 
     // Event handler for when the user clicks into an input field.  If the click is away from the current row
