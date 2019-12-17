@@ -2,6 +2,8 @@
 
 # Used to store details of a receipt sent as an email.
 class EmailReceipt < Receipt
+  include Rails.application.routes.url_helpers
+
   attr_reader :mail, :embedded_images, :document
 
   # Because of the way that the upload mechanisms work, things are async, so we check wether we have an upload
