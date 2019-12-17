@@ -9,7 +9,7 @@
     .form-row.align-items-top
       .form-group.col-1{ data: { action: 'mousedown->expense-entry#mousedown mouseup->expense-entry#mouseup' } }
         = expense_entry_presenter.sequence
-      .form-group.col-2= expense_entry_presenter.form_field :date, :date_field
+      .form-group.col-2= expense_entry_presenter.form_field :date, :date_field, id: "expense_entry_date_#{expense_entry.id}"
       .form-group.col-2= expense_entry_presenter.categories
       .form-group.col-6
         .input-group
@@ -35,7 +35,7 @@
                                                            action: 'click->expense-entry#receiptUpload' } }
             %i.fas.fa-receipt.fa-2x.expenses-action-icon
     .form-row.align-items-top.justify-content-end
-      .form-group.col-1= expense_entry_presenter.form_field :project, :text_field
+      .form-group.col-1= expense_entry_presenter.form_field :project, :text_field, id: "expense_entry_project_#{expense_entry.id}"
       .form-group.col-1= expense_entry_presenter.vat
       .form-group.col-1= expense_entry_presenter.qty
       .form-group.col-1= expense_entry_presenter.unit_cost

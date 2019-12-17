@@ -100,14 +100,15 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   # expense claim.
   # @return [String]
   def expense_claim_id
-    expense_entry_form.hidden_field :expense_claim_id
+    expense_entry_form.hidden_field :expense_claim_id, id: form_field_id(:expense_claim_id)
   end
 
   # Generates the hidden field in which we save sequence number.  This field is updated by the expenseClaim Stimulus.js
   # controller.
   # @return [String]
   def sequence
-    expense_entry_form.text_field :sequence, class: 'form-control', readonly: true,
+    expense_entry_form.text_field :sequence, id: form_field_id('sequence'),
+                                             class: 'form-control', readonly: true,
                                              data: { target: 'expense-claim.sequenceField' }
   end
 
@@ -148,9 +149,11 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   end
 
   def total_cost
-    view.text_field_tag :total_cost, expense_entry.total_cost,
-                        disabled: true,
-                        class: 'form-control', data: { target: 'expense-entry.totalCost expense-claim.totalCost' }
+    view.text_field_tag :total_cost, expense_entry.total_cost, id: form_field_id(:total_cost),
+                                                               disabled: true,
+                                                               class: 'form-control',
+                                                               data: { target: 'expense-entry.totalCost '\
+                                                                               'expense-claim.totalCost' }
   end
 
   def delete_button
@@ -189,12 +192,19 @@ class ExpenseEntryPresenter < StimulusFormPresenter
   # @param [String] field_name
   # @return [Hash]
   def default_field_hash(field_name)
-    { class: form_field_class(field_name.to_sym),
+    { id: form_field_id(field_name),
+      class: form_field_class(field_name.to_sym),
       placeholder: field_name.capitalize,
       data: { action: 'focus->expense-claim#focusOnExpenseEntry change->expense-claim#changeToExpenseEntry' } }
   end
 
+  # Generates a unique id for each field in the expense entry table
+  def form_field_id(field_name)
+    "expense_entry_#{field_name.to_s}_#{self.expense_entry.id || '_new'}"
+  end
   private
+
+
 
   def delete_icon
     view.tag.i class: 'fas fa-trash fa-2x expenses-action-icon'

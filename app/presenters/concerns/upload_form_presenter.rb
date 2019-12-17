@@ -41,6 +41,7 @@ module UploadFormPresenter
     self.form.submit 'Apply', class: APPLY_BTN_CLASSES
   end
 
+  # Generates the delete button on the current receipt tab
   DELETE_BTN_CLASSES = 'delete-btn btn btn-primary mx-auto'
   def destroy_btn
     view.link_to 'Delete', 'PLACEHOLDER-URL', method: :delete, class: DELETE_BTN_CLASSES,
@@ -48,8 +49,9 @@ module UploadFormPresenter
                                               data: { action: 'ajax:complete->receipt#deleteReceiptComplete' }
   end
 
+  # Generates for the receipt modal a cancel button which is repeated on each tab.
   def cancel_btn
-    view.button_tag 'Cancel', type: 'button', class: 'button btn btn-secondary mx-auto',
+    view.button_tag 'Cancel', type: 'button', id: nil, class: 'button btn btn-secondary mx-auto',
                               data: { 'dismiss' => 'modal', type: 'button' }
   end
 

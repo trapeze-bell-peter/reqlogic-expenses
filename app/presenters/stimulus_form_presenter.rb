@@ -35,8 +35,6 @@ class StimulusFormPresenter < BasePresenter
   attr_reader :form
   delegate :label, to: :form
 
-  attr_accessor :default_field_hash
-
   # Entry point.  Given a type, and other parameters for the form_field, returns the appropriate HTML.  Note it
   # uses the name of the caller to infer which field we are configuring.
   #

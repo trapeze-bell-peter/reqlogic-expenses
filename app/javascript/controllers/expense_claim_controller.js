@@ -108,7 +108,7 @@ export default class ExpenseClaimController extends Controller {
 
     // Event handler for a completed AJAX submission to the backend.  There are three possible outcomes:
     // * ok, and no further action required.  Usually when the expense entry itself has been directly updated.
-    // * ok, but replace existing expense entry.  Mainly when the receipt modal has been used/
+    // * ok, but replace existing expense entry.  Mainly when the receipt modal has been used.
     // * not ok, then expense entry with error issues is returned.
     ajaxComplete(event) {
         event.preventDefault();
@@ -124,9 +124,10 @@ export default class ExpenseClaimController extends Controller {
             wrapper.innerHTML= data.responseText;
 
             let newExpenseEntry = wrapper.firstChild;
-            let sequenceIdToReplace = newExpenseEntry.querySelector('#expense_entry_sequence').value;
+            let sequenceIdToReplace = newExpenseEntry.querySelector('input[name="expense_entry[sequence]"]').value;
             let oldExpenseEntry =
-                this.claimTableTarget.querySelector(`#expense_entry_sequence[value='${sequenceIdToReplace}']`).closest('.expense-entry');
+                this.claimTableTarget.querySelector(`input[name="expense_entry[sequence"][value="${sequenceIdToReplace}"]`)
+                    .closest('.expense-entry');
 
             this.claimTableTarget.replaceChild(newExpenseEntry, oldExpenseEntry);
         }
