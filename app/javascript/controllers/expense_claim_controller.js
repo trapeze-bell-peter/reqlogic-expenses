@@ -126,7 +126,7 @@ export default class ExpenseClaimController extends Controller {
             let newExpenseEntry = wrapper.firstChild;
             let sequenceIdToReplace = newExpenseEntry.querySelector('input[name="expense_entry[sequence]"]').value;
             let oldExpenseEntry =
-                this.claimTableTarget.querySelector(`input[name="expense_entry[sequence"][value="${sequenceIdToReplace}"]`)
+                this.claimTableTarget.querySelector(`input[name="expense_entry[sequence]"][value="${sequenceIdToReplace}"]`)
                     .closest('.expense-entry');
 
             this.claimTableTarget.replaceChild(newExpenseEntry, oldExpenseEntry);
