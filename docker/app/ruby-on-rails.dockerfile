@@ -1,4 +1,4 @@
-FROM ruby:2.6.3
+FROM ruby:2.7.0
 MAINTAINER marko@codeship.com
 
 # Install apt based dependencies required to run Rails as
@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y build-essential postgresql-client yarn
 
 # Need a newer version of nodejs than from standard Debian
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - && apt-get install -y nodejs
-RUN npm install -g yarn
+RUN npm install -g yarn --force
 
 # Configure the main working directory. This is the base
 # directory used in any further RUN, COPY, and ENTRYPOINT
