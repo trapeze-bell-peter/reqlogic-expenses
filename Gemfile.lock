@@ -99,7 +99,7 @@ GEM
     haml (5.1.2)
       temple (>= 0.8.0)
       tilt
-    i18n (1.8.0)
+    i18n (1.8.1)
       concurrent-ruby (~> 1.0)
     image_processing (1.10.1)
       mini_magick (>= 4.9.5, < 5)
@@ -293,7 +293,7 @@ DEPENDENCIES
   webpacker
 
 RUBY VERSION
-   ruby 2.7.0p0
+   ruby 2.6.5p114
 
 BUNDLED WITH
-   2.1.2
+   2.1.4

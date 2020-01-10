@@ -10,16 +10,16 @@
       <Owner>postgres</Owner>
       <IntrospectionStateNumber>3780</IntrospectionStateNumber>
       <Current>1</Current>
-      <Relations>sequence|table|36155|36157|1
-sequence|table|36033|36026|1
+      <Relations>sequence|table|36024|36014|1
+sequence|table|36053|36043|1
+sequence|table|36155|36157|1
 sequence|table|36006|36000|1
 sequence|table|35998|35992|1
 sequence|table|35990|35984|1
-sequence|table|35982|35975|1
 sequence|table|36041|36035|1
-sequence|table|36024|36014|1
-sequence|table|36053|36043|1
 sequence|table|36077|36069|1
+sequence|table|35982|35975|1
+sequence|table|36033|36026|1
 </Relations>
     </database>
     <database id="3" parent="1" name="master_test">
