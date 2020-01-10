@@ -61,7 +61,9 @@ class EmailReceipt < Receipt
 
     return unless element
 
-    self.document.at_css("img[src='cid:#{content_id}']")&.attributes['src'] = url_for(attachment)
+    self.document.at_css("img[src='cid:#{content_id}']")&.attributes['src'] =
+      attachment.service_url(expires_in: nil)
+
     self.embedded_images << blob.id
   end
 
