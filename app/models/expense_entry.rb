@@ -23,7 +23,7 @@ class ExpenseEntry < ApplicationRecord
   # User is defined by who this expense claim belongs to
   delegate :user, :user_id, to: :expense_claim
 
-  after_initialize { self.sequence ||= self.expense_claim.expense_entries.count }
+  after_initialize :set_sequence
 
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]
@@ -39,5 +39,11 @@ class ExpenseEntry < ApplicationRecord
   # If we are uploading an image receipt, then remove
   def destroy_email_receipt
     self.email_receipt.destroy!
+  end
+
+  def set_sequence
+    return if self.expense_claim_id.nil?
+
+    self.sequence ||= ExpenseEntry.where(expense_claim_id: self.expense_claim_id).count
   end
 end
