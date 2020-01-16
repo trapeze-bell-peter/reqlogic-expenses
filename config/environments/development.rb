@@ -36,7 +36,7 @@ Rails.application.configure do
   # Use Redis as our cache store.
   config.cache_store = :redis_cache_store, { url: ENV['RAILS_CACHE_URL'] || 'redis://0.0.0.0:6380' }
 
-  # Store uploaded files on the local file system (see config/storage.yml for options).
+  # Store uploaded files in Azure.
   config.active_storage.service = :microsoft
 
   # Don't care if the mailer can't send.

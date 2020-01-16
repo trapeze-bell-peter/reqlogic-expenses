@@ -72,6 +72,8 @@ GEM
       msgpack (~> 1.0)
     builder (3.2.4)
     cancancan (3.0.1)
+    compare-xml (0.66)
+      nokogiri (~> 1.8)
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     convert_api (1.2.0)
@@ -269,6 +271,7 @@ DEPENDENCIES
   azure-storage
   bootsnap (>= 1.1.0)
   cancancan
+  compare-xml
   convert_api
   devise
   factory_bot_rails

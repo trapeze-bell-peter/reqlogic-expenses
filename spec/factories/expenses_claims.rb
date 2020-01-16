@@ -22,5 +22,11 @@ FactoryBot.define do
         create_list(:expense_entry, evaluator.expense_entries_count, expense_claim: expense_claim)
       end
     end
+
+    factory :expense_claim_with_email_receipt do
+      after(:create) do |expense_claim, evaluator|
+        create(:expense_entry_for_email, expense_claim: expense_claim)
+      end
+    end
   end
 end

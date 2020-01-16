@@ -4,4 +4,3 @@ microsoft:
   storage_account_name: tgukexpenses001
   storage_access_key: <%= Rails.application.credentials.dig(:azure_storage, :storage_access_key) %>
   container: receipts
-

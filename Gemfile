@@ -63,6 +63,7 @@ gem 'spreadsheet'
 gem 'sidekiq'
 
 group :development, :test do
+  gem 'compare-xml'
   gem 'factory_bot_rails'
   gem 'rspec-rails', '~> 3.9'
   gem 'rubocop'

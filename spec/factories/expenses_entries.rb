@@ -11,7 +11,9 @@ FactoryBot.define do
     unit_cost           { Money.new('£ 5.00') }
 
     factory :expense_entry_for_email do
-      email_receipt_token { 'u2iclhr1' }
+      after(:create) do |expense_entry|
+        create :expected_email_receipt, expense_entry: expense_entry
+      end
     end
 
     before(:create, &:set_sequence)

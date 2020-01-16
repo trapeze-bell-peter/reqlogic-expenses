@@ -18,10 +18,10 @@ class EmailReceipt < Receipt
     @embedded_images = []
     @document = Nokogiri::HTML(incoming_mail.html_part.body.decoded) if incoming_mail.multipart? && incoming_mail.html_part
 
+    extract_body
     self.attachments.purge
     self.title = mail.subject
     attachments_in_email_receipt
-    extract_body
   end
 
   private
@@ -62,7 +62,7 @@ class EmailReceipt < Receipt
     return unless element
 
     self.document.at_css("img[src='cid:#{content_id}']")&.attributes['src'] =
-      attachment.service_url(expires_in: nil)
+        Rails.application.routes.url_helpers.rails_blob_path(blob, only_path: true)
 
     self.embedded_images << blob.id
   end

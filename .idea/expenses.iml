@@ -46,6 +46,7 @@
     <orderEntry type="library" scope="PROVIDED" name="builder (v3.2.4, RVM: ruby-2.6.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="bundler (v2.1.4, RVM: ruby-2.6.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="cancancan (v3.0.1, RVM: ruby-2.6.5) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="compare-xml (v0.66, RVM: ruby-2.6.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="concurrent-ruby (v1.1.5, RVM: ruby-2.6.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="connection_pool (v2.2.2, RVM: ruby-2.6.5) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="convert_api (v1.2.0, RVM: ruby-2.6.5) [gem]" level="application" />
