@@ -19,6 +19,11 @@ class Receipt < ApplicationRecord
     attachment.content_type =~ /^application\/pdf/ || attachment.filename =~ /\.pdf$/i
   end
 
+  # Defines whether the source of the receipt is a PDF
+  def pdf?
+    self.source_file.content_type =~ /^application\/pdf/ || self.source_file.filename =~ /\.pdf$/i
+  end
+
   # Goes through all the attachments in the incoming email.  If the attachment is a PDF use web service to get convert
   # it to JPG so we can print it out later.
   #

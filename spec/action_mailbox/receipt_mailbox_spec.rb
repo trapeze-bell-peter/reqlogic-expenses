@@ -23,11 +23,12 @@ RSpec.describe ReceiptMailbox, type: :mailbox do
     let(:email_receipt) { expense_claim.expense_entries.first.receipt }
 
     it 'correctly stores the incoming email with attachments' do
-      pending 'HTML comparison still needs sorting properly'
-      
       expect(email.mail.to.first).to eq("receipt-development.#{email_receipt.email_receipt_token}@tguk-expenses.com")
-      puts CompareXML.equivalent?(Nokogiri::HTML(email_receipt.email_body), Nokogiri::HTML(email.mail.html_part.decoded), verbose: true)
-      expect(CompareXML.equivalent?(Nokogiri::HTML(email_receipt.email_body), Nokogiri::HTML(email.mail.html_part.decoded))).to be_truthy
+
+      stored_email = Nokogiri::XML(email_receipt.email_body)
+      original_email = Nokogiri::XML(email.mail.html_part.decoded).at_css('div.WordSection1')
+      puts original_email
+      expect(CompareXML.equivalent?(stored_email, original_email)).to be_truthy
     end
   end
 

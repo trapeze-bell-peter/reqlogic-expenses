@@ -11,7 +11,7 @@ RSpec.describe 'updating an expense entry', type: :feature do
 
   context 'with a correct change' do
     specify do
-      pending
+      skip
 
       # when I load the claim form
       # and click into an existing row

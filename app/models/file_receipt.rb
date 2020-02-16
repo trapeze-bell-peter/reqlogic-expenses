@@ -8,6 +8,11 @@ class FileReceipt < Receipt
   
   EMAIL_NOTIFICATION_CLASS = '"alert alert-success alert-block"'
 
+  before_save { |receipt| @pdf_conversion_needed = receipt.source_file.changed? && receipt.pdf? }
+  after_commit do |receipt|
+    receipt.convert_pdf_to_jpgs(receipt.source_file, receipt.source_file.blob) if @pdf_conversion_needed
+  end
+
   # Because of the way that the upload mechanisms work, things are async, so we check wether we have an upload
   def arrived?
     self.source_file.attached?
@@ -25,19 +30,6 @@ class FileReceipt < Receipt
       expense_entry_id: self.expense_entry_id,
       msg_html: "<div class=#{EMAIL_NOTIFICATION_CLASS}>Google image retrieved for #{self.description}</div>"
     )
-  end
-
-  def self.move_receipt_images_to_source_file
-    FileReceipt.all.each do |file_receipt|
-      if file_receipt.attachments.count == 1
-        original_file = file_receipt.attachments.first
-        original_file.update!(name: 'SourceFile')
-      else
-        file_receipt.attachments.to_a.keep_if { |attachment| Receipt.is_pdf?(attachment) }.each do |attachment|
-          attachment.update!(name: 'SourceFile')
-        end
-      end
-    end
   end
 
   def self.convert_existing_pdfs

@@ -23,23 +23,7 @@ class ReceiptMailbox < ApplicationMailbox
     mail.from.first == email_receipt.user.email
   end
 
-  # Process the inbound email.  If a receipt is already attached to the expense_entry, then the new email replaces this
-  # email receipt.  If not, a new email receipt is created.  Likewise, if a receipt image is attached to the expense
-  # entry then this is purged first.
-  #
-  # Any attachments of the incoming email are saved to ActiveStorage. If the attachment is a PDF it is converted into a
-  # series of JPG files replacing the original PDF.  This allows us to render the original PDF in the print out of the
-  # expenses.
-  #
-  # Emails in HTML get special treatment.  We start by parsing its content if it is HTML into @document.
-  #
-  # For HTML emails, the body is scanned for any embedded images.  References to these are replaced with references
-  # to the Blob held in Rails.  This way we can render the email with embedded images.
-  #
-  # mail => Mail object
-  # inbound_email => ActionMailboxEmail record
-  #
-  # @return [Void]
+  # Process the inbound email.
   def process
     email_receipt.mail = mail
     email_receipt.save!
