@@ -1,55 +1,15 @@
 <!DOCTYPE html>
-
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>TGUK Expenses App</title>
-
+    <title>ExpensesOnSvelte</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_pack_tag 'application', media: :all %>
-    <%= javascript_pack_tag 'application' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
-      <div class="container-fluid">
-        <p class="navbar-brand">TGUK Expenses App</p>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-          <ul class="navbar-nav ml-auto">
-            <%= content_for :menu_back %>
-            <li class="nav-item">
-              <%= link_to 'Expenses', expense_claims_path, class: 'nav-link' %>
-            </li>
-            <li class="nav-item">
-              <%= link_to 'Categories', categories_path, class: 'nav-link' %>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-    <!-- Page Content -->
-    <div class="container-fluid">
-      <div id="notifications">
-      </div>
-
-      <%= flash_messages %>
-
-      <%= yield %>
-    </div>
+    <%=  javascript_pack_tag 'svelte' %>
   </body>
-
-  <script language="JavaScript">
-    $('[data-toggle="tooltip"]').tooltip();
-  </script>
 </html>

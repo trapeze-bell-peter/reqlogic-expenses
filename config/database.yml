@@ -14,3 +14,4 @@ test:
   <<: *default
   url: <%= "postgres://#{ENV['POSTGRES_URL'] || 'expenses-db'}/" %>
   database: <%= "#{`git symbolic-ref --short HEAD`.strip.underscore}_test" %>
+

@@ -2,11 +2,13 @@
 
 # Controller for expense claim.
 class ExpenseClaimsController < ApplicationController
-  load_and_authorize_resource param_method: :expense_claim_params
+  # load_and_authorize_resource param_method: :expense_claim_params
 
   # GET /expense_claims
   # GET /expense_claims.json
-  def index; end
+  def index;
+    @expense_claims = ExpenseClaim.sorted_claims
+  end
 
   # GET /expense_claims/1
   # GET /expense_claims/1.json
