@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # devise_for :users
-
   resources :categories
 
   resources :expense_claims do
@@ -19,9 +17,9 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  root 'expense_claims#index'
-
   # Enable the sidekiq console.
   require 'sidekiq/web'
   mount Sidekiq::Web => '/sidekiq'
+
+  root to: 'home#index'
 end

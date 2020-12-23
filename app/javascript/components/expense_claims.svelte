@@ -1,6 +1,6 @@
-<script>
+<script lang="ts">
     import {onMount} from 'svelte';
-    import CategoryForm from "./CategoryForm.svelte";
+    import CategoryForm from "./category_form.svelte";
 
     export let expenseClaims = [];
 
@@ -49,9 +49,7 @@
                 <td>{expenseClaim.first_date}</td>
                 <td>{expenseClaim.last_date}</td>
                 <td>{expenseClaim.total}</td>
-                <td>
-
-                </td>
+                <td></td>
             </tr>
         {/each}
     </tbody>

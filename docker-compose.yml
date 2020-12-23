@@ -55,7 +55,6 @@ services:
     image: defreitas/dns-proxy-server:latest
     hostname: dns.mageddo
     volumes:
-      - /opt/dns-proxy-server/conf:/app/conf
       - /var/run/docker.sock:/var/run/docker.sock
       - /etc/resolv.conf:/etc/resolv.conf
     network_mode: bridge

@@ -2,17 +2,16 @@
 
 # Provides basic controller for managing CRUD for categories.
 class CategoriesController < ApplicationController
+  # before_action :authenticate_user!
+
   before_action :set_category, only: %i[show edit update destroy]
 
-  # GET /categories
   # GET /categories.json
   def index
+    respond_to :json
+
     @categories = Category.all
   end
-
-  # GET /categories/1
-  # GET /categories/1.json
-  def show; end
 
   # GET /categories/new
   def new
@@ -22,9 +21,10 @@ class CategoriesController < ApplicationController
   # GET /categories/1/edit
   def edit; end
 
-  # POST /categories
   # POST /categories.json
   def create
+    respond_to :json
+
     @category = Category.new(category_params)
 
     respond_to do |format|
