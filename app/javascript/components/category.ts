@@ -1,6 +1,8 @@
 console.log('Hello world from category.ts');
 
-export default class Category {
+import { readable } from 'svelte/store';
+
+export class Category {
     id: number;
     name: string;
     vat: number;
@@ -24,14 +26,8 @@ export default class Category {
         let res = await fetch(`${document.location.origin}/categories.json`);
         let data = await res.json();
 
-        let categoriesArray = data.map( categoryInJson => Category.from(categoryInJson));
-
-        let categoriesList = new Map(categoriesArray.map(category => [category.id, category]));
-        console.log(categoriesList);
-
-        // categories.set(categoriesList);
-
-        return await Promise.resolve(categoriesArray);
+        let categoriesArray = data.map(categoryInJson => Category.from(categoryInJson));
+        return categoriesArray;
     }
 
     // Create an object from the JSON sent by the backend
@@ -39,3 +35,5 @@ export default class Category {
         return Object.assign(new Category(), json);
     }
 }
+
+export let categories = readable([], set => { Category.fetchCategories().then(set) }) ;

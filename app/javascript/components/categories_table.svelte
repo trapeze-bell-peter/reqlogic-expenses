@@ -1,6 +1,6 @@
 <script lang="ts">
     import { link } from 'svelte-spa-router';
-    import { categories, fetchCategories } from './category';
+    import { categories } from './category';
 </script>
 
 <h1>Categories</h1>
@@ -16,18 +16,16 @@
     </thead>
 
     <tbody>
-        {#await fetchCategories() then categoryList}
-            {#each categoryList as category }
-                <tr>
-                    <td>{category.name}</td>
-                    <td>{category.vat}</td>
-                    <td>{category.formatted_unit_cost()}</td>
-                    <td>Show</td>
-                    <td><a href="/categories/{category.id}/edit" use:link>Edit</a></td>
-                    <td>Destroy</td>
-                </tr>
-            {/each}
-        { /await }
+        {#each $categories as category }
+            <tr>
+                <td>{category.name}</td>
+                <td>{category.vat}</td>
+                <td>{category.formatted_unit_cost()}</td>
+                <td>Show</td>
+                <td><a href="/categories/{category.id}/edit" use:link>Edit</a></td>
+                <td>Destroy</td>
+            </tr>
+        {/each}
     </tbody>
 </table>
 

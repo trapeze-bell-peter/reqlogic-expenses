@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { categories, fetchCategories } from './category';
+    import { categories } from './category';
     import { onMount } from 'svelte';
 
     // parse the route
