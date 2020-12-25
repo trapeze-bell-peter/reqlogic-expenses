@@ -1,0 +1,40 @@
+/* override styles when printing */
+@media print {
+  body {
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+  }
+
+  header, footer, aside, nav, form, iframe, .menu {
+    display: none;
+  }
+
+  section.receipt {
+    page-break-inside: avoid;
+  }
+
+  h1 {
+    page-break-before: always;
+  }
+
+  h3 h4 {
+    page-break-after: avoid;
+  }
+
+  img.a4 {
+    width: 90%;
+    page-break-after: always;
+    display: block;
+  }
+
+  img.train-receipt {
+    width: 40%;
+  }
+
+  img.till-receipt {
+    width: 30%
+  }
+}
+
+
