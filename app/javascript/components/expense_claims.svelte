@@ -17,7 +17,7 @@
 <h1>Expense Claims</h1>
 
 <div id='expense-claim-index-actions'>
-    <a>
+    <a href="#/expense_claims.svelte">
         <i class='fas fa-plus-square fa-2x'></i>
     </a>
     <span>
