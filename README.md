@@ -39,10 +39,10 @@ Add the following to `application.html.erb`:
   </body>
 ```
 
-Create the file `app/javascript/components/category.ts`:
+Create the file `app/javascript/components/Category.ts`:
 
 ```typescript
-console.log('Hello world from category.ts');
+console.log('Hello world from Category.ts');
 
 export default class Category {
     member: bigint;

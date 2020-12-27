@@ -1,31 +1,18 @@
 # frozen_string_literal: true
 
 # Controller for expense claim.
-class ExpenseClaimsController < ApplicationController
+class ExpenseClaimsController < ActionController::API
   # load_and_authorize_resource param_method: :expense_claim_params
 
-  # GET /expense_claims
+  before_action :set_expense_claim, only: %i[show update]
+
   # GET /expense_claims.json
-  def index;
+  def index
     @expense_claims = ExpenseClaim.sorted_claims
   end
 
-  # GET /expense_claims/1
   # GET /expense_claims/1.json
-  def show
-    @expense_claim.expense_entries.new if @expense_claim.expense_entries.count.zero?
-  end
-
-  # GET /expense_claims/new
-  #
-  # Because of the way that the AJAX/Stimulus works, we create an expense claim as part of the new and the redirect
-  # to the Edit.
-  def new
-    respond_to :html
-
-    @expense_claim = ExpenseClaim.create(claim_date: Time.zone.today, user: current_user)
-    redirect_to edit_expense_claim_path(@expense_claim), notice: 'Expense claim was successfully created.'
-  end
+  def show; end
 
   # GET /expense_claims/1/edit
   def edit; end
@@ -75,6 +62,11 @@ class ExpenseClaimsController < ApplicationController
   end
 
   private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_expense_claim
+    @expense_claim = ExpenseClaim.find(params[:id])
+  end
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def expense_claim_params

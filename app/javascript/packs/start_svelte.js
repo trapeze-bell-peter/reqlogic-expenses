@@ -6,7 +6,7 @@ import 'stylesheets/application';
 import 'bootstrap';
 import '@fortawesome/fontawesome-free/js/all';
 
-import App from "../components/app.svelte";
+import App from "../components/App.svelte";
 
 document.addEventListener('DOMContentLoaded', () => {
   const app = new App({

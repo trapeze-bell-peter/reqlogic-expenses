@@ -1,6 +1,6 @@
 <script lang="ts">
     import { link } from 'svelte-spa-router';
-    import { categories } from './category';
+    import { categories } from './Category';
 </script>
 
 <h1>Categories</h1>
