@@ -1,13 +1,13 @@
+// Configures the routing so we can run the expense app as a SPA.
 
-
-import ExpenseClaims from './expense_claims.svelte';
+import ExpenseClaims from './ExpenseClaims.svelte';
+import ExpenseClaim from './ExpenseClaim.svelte';
 import CategoriesTable from "./categories_table.svelte";
-// import CategoryForm from './category_form.svelte';
 
 const routes = {
     '/': ExpenseClaims,
+    '/ExpenseClaim/:id': ExpenseClaim,
     '/categories': CategoriesTable
-    // '/categories/:category_id/edit': CategoryForm
 };
 
 export default routes;

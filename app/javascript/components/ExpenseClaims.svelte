@@ -1,5 +1,10 @@
 <script lang="ts">
     import {onMount} from 'svelte';
+
+    import { link } from 'svelte-spa-router';
+    import routes from './routes';
+
+    import ExpenseClaim from "./ExpenseClaim.svelte";
     import CategoryForm from "./category_form.svelte";
 
     export let expenseClaims = [];
@@ -44,7 +49,11 @@
     <tbody>
         {#each expenseClaims as expenseClaim}
             <tr>
-                <td>{expenseClaim.description}</td>
+                <td>
+                    <a use:link class="nav-link" href={`/ExpenseClaim/${expenseClaim.id}`}>
+                        {expenseClaim.description}
+                    </a>
+                </td>
                 <td>{expenseClaim.claim_date}</td>
                 <td>{expenseClaim.first_date}</td>
                 <td>{expenseClaim.last_date}</td>
