@@ -2,8 +2,6 @@
 
 # Controller for expense claim.
 class ExpenseClaimsController < ActionController::API
-  # load_and_authorize_resource param_method: :expense_claim_params
-
   before_action :set_expense_claim, only: %i[show update]
 
   # GET /expense_claims.json
@@ -14,14 +12,9 @@ class ExpenseClaimsController < ActionController::API
   # GET /expense_claims/1.json
   def show; end
 
-  # GET /expense_claims/1/edit
-  def edit; end
-
   # PATCH/PUT /expense_claims/1
   # PATCH/PUT /expense_claims/1.json
   def update
-    respond_to :json
-
     if @expense_claim.update(expense_claim_params)
       head :ok
     else
