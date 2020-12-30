@@ -26,7 +26,7 @@
                 <input bind:value={expenseEntry.date} class="form-control" placeholder="Date" type="date">
             </div>
             <div class="form-group col-2">
-                <select bind:value={expenseEntry.category} >
+                <select bind:value={expenseEntry.category.id} >
                     {#each categories as category}
                         <option value={category.id}>
                             {category.name}
