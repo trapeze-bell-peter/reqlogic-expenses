@@ -2,7 +2,7 @@
     // on unmount we need to re-submit all.
     import { onMount } from 'svelte';
 
-    import ExpenseEntry from './ExpenseEntry.svelte';
+    import ExpenseEntryRow from './ExpenseEntryRow.svelte';
 
     // Used by the router to pass in parameters from the call - here the id of expense claim.
     export let params = {}
@@ -71,5 +71,5 @@
         </div>
     </div>
 
-    <ExpenseEntry />
+    <ExpenseEntryRow id={1}/>
 </div>
