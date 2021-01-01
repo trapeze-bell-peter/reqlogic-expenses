@@ -1,6 +1,6 @@
 console.log('Hello world from category.ts');
 
-import { readable } from 'svelte/store';
+import { Readable, readable } from 'svelte/store';
 
 export class Category {
     id: number;
@@ -26,14 +26,17 @@ export class Category {
         let res = await fetch(`${document.location.origin}/categories.json`);
         let data = await res.json();
 
-        let categoriesArray = data.map(categoryInJson => Category.from(categoryInJson));
-        return categoriesArray;
+        return data.map(categoryInJson => Category.from(categoryInJson));
     }
 
     // Create an object from the JSON sent by the backend
     static from(json){
         return Object.assign(new Category(), json);
     }
+
+    static find(id: bigint) : Category {
+        return categories.find(category => category.id == id);
+    }
 }
 
-export let categories = readable([], set => { Category.fetchCategories().then(set) }) ;
+export let categories: Readable<any[]> = readable([], set => { Category.fetchCategories().then(set) }) ;

@@ -1,6 +1,6 @@
 
 
-import { Category } from './Category';
+import { Category, categories } from './Category';
 import 'currency.js';
 
 export class ExpenseEntry {
@@ -13,4 +13,8 @@ export class ExpenseEntry {
     vat: number;
     qty: bigint;
     unit_cost: currency;
+
+    set category_id(id: bigint) {
+        this.category = Category.find(id);
+    }
 }
