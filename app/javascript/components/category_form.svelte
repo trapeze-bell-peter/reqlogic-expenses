@@ -1,22 +1,24 @@
 <script lang="ts">
-    import { categories } from './Category';
+    import { categoryStore } from './Category';
     import { onMount } from 'svelte';
 
     // parse the route
     export let params = {};
     let category_id = parseInt(params.category_id);
 
-    // first time we load this component, make sure the categories store has been fetched from the backend
-    onMount( async () => {
-        if ($categories == null) {
-            await fetchCategories();
-            console.log($categories.get(category_id));
-        }
-    });
+    if (false) {
+        // first time we load this component, make sure the categories store has been fetched from the backend
+        onMount( async () => {
+            if ($categories == null) {
+                await fetchCategories();
+                console.log($categories.get(category_id));
+            }
+        });
 
-    // bindings
-    let category;
-    $: category  = ($categories != null) ? $categories.get(category_id) : null;
+        // bindings
+        let category;
+        $: category  = ($categories != null) ? $categories.get(category_id) : null;
+    }
 
     // event handlers
     async function handleSubmit() {

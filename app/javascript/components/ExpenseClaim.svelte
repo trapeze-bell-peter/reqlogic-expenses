@@ -59,9 +59,9 @@
     <div id="expense-entries-header">
         <div class="form-row">
             <div class="form-group col-1">Seq</div>
-            <div class="form-group col-2">Date</div>
-            <div class="form-group col-2">Category</div>
-            <div class="form-group col-1">Description</div>
+            <div class="form-group col-1">Date</div>
+            <div class="form-group col-1">Category</div>
+            <div class="form-group col-3">Description</div>
             <div class="form-group col-1">Project Code</div>
             <div class="form-group col-1">VAT</div>
             <div class="form-group col-1">Qty</div>

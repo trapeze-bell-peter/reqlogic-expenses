@@ -14,7 +14,5 @@ export class ExpenseEntry {
     qty: bigint;
     unit_cost: currency;
 
-    set category_id(id: bigint) {
-        this.category = Category.find(id);
-    }
+    get total(): string { return this.unit_cost.multiply(this.qty).format() };
 }
