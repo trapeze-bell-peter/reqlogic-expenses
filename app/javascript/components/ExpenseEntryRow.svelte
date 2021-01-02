@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from "svelte";
 
-    import ExpenseEntry from "./ExpenseEntry";
-    import {categories, Category} from "./Category";
+    import { ExpenseEntry } from "./ExpenseEntry";
+    import {categoryStore, Category} from "./Category";
 
     export let id: number;
     export let expenseEntry: ExpenseEntry;
@@ -13,8 +13,15 @@
         let res = await fetch(`${document.location.origin}/expense_entries/${id}`);
         expenseEntry = await res.json();
     });
-</script>
 
+    let categories;
+    // categoryStore.subscribe( value => { categories = value } );
+
+    Category.fetchCategories().then(categoryList => {
+        categories = categoryList;
+        console.log(categoryList);
+    });
+</script>
 
 <div class="form col-12">
     {#if expenseEntry}

@@ -1,6 +1,6 @@
 console.log('Hello world from category.ts');
 
-import { Readable, readable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 export class Category {
     id: number;
@@ -22,9 +22,9 @@ export class Category {
     get unit_cost() { return Number(this.unit_cost_pence) / 100.0 }
     set unit_cost(val) { this.unit_cost_pence = Math.trunc(val * 100) }
 
-    static async fetchCategories() {
-        let res = await fetch(`${document.location.origin}/categories.json`);
-        let data = await res.json();
+    static async fetchCategories() : Promise<Array<Category>> {
+        const res = await fetch(`${document.location.origin}/categories.json`);
+        const data = await res.json();
 
         return data.map(categoryInJson => Category.from(categoryInJson));
     }
@@ -33,10 +33,7 @@ export class Category {
     static from(json){
         return Object.assign(new Category(), json);
     }
-
-    static find(id: bigint) : Category {
-        return categories.find(category => category.id == id);
-    }
 }
 
-export let categories: Readable<any[]> = readable([], set => { Category.fetchCategories().then(set) }) ;
+// export let categoryStore;
+// Category.fetchCategories().then(categoryList => { categoryStore = writable(categoryList) });

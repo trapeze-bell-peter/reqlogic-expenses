@@ -1,6 +1,6 @@
 
 
-import { Category, categories } from './Category';
+import { Category } from './Category';
 import 'currency.js';
 
 export class ExpenseEntry {
