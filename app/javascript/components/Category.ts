@@ -1,6 +1,6 @@
 console.log('Hello world from category.ts');
 
-import { writable } from 'svelte/store';
+import {Writable, writable} from 'svelte/store';
 
 export class Category {
     id: number;
@@ -35,5 +35,6 @@ export class Category {
     }
 }
 
-// export let categoryStore;
-// Category.fetchCategories().then(categoryList => { categoryStore = writable(categoryList) });
+// Configure the store: initially, we set it to an empty array.  We then invoke the fetch from the backend.
+export let categoryStore: Writable<Category[]> = writable([]);
+Category.fetchCategories().then(categoryList => { categoryStore.set(categoryList); } );

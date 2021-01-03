@@ -1,4 +1,4 @@
-<script lang="ts" xmlns="http://www.w3.org/1999/html">
+<script lang="ts">
     import { onMount } from "svelte";
 
     import { ExpenseEntry } from "./ExpenseEntry";
@@ -13,14 +13,6 @@
         let res = await fetch(`${document.location.origin}/expense_entries/${id}`);
         expenseEntry = await res.json();
     });
-
-    let categories;
-    // categoryStore.subscribe( value => { categories = value } );
-
-    Category.fetchCategories().then(categoryList => {
-        categories = categoryList;
-        console.log(categoryList);
-    });
 </script>
 
 <div class="form col-12">
@@ -34,7 +26,7 @@
             </div>
             <div class="form-group col-1">
                 <select bind:value={expenseEntry.category_id} class="form-control form-select">
-                    {#each categories as category}
+                    {#each $categoryStore as category}
                         <option value={category.id}>
                             {category.name}
                         </option>
