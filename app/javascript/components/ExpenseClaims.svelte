@@ -5,7 +5,6 @@
     import routes from './routes';
 
     import ExpenseClaim from "./ExpenseClaim.svelte";
-    import CategoryForm from "./category_form.svelte";
 
     export let expenseClaims = [];
 

@@ -1,6 +1,9 @@
 <script lang="ts">
     import { link } from 'svelte-spa-router';
-    import { categories } from './Category';
+    import { Category } from './Category';
+
+    let categoryList = Category.fetchCategories();
+    let categories;
 </script>
 
 <h1>Categories</h1>

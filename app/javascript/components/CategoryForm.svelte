@@ -1,12 +1,12 @@
 <script lang="ts">
-    import { categoryStore } from './Category';
+    import { Category } from './Category';
     import { onMount } from 'svelte';
 
     // parse the route
     export let params = {};
     let category_id = parseInt(params.category_id);
 
-    if (false) {
+/*    if (false) {
         // first time we load this component, make sure the categories store has been fetched from the backend
         onMount( async () => {
             if ($categories == null) {
@@ -27,7 +27,7 @@
             headers: { 'Content-Type': 'application/json;charset=utf-8' },
             body: JSON.stringify(category)
         });
-    }
+    }*/
 </script>
 
 { #if category != null }

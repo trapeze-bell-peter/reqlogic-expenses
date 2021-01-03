@@ -26,7 +26,7 @@
           <a href="/" use:link class="nav-link">Expense Claims</a>
         </li>
         <li class="nav-item">
-          <a href="/categories" use:link class="nav-link">Categories</a>
+          <a href="/Categories" use:link class="nav-link">Categories</a>
         </li>
       </ul>
     </div>
