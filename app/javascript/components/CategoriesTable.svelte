@@ -19,16 +19,22 @@
     </thead>
 
     <tbody>
-        {#each $categories as category }
+        {#await categoryList}
             <tr>
-                <td>{category.name}</td>
-                <td>{category.vat}</td>
-                <td>{category.formatted_unit_cost()}</td>
-                <td>Show</td>
-                <td><a href="/categories/{category.id}/edit" use:link>Edit</a></td>
-                <td>Destroy</td>
+                ... Loading
             </tr>
-        {/each}
+        {:then categories}
+            {#each categories as category }
+                <tr>
+                    <td>{category.name}</td>
+                    <td>{category.vat}</td>
+                    <td>{category.formatted_unit_cost()}</td>
+                    <td>Show</td>
+                    <td><a href="/categories/{category.id}/edit" use:link>Edit</a></td>
+                    <td>Destroy</td>
+                </tr>
+            {/each}
+        {/await}
     </tbody>
 </table>
 
