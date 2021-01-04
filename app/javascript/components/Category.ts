@@ -1,5 +1,3 @@
-console.log('Hello world from category.ts');
-
 import {Writable, writable} from 'svelte/store';
 
 export class Category {
