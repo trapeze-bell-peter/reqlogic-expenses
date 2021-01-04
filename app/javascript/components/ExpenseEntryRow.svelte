@@ -56,7 +56,7 @@
                 <input bind:value={expenseEntry.unit_cost} class="form-control" placeholder="Unit Cost" min="0.00" step="0.01" type="text">
             </div>
             <div class="form-group col-1">
-                {expenseEntry.total}
+                <input bind:value={expenseEntry.total} class="form-control" readonly="readonly" type="text">
             </div>
             <div class="form-group col-1">
                 Actions
