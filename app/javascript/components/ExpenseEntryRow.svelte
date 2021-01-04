@@ -2,21 +2,20 @@
     import { onMount } from "svelte";
 
     import { ExpenseEntry } from "./ExpenseEntry";
-    import {categoryStore, Category} from "./Category";
+    import { categoryStore, Category } from "./Category";
 
     export let id: number;
     export let expenseEntry: ExpenseEntry;
 
-    // first time we load this component, make sure the categories store has been fetched from the backend
-
-    onMount( async () => {
-        let res = await fetch(`${document.location.origin}/expense_entries/${id}`);
-        expenseEntry = await res.json();
-    });
+    if (expenseEntry == undefined) {
+        ExpenseEntry.fetch(id).then( fetchedExpenseEntry => { expenseEntry = fetchedExpenseEntry } );
+    }
 </script>
 
 <div class="form col-12">
     {#if expenseEntry}
+        {@debug expenseEntry}
+
         <div class="form-row align-items-top">
             <div class="form-group col-1">
                 <input bind:value={expenseEntry.sequence} class="form-control" readonly="readonly" type="text">
@@ -57,7 +56,7 @@
                 <input bind:value={expenseEntry.unit_cost} class="form-control" placeholder="Unit Cost" min="0.00" step="0.01" type="text">
             </div>
             <div class="form-group col-1">
-                <input value={expenseEntry.total} disabled="disabled" class="form-control" type="text">
+                {expenseEntry.total}
             </div>
             <div class="form-group col-1">
                 Actions
