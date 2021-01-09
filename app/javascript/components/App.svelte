@@ -6,10 +6,6 @@
     import { link } from 'svelte-spa-router';
 
     import routes from '../components/routes';
-
-    // Just testing that we can use a Typescript module
-    // import Category from "../components/category";
-    // let category = new Category();
 </script>
 
 <style>
