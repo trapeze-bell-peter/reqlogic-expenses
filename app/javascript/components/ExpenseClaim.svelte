@@ -2,15 +2,18 @@
     // on unmount we need to re-submit all.
     import { onMount } from 'svelte';
 
+    import { ExpenseEntry } from "./ExpenseEntry";
+
     import ExpenseEntryRow from './ExpenseEntryRow.svelte';
 
     // Used by the router to pass in parameters from the call - here the id of expense claim.
     export let params = {}
-    export let expense_claim_id = parseInt(params.id);
-    export let description;
-    export let claimDate;
+    let expense_claim_id = parseInt(params.id);
+    let description;
+    let claimDate;
+    let expense_entries;
 
-    let url = `${document.location.origin}/expense_claims/${expense_claim_id}.json`;
+    let url = `${document.location.origin}/expense_claims/${expense_claim_id}`;
 
     onMount( async () => {
         let res = await fetch(url);
@@ -18,6 +21,7 @@
 
         description = data.description;
         claimDate = data.claim_date;
+        expense_entries = data.expense_entries.map(expense_entry => ExpenseEntry.from(expense_entry))
     });
 
     async function sendData() {
@@ -71,5 +75,17 @@
         </div>
     </div>
 
-    <ExpenseEntryRow id={1}/>
+    {#if expense_entries}
+        {#each expense_entries as expense_entry_promise}
+            {#await expense_entry_promise}
+                <div class="col 12">
+                    Loading
+                </div>
+            {:then expense_entry}
+                <ExpenseEntryRow expenseEntry={expense_entry}/>
+            {/await}
+        {/each}
+    {:else}
+        ... Loading
+    {/if}
 </div>
