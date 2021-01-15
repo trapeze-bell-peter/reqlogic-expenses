@@ -53,6 +53,7 @@ gem 'azure-storage'
 
 # Support for money added
 gem 'money-rails'
+gem 'money-heuristics'
 
 # Support for reading and writing Excel files added
 gem 'rubyXL'
