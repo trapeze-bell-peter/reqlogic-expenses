@@ -40,3 +40,5 @@ yarn-debug.log*
 db/barclay_card_data/jul-19\.xls
 
 db/barclay_card_data/
+
+nvm.log
