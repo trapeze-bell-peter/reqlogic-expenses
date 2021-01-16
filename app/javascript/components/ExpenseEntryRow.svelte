@@ -5,6 +5,17 @@
     import { categoryStore, Category } from "./Category";
 
     export let expenseEntry: ExpenseEntry;
+    let unitCostValue: string = expenseEntry.unit_cost;
+    function updateUnitCostValue(event) {
+        expenseEntry.unit_cost = event.target.value;
+        unitCostValue = expenseEntry.unit_cost;
+    }
+
+    function expenseEntryMinusUnnecessaryFields() {
+        const {...strippedExpenseEntry} = expenseEntry;
+        delete strippedExpenseEntry.id;
+        return strippedExpenseEntry;
+    }
 </script>
 
 <div class="form col-12">
@@ -45,7 +56,8 @@
             <input bind:value={expenseEntry.qty} class="form-control" placeholder="Qty" type="number">
         </div>
         <div class="form-group col-1">
-            <input bind:value={expenseEntry.unit_cost} class="form-control" placeholder="Unit Cost" min="0.00" step="0.01" type="text">
+            <input bind:value={unitCostValue} on:change|stopPropagation={updateUnitCostValue}
+                   class="form-control" placeholder="Unit Cost" min="0.00" step="0.01" type="text">
         </div>
         <div class="form-group col-1">
             <input bind:value={expenseEntry.total} class="form-control" readonly="readonly" type="text">

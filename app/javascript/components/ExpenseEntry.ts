@@ -13,9 +13,25 @@ export class ExpenseEntry {
     vat: number;
     qty: number;
 
-    unit_cost: string;
-    unit_cost_currency_symbol: string;
-    get total(): string { return currency(this.unit_cost).multiply(this.qty).format({symbol: this.unit_cost_currency_symbol}); }
+    _unit_cost: currency;
+    set unit_cost(value: string) {
+        this._unit_cost = currency(value, {symbol: "£"});
+    }
+    get unit_cost(): string {
+        return this._unit_cost!=undefined ? this._unit_cost.format() : "";
+    }
+
+    get total(): string {
+        const c = currency(this.unit_cost, {symbol: "£"});
+        return c.multiply(this.qty).format();
+    }
+
+    // Removes those fields not required for sending to backend.
+    toJSON(): string {
+        const {...strippedExpenseEntry} = this;
+        delete strippedExpenseEntry.id;
+        return JSON.stringify(strippedExpenseEntry);
+    }
 
     static async fetch(id: number): Promise<ExpenseEntry> {
         const res = await fetch(`${document.location.origin}/expense_entries/${id}`);
