@@ -52,8 +52,8 @@ gem 'image_processing'
 gem 'azure-storage'
 
 # Support for money added
+gem 'monetize'
 gem 'money-rails'
-gem 'money-heuristics'
 
 # Support for reading and writing Excel files added
 gem 'rubyXL'
@@ -67,8 +67,9 @@ gem 'sidekiq'
 group :development, :test do
   gem 'compare-xml'
   gem 'factory_bot_rails'
-  gem 'rspec-rails', '~> 3.9'
+  gem 'rspec-rails'
   gem 'rubocop'
+  gem 'rubocop-rails'
   gem 'rubocop-rspec'
 end
 
@@ -78,8 +79,8 @@ group :development do
   gem 'web-console', '>= 4.1.0'
   # Display performance information such as SQL time and flame graphs for each request in your browser.
   # Can be configured to work on production as well see: https://github.com/MiniProfiler/rack-mini-profiler/blob/master/README.md
-  gem 'rack-mini-profiler', '~> 2.0'
   gem 'listen', '~> 3.3'
+  gem 'rack-mini-profiler', '~> 2.0'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
 end
