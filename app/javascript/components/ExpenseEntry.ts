@@ -27,10 +27,12 @@ export class ExpenseEntry {
     }
 
     // Removes those fields not required for sending to backend.
-    toJSON(): string {
-        const {...strippedExpenseEntry} = this;
+    stripUnnecessaryFields() {
+        let {...strippedExpenseEntry} = this;
+        strippedExpenseEntry.unit_cost = this.unit_cost;
         delete strippedExpenseEntry.id;
-        return JSON.stringify(strippedExpenseEntry);
+        delete strippedExpenseEntry._unit_cost;
+        return strippedExpenseEntry;
     }
 
     static async fetch(id: number): Promise<ExpenseEntry> {

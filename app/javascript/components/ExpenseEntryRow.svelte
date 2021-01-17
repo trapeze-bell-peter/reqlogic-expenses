@@ -5,20 +5,26 @@
     import { categoryStore, Category } from "./Category";
 
     export let expenseEntry: ExpenseEntry;
+    let originalExpenseEntry: ExpenseEntry = Object.assign({}, expenseEntry);
     let unitCostValue: string = expenseEntry.unit_cost;
+
+    async function ifChangedSend() {
+        let response = await fetch(`${document.location.origin}/expense_entries/${expenseEntry.id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json;charset=utf-8' },
+            body: JSON.stringify( { expense_entry: expenseEntry.stripUnnecessaryFields() } )
+        }).then(() => {
+            originalExpenseEntry = Object.assign({}, expenseEntry);
+        });
+    }
+
     function updateUnitCostValue(event) {
         expenseEntry.unit_cost = event.target.value;
         unitCostValue = expenseEntry.unit_cost;
     }
-
-    function expenseEntryMinusUnnecessaryFields() {
-        const {...strippedExpenseEntry} = expenseEntry;
-        delete strippedExpenseEntry.id;
-        return strippedExpenseEntry;
-    }
 </script>
 
-<div class="form col-12">
+<div class="form col-12" on:focusout={ifChangedSend}>
     <div class="form-row align-items-top">
         <div class="form-group col-1">
             <input bind:value={expenseEntry.sequence} class="form-control" readonly="readonly" type="text">

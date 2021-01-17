@@ -16,3 +16,4 @@ MoneyRails.configure do |config|
 end
 
 Money.locale_backend = :i18n
+Monetize.assume_from_symbol = true

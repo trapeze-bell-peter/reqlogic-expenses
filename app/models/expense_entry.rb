@@ -25,6 +25,15 @@ class ExpenseEntry < ApplicationRecord
 
   after_initialize :set_sequence
 
+  # Ensure that if the unit_cost is set with a string, e.g. unit_cost = "£100" this gets correctly parsed into
+  # a money object.
+  # @param [String|Money|Float] value
+  alias original_unit_cost= unit_cost=
+  def unit_cost=(value)
+    value = Monetize.parse(value) if value.is_a? String
+    self.original_unit_cost = value
+  end
+
   # Virtual attribute to determine overall cost of an expense entry
   # @return [Money]
   def total_cost
