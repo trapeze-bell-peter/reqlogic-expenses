@@ -76,14 +76,14 @@
             </RailsFields>
         </div>
         <div class="form-group col-1">
-            <RailsFields inputType="number" expenseEntry={expenseEntry} field="qty" />
+            <RailsFields inputType="number" expenseEntry={expenseEntry} field="qty"/>
         </div>
         <div class="form-group col-1">
-            <RailsFields expenseEntry={expenseEntry} field="unit_cost" let:feedbackDivId let:isInvalid>
-            <input bind:value={unitCostValue} on:change|stopPropagation={updateUnitCostValue}
-                   class="form-control" placeholder="Unit Cost" class:is-invalid={isInvalid}
-                   min="0.00" step="0.01" type="number" aria-describedby="unit-cost-feedback">
-            <div id="unit-cost-feedback" class="invalid-feedback">Not valid :(</div>
+            <RailsFields expenseEntry={expenseEntry} let:feedbackDivId let:isInvalid>
+                <input bind:value={unitCostValue} on:change|stopPropagation={updateUnitCostValue}
+                       class="form-control" placeholder="Unit Cost" class:is-invalid={isInvalid}
+                       min="0.00" step="0.01" type="text" aria-describedby="unit-cost-feedback">
+            </RailsFields>
         </div>
         <div class="form-group col-1">
             <input bind:value={expenseEntry.total} class="form-control" readonly="readonly" type="text">
