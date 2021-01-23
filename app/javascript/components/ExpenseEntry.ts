@@ -12,6 +12,7 @@ export class ExpenseEntry {
     project: string;
     vat: number;
     qty: number;
+    errors: object;
 
     _unit_cost: currency;
     set unit_cost(value: string) {
@@ -24,6 +25,13 @@ export class ExpenseEntry {
     get total(): string {
         const c = currency(this.unit_cost, {symbol: "£"});
         return c.multiply(this.qty).format();
+    }
+
+    errorsPresent(field: string):boolean {
+        return this.errors!==undefined && this.errors[field]!==undefined;
+    }
+    errorsString(field: string): string {
+        return this.errorsPresent(field) ? this.errors[field].join("\n") : "";
     }
 
     // Removes those fields not required for sending to backend.

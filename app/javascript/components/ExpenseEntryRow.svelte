@@ -1,20 +1,31 @@
 <script lang="ts">
-    import { onMount } from "svelte";
+    import {StatusCodes} from "http-status-codes";
+    import {onMount} from "svelte";
 
-    import { ExpenseEntry } from "./ExpenseEntry";
-    import { categoryStore, Category } from "./Category";
+    import {ExpenseEntry} from "./ExpenseEntry";
+    import {categoryStore, Category} from "./Category";
+    import RailsFields from "./RailsFields.svelte";
 
     export let expenseEntry: ExpenseEntry;
     let originalExpenseEntry: ExpenseEntry = Object.assign({}, expenseEntry);
     let unitCostValue: string = expenseEntry.unit_cost;
 
     async function ifChangedSend() {
-        let response = await fetch(`${document.location.origin}/expense_entries/${expenseEntry.id}`, {
+        let response = fetch(`${document.location.origin}/expense_entries/${expenseEntry.id}`, {
             method: 'PUT',
-            headers: { 'Content-Type': 'application/json;charset=utf-8' },
-            body: JSON.stringify( { expense_entry: expenseEntry.stripUnnecessaryFields() } )
-        }).then(() => {
-            originalExpenseEntry = Object.assign({}, expenseEntry);
+            headers: {'Content-Type': 'application/json;charset=utf-8'},
+            body: JSON.stringify({expense_entry: expenseEntry.stripUnnecessaryFields()})
+        }).then((response) => {
+            switch (response.status) {
+                case StatusCodes.OK:
+                    originalExpenseEntry = Object.assign({}, expenseEntry);
+                    expenseEntry.errors = undefined;
+                    break;
+                case StatusCodes.UNPROCESSABLE_ENTITY:
+                    const errorPromise = response.json(); // Get JSON value from the response body
+                    Promise.resolve(errorPromise).then(errorsAsJson => expenseEntry.errors = errorsAsJson['errors']);
+                    break;
+            }
         });
     }
 
