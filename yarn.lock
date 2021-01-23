@@ -1349,9 +1349,10 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
 
-bootstrap@^4.5.3:
-  version "4.5.3"
-  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.5.3.tgz#c6a72b355aaf323920be800246a6e4ef30997fe6"
+bootstrap@^4.6.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.0.tgz#97b9f29ac98f98dfa43bf7468262d84392552fd7"
+  integrity sha512-Io55IuQY3kydzHtbGvQya3H+KorS/M9rSNyfCGCg9WZ4pyT/lCxIlpJgG1GXW/PswzC84Tr2fBYi+7+jFVQQBw==
 
 brace-expansion@^1.1.7:
   version "1.1.11"
@@ -6063,6 +6064,18 @@ stream-shift@^1.0.0:
 strict-uri-encode@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/strict-uri-encode/-/strict-uri-encode-1.1.0.tgz#279b225df1d582b1f54e65addd4352e18faa0713"
+
+string-capitalize@~1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/string-capitalize/-/string-capitalize-1.0.1.tgz#a8665f77361b4ce04a6bde6d9bbb21712bb9749e"
+  integrity sha1-qGZfdzYbTOBKa95tm7shcSu5dJ4=
+
+string-humanize@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/string-humanize/-/string-humanize-1.0.1.tgz#bf08a983bbf70c6aacdaf464013081eae8840f70"
+  integrity sha512-sSp0kyYDWMMw8CIMG8dmxuYoQo52+rDwj2g9pAacISggCY50Hmno4dTEI0+Jl7uZ8fchXYEc88+rOeDdnSO7Xw==
+  dependencies:
+    string-capitalize "~1.0.1"
 
 string-width@^1.0.1:
   version "1.0.2"

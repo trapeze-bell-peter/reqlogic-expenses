@@ -41,7 +41,7 @@
             <input bind:value={expenseEntry.sequence} class="form-control" readonly="readonly" type="text">
         </div>
         <div class="form-group col-1">
-            <input bind:value={expenseEntry.date} class="form-control" placeholder="Date" type="date">
+            <RailsFields inputType="date" expenseEntry={expenseEntry} field="date" />
         </div>
         <div class="form-group col-1">
             <select bind:value={expenseEntry.category_id} class="form-control form-select">
@@ -61,16 +61,16 @@
     </div>
     <div class="form-row align-items-top justify-content-end">
         <div class="form-group col-1">
-            <RailsFields expenseEntry={expenseEntry} field="project" let:feedbackDivId let:isInvalid>
-                <input bind:value={expenseEntry.project} class="form-control" class:is-invalid={isInvalid}
-                       placeholder="Project" type="text" aria-describedby={feedbackDivId}>
-            </RailsFields>
+            <RailsFields inputType="text" expenseEntry={expenseEntry} field="project"/>
         </div>
         <div class="form-group col-1">
-            <select bind:value={expenseEntry.vat} class="form-control form-select" placeholder="VAT">
-                <option value="0">0</option>
-                <option value="20">20</option>
-            </select>
+            <RailsFields expenseEntry={expenseEntry} field="vat" let:feedbackDivId let:isInvalid>
+                <select bind:value={expenseEntry.vat} class="form-control form-select" class:is-invalid={isInvalid}
+                        placeholder="VAT">
+                    <option value="0">0</option>
+                    <option value="20">20</option>
+                </select>
+            </RailsFields>
         </div>
         <div class="form-group col-1">
             <input bind:value={expenseEntry.qty} class="form-control" placeholder="Qty" type="number">
