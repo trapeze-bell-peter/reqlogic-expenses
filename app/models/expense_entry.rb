@@ -17,6 +17,7 @@ class ExpenseEntry < ApplicationRecord
 
   validates :date, presence: true
   validates :vat, inclusion: [0, 20]
+  validates :qty, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :project, presence: true
   validates :description, presence: true
 

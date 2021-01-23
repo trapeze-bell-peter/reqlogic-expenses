@@ -31,7 +31,7 @@ export class ExpenseEntry {
         return this.errors!==undefined && this.errors[field]!==undefined;
     }
     errorsString(field: string): string {
-        return this.errorsPresent(field) ? this.errors[field].join("\n") : "";
+        return this.errorsPresent(field) ? this.errors[field].join(", ") : "";
     }
 
     // Removes those fields not required for sending to backend.

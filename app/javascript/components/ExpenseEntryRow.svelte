@@ -44,16 +44,19 @@
             <RailsFields inputType="date" expenseEntry={expenseEntry} field="date" />
         </div>
         <div class="form-group col-1">
-            <select bind:value={expenseEntry.category_id} class="form-control form-select">
-                {#each $categoryStore as category}
-                    <option value={category.id}>
-                        {category.name}
-                    </option>
-                {/each}
-            </select>
+            <RailsFields expenseEntry={expenseEntry} field="vat" let:feedbackDivId let:isInvalid>
+                <select bind:value={expenseEntry.category_id} class="form-control form-select" class:is-invalid={isInvalid}
+                        aria-describedby={feedbackDivId}>
+                    {#each $categoryStore as category}
+                        <option value={category.id}>
+                            {category.name}
+                        </option>
+                    {/each}
+                </select>
+            </RailsFields>
         </div>
         <div class="form-group col-8">
-            <input bind:value={expenseEntry.description} class="form-control" placeholder="Description" type="text">
+            <RailsFields inputType="text" expenseEntry={expenseEntry} field="description"/>
         </div>
         <div class="form-group col-1">
             Actions
@@ -73,12 +76,13 @@
             </RailsFields>
         </div>
         <div class="form-group col-1">
-            <input bind:value={expenseEntry.qty} class="form-control" placeholder="Qty" type="number">
+            <RailsFields inputType="number" expenseEntry={expenseEntry} field="qty" />
         </div>
         <div class="form-group col-1">
+            <RailsFields expenseEntry={expenseEntry} field="unit_cost" let:feedbackDivId let:isInvalid>
             <input bind:value={unitCostValue} on:change|stopPropagation={updateUnitCostValue}
-                   class="form-control" placeholder="Unit Cost" min="0.00" step="0.01" type="text"
-                   aria-describedby="unit-cost-feedback">
+                   class="form-control" placeholder="Unit Cost" class:is-invalid={isInvalid}
+                   min="0.00" step="0.01" type="number" aria-describedby="unit-cost-feedback">
             <div id="unit-cost-feedback" class="invalid-feedback">Not valid :(</div>
         </div>
         <div class="form-group col-1">
