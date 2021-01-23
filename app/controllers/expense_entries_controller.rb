@@ -8,7 +8,6 @@ class ExpenseEntriesController < ActionController::API
   # GET /expense_entries/1.json
   def show; end
 
-  # POST /expense_entries
   # POST /expense_entries.json
   def create
     @expense_entry = ExpenseEntry.create(expense_entry_params)
@@ -21,11 +20,10 @@ class ExpenseEntriesController < ActionController::API
 
     if update_successful && expense_entry_params['receipt']
       @expense_entry.receipt.attach(expense_entry_params['receipt'])
-      render_updated_expense_entry(true)
     elsif update_successful
       head :ok
     else
-      render_updated_expense_entry(false)
+      render status: :unprocessable_entity, json: { errors: @expense_entry.errors }
     end
   end
 
@@ -43,10 +41,6 @@ class ExpenseEntriesController < ActionController::API
   # Use callbacks to share common setup or constraints between actions.
   def set_expense_entry
     @expense_entry = ExpenseEntry.find(params[:id])
-  end
-
-  def new_expense_entry_params
-    params.permit(:expense_claim_id)
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
