@@ -61,7 +61,10 @@
     </div>
     <div class="form-row align-items-top justify-content-end">
         <div class="form-group col-1">
-            <input bind:value={expenseEntry.project} class="form-control" placeholder="Project" type="text">
+            <RailsFields expenseEntry={expenseEntry} field="project" let:feedbackDivId let:isInvalid>
+                <input bind:value={expenseEntry.project} class="form-control" class:is-invalid={isInvalid}
+                       placeholder="Project" type="text" aria-describedby={feedbackDivId}>
+            </RailsFields>
         </div>
         <div class="form-group col-1">
             <select bind:value={expenseEntry.vat} class="form-control form-select" placeholder="VAT">
@@ -74,7 +77,9 @@
         </div>
         <div class="form-group col-1">
             <input bind:value={unitCostValue} on:change|stopPropagation={updateUnitCostValue}
-                   class="form-control" placeholder="Unit Cost" min="0.00" step="0.01" type="text">
+                   class="form-control" placeholder="Unit Cost" min="0.00" step="0.01" type="text"
+                   aria-describedby="unit-cost-feedback">
+            <div id="unit-cost-feedback" class="invalid-feedback">Not valid :(</div>
         </div>
         <div class="form-group col-1">
             <input bind:value={expenseEntry.total} class="form-control" readonly="readonly" type="text">

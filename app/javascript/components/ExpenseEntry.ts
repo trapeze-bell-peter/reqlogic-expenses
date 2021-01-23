@@ -40,6 +40,7 @@ export class ExpenseEntry {
         strippedExpenseEntry.unit_cost = this.unit_cost;
         delete strippedExpenseEntry.id;
         delete strippedExpenseEntry._unit_cost;
+        delete strippedExpenseEntry.errors;
         return strippedExpenseEntry;
     }
 
