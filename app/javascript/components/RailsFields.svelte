@@ -4,8 +4,8 @@
 
     import {ExpenseEntry} from "./ExpenseEntry";
 
-    export let inputType: string;
-    export let field: string;
+    export let inputType: string = undefined;
+    export let field: string = undefined;
     export let expenseEntry: ExpenseEntry;
 
     let isInvalid;
