@@ -1,8 +1,6 @@
 /* eslint no-console: 0 */
 
 // This file provides the mechanism to load the Svelte app itself.  Invoked from application.html.erb
-import 'stylesheets/application';
-
 import 'bootstrap';
 import '@fortawesome/fontawesome-free/js/all';
 

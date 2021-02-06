@@ -3,15 +3,15 @@
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["es6", "dom"],
-    "module": "es6",
+    "lib": ["ESNext", "dom"],
+    "module": "ESNext",
     "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
         "*": ["node_modules/*", "app/javascript/*"]
     },
     "sourceMap": true,
-    "target": "es6",
+    "target": "ESNext",
     "noEmit": true
   },
   "exclude": [

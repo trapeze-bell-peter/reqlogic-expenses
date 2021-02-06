@@ -1,7 +1,7 @@
-@import '~bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap';
 
-@import 'variables';
-@import 'base';
+@import './variables';
+@import './base';
 
 img.receipt-img {
   width: auto;
