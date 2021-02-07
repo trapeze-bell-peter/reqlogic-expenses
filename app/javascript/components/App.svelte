@@ -8,8 +8,8 @@
     import routes from '../components/routes';
 </script>
 
-<style>
-
+<style lang="scss" global>
+  @import '../stylesheets/application';
 </style>
 
 <!-- Navigation -->
