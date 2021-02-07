@@ -1,35 +1,41 @@
 <script lang="ts">
-    // on unmount we need to re-submit all.
-    import { onMount } from 'svelte';
+    import { onMount } from "svelte";
+    import { StatusCodes } from "http-status-codes";
 
     import { ExpenseEntry } from "./ExpenseEntry";
+    import ExpenseEntryTable from "./ExpenseEntryTable.svelte";
 
-    import ExpenseEntryRow from './ExpenseEntryRow.svelte';
+    let expenseEntries: ExpenseEntry[];
 
     // Used by the router to pass in parameters from the call - here the id of expense claim.
     export let params = {}
     let expense_claim_id = parseInt(params.id);
+
     let description;
     let claimDate;
-    let expense_entries;
 
     let url = `${document.location.origin}/expense_claims/${expense_claim_id}`;
 
     onMount( async () => {
-        let res = await fetch(url);
-        let data = await res.json();
-
-        description = data.description;
-        claimDate = data.claim_date;
-        expense_entries = data.expense_entries.map(expense_entry => ExpenseEntry.from(expense_entry))
+        let res = await fetch(url).then(response => {
+            if (response.status == StatusCodes.OK) {
+                return response.json();
+            }
+        }).then( data => {
+            description = data.description;
+            claimDate = data.claim_date;
+            expenseEntries = data.expense_entries.map(expenseEntryData => {
+                return Object.assign(new ExpenseEntry(), expenseEntryData);
+            });
+        });
     });
 
     async function sendData() {
         const res = await fetch(url, { method: 'PUT',
-                                       body: JSON.stringify( { expense_claim: { description, claimDate } })
+            body: JSON.stringify( { expense_claim: { description, claimDate } })
         });
         const json = await res.json();
-        result = JSON.stringify(json);
+        JSON.stringify(json);
     }
 </script>
 
@@ -44,7 +50,7 @@
     </div>
 </div>
 
-<div id="expense-claim-key-data">
+<div id="expense-claim-key-data" class="form col-12">
     <div class="form-group row">
         <label class="col-1 col-form-label" for="expense-claim-description">Description</label>
         <div class="col-6">
@@ -52,40 +58,11 @@
         </div>
     </div>
     <div class="form-group row">
-        <label class="col-1 col-form-label" for="expense_claim_date">Date</label>
+        <label class="col-1 col-form-label" for="expense_claim_claim_date">Date</label>
         <div class="col-2">
             <input bind:value={claimDate} class="form-control" type="date" placeholder="Claim date" id="expense_claim_claim_date">
         </div>
     </div>
 </div>
 
-<div id="expenses-claim-table">
-    <div id="expense-entries-header">
-        <div class="form-row">
-            <div class="form-group col-1">Seq</div>
-            <div class="form-group col-1">Date</div>
-            <div class="form-group col-1">Category</div>
-            <div class="form-group col-3">Description</div>
-            <div class="form-group col-1">Project Code</div>
-            <div class="form-group col-1">VAT</div>
-            <div class="form-group col-1">Qty</div>
-            <div class="form-group col-1">Unit Cost</div>
-            <div class="form-group col-1">Total Cost</div>
-            <div class="form-group col-1">Actions</div>
-        </div>
-    </div>
-
-    {#if expense_entries}
-        {#each expense_entries as expense_entry_promise}
-            {#await expense_entry_promise}
-                <div class="col 12">
-                    Loading
-                </div>
-            {:then expense_entry}
-                <ExpenseEntryRow expenseEntry={expense_entry}/>
-            {/await}
-        {/each}
-    {:else}
-        ... Loading
-    {/if}
-</div>
+<ExpenseEntryTable bind:expenseEntries/>

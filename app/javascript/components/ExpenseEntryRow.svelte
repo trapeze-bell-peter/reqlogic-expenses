@@ -1,44 +1,33 @@
 <script lang="ts">
-    import {StatusCodes} from "http-status-codes";
-    import {onMount} from "svelte";
+    import { createEventDispatcher } from 'svelte';
 
-    import {ExpenseEntry} from "./ExpenseEntry";
     import {categoryStore, Category} from "./Category";
     import RailsFields from "./RailsFields.svelte";
 
-    export let expenseEntry: ExpenseEntry;
-    let originalExpenseEntry: ExpenseEntry = Object.assign({}, expenseEntry);
-    let unitCostValue: string = expenseEntry.unit_cost;
+    export let expenseEntry;
 
-    async function ifChangedSend() {
-        let response = fetch(`${document.location.origin}/expense_entries/${expenseEntry.id}`, {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json;charset=utf-8'},
-            body: JSON.stringify({expense_entry: expenseEntry.stripUnnecessaryFields()})
-        }).then((response) => {
-            switch (response.status) {
-                case StatusCodes.OK:
-                    originalExpenseEntry = Object.assign({}, expenseEntry);
-                    expenseEntry.errors = undefined;
-                    break;
-                case StatusCodes.UNPROCESSABLE_ENTITY:
-                    const errorPromise = response.json(); // Get JSON value from the response body
-                    Promise.resolve(errorPromise).then(errorsAsJson => expenseEntry.errors = errorsAsJson['errors']);
-                    break;
-            }
-        });
-    }
+    let unitCostValue: string = expenseEntry.unit_cost;
 
     function updateUnitCostValue(event) {
         expenseEntry.unit_cost = event.target.value;
         unitCostValue = expenseEntry.unit_cost;
     }
+
+    const dispatch = createEventDispatcher();
+    let sequenceField;
+
+    function dispatchDraggable(draggable: boolean) {
+        dispatch('setdraggable', { sequenceField: sequenceField, draggable: draggable})
+    }
 </script>
 
-<div class="form col-12" on:focusout={ifChangedSend}>
+<div class="form col-12">
     <div class="form-row align-items-top">
-        <div class="form-group col-1">
-            <input bind:value={expenseEntry.sequence} class="form-control" readonly="readonly" type="text">
+        <div class="col-1">
+            <input value={expenseEntry.sequence} class="form-control" readonly="readonly" type="text"
+                   bind:this={sequenceField}
+                   on:mousedown={ event => { dispatchDraggable(true ) } }
+                   on:mouseup={ event => { dispatchDraggable(false) } } />
         </div>
         <div class="form-group col-1">
             <RailsFields inputType="date" expenseEntry={expenseEntry} field="date" />
@@ -62,6 +51,7 @@
             Actions
         </div>
     </div>
+
     <div class="form-row align-items-top justify-content-end">
         <div class="form-group col-1">
             <RailsFields inputType="text" expenseEntry={expenseEntry} field="project"/>
@@ -93,3 +83,4 @@
         </div>
     </div>
 </div>
+
