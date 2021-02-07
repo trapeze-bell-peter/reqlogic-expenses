@@ -1,5 +1,6 @@
 <script lang="ts">
-    import { createEventDispatcher } from 'svelte';
+    import * as jQuery from "jquery";
+    import { createEventDispatcher, onMount } from 'svelte';
 
     import {categoryStore, Category} from "./Category";
     import RailsFields from "./RailsFields.svelte";
@@ -7,6 +8,10 @@
     export let expenseEntry;
 
     let unitCostValue: string = expenseEntry.unit_cost;
+
+    onMount( () => {
+        jQuery('[data-toggle="tooltip"]').tooltip();
+    });
 
     function updateUnitCostValue(event) {
         expenseEntry.unit_cost = event.target.value;
@@ -79,7 +84,9 @@
             <input bind:value={expenseEntry.total} class="form-control" readonly="readonly" type="text">
         </div>
         <div class="form-group col-1">
-            Actions
+            <a data-toggle="tooltip" data-placement="top" title="Insert empty row">
+                <i class="fas fa-plus-square fa-2x expenses-action-icon" />
+            </a>
         </div>
     </div>
 </div>
