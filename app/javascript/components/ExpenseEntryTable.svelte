@@ -24,6 +24,7 @@
         const [from, to] = [insertIndex, draggedIndex].sort();
         for(let i = from; i<=to; i++) {
             reorderedEntryExpenseRows[i].sequence = i;
+            reorderedEntryExpenseRows[i].send();
         }
 
         expenseEntries = reorderedEntryExpenseRows

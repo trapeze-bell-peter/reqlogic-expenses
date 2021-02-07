@@ -21,7 +21,7 @@
     }
 </script>
 
-<div class="form col-12">
+<div class="form col-12" on:focusout={ () => expenseEntry.ifChangedSend() }>
     <div class="form-row align-items-top">
         <div class="col-1">
             <input value={expenseEntry.sequence} class="form-control" readonly="readonly" type="text"
