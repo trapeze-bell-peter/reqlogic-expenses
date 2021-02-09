@@ -2,10 +2,11 @@
     import * as jQuery from "jquery";
     import { createEventDispatcher, onMount } from 'svelte';
 
-    import {categoryStore, Category} from "./Category";
+    import { ExpenseEntry } from "./ExpenseEntry";
+    import { categoryStore, Category } from "./Category";
     import RailsFields from "./RailsFields.svelte";
 
-    export let expenseEntry;
+    export let expenseEntry: ExpenseEntry;
 
     let unitCostValue: string = expenseEntry.unit_cost;
 
@@ -21,12 +22,18 @@
     const dispatch = createEventDispatcher();
     let sequenceField;
 
-    function dispatchDraggable(draggable: boolean) {
+    function dispatchDraggable(draggable: boolean):void {
         dispatch('setdraggable', { sequenceField: sequenceField, draggable: draggable})
+    }
+
+    function ifFocusMovedToNewRow(event: FocusEvent):void {
+        if (!event.currentTarget.contains(event.relatedTarget)) {
+            expenseEntry.ifChangedSend();
+        }
     }
 </script>
 
-<div class="form col-12" on:focusout={ () => expenseEntry.ifChangedSend() }>
+<div class="form col-12" on:focusout={ifFocusMovedToNewRow}>
     <div class="form-row align-items-top">
         <div class="col-1">
             <input value={expenseEntry.sequence} class="form-control" readonly="readonly" type="text"
