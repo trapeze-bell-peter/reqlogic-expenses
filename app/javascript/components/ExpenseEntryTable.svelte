@@ -16,19 +16,19 @@
     function drop(DragEvent: event, insertIndex: number) {
         event.dataTransfer.dropEffect = 'move';
         const draggedIndex = parseInt(event.dataTransfer.getData("text/plain"));
-        const reorderedEntryExpenseRows = expenseEntries;
+        const reorderedExpenseEntries = expenseEntries;
 
-        let expenseRowBeingDragged = reorderedEntryExpenseRows.splice(draggedIndex, 1)[0];
-        reorderedEntryExpenseRows.splice(insertIndex, 0, expenseRowBeingDragged);
+        let expenseRowBeingDragged = reorderedExpenseEntries.splice(draggedIndex, 1)[0];
+        reorderedExpenseEntries.splice(insertIndex, 0, expenseRowBeingDragged);
 
         const [from, to] = [insertIndex, draggedIndex].sort();
         for(let i = from; i<=to; i++) {
-            reorderedEntryExpenseRows[i].sequence = i;
-            reorderedEntryExpenseRows[i].send();
+            reorderedExpenseEntries[i].sequence = i;
+            reorderedExpenseEntries[i].send();
         }
 
-        expenseEntries = reorderedEntryExpenseRows
-        hovering = null
+        expenseEntries = reorderedExpenseEntries;
+        hovering = null;
     }
 
     function dragStart(DragEvent: event, i) {
