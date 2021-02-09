@@ -92,15 +92,15 @@
             <input bind:value={expenseEntry.total} class="form-control" readonly="readonly" type="text">
         </div>
         <div class="form-group col-1">
-            <a data-toggle="tooltip" data-placement="top" title="Insert empty row" class="expenses-action-icon"
+            <a href="#" data-toggle="tooltip" data-placement="top" title="Insert empty row" class="expenses-action-icon"
                on:click={ () => dispatch("insertAt") }>
                 <i class="fas fa-plus-square fa-2x expenses-action-icon" />
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="Delete row" class="expenses-action-icon"
+            <a href="#" data-toggle="tooltip" data-placement="top" title="Delete row" class="expenses-action-icon"
                on:click={ () => dispatch("deleteAt") }>
                 <i class="fas fa-trash fa-2x expenses-action-icon" />
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="Copy row to bottom" class="expenses-action-icon"
+            <a href="#" data-toggle="tooltip" data-placement="top" title="Copy row to bottom" class="expenses-action-icon"
                on:click={ () => dispatch("copyToBottom") }>
                 <i class="fas fa-copy fa-2x expenses-action-icon" />
             </a>
