@@ -10,6 +10,7 @@
 
     let unitCostValue: string = expenseEntry.unit_cost;
 
+    // Enable tooltip support via jQuery.
     onMount( () => {
         jQuery('[data-toggle="tooltip"]').tooltip();
     });
