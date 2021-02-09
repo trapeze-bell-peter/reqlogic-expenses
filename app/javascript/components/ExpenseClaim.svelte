@@ -4,8 +4,9 @@
 
     import { ExpenseEntry } from "./ExpenseEntry";
     import ExpenseEntryTable from "./ExpenseEntryTable.svelte";
+    import {ExpenseEntries} from "components/ExpenseEntries";
 
-    let expenseEntries: ExpenseEntry[];
+    let expenseEntries: ExpenseEntries;
 
     // Used by the router to pass in parameters from the call - here the id of expense claim.
     export let params = {}
@@ -24,9 +25,13 @@
         }).then( data => {
             description = data.description;
             claimDate = data.claim_date;
-            expenseEntries = data.expense_entries.map(expenseEntryData => {
-                return Object.assign(new ExpenseEntry(), expenseEntryData);
-            });
+            expenseEntries = new ExpenseEntries();
+
+            for(let expenseEntryData of data.expense_entries) {
+                let newExpenseEntry = Object.assign(new ExpenseEntry(), expenseEntryData)
+                expenseEntries.push(newExpenseEntry);
+            }
+            return expenseEntries;
         });
     });
 
@@ -65,4 +70,4 @@
     </div>
 </div>
 
-<ExpenseEntryTable bind:expenseEntries/>
+<ExpenseEntryTable expenseEntries={expenseEntries} />

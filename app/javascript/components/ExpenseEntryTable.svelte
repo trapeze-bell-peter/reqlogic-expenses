@@ -3,8 +3,10 @@
 
     import ExpenseEntryRow from "./ExpenseEntryRow.svelte";
     import RailsFields from "./RailsFields.svelte";
+    import  { ExpenseEntries } from "./ExpenseEntries";
+    import { ExpenseEntry } from "./ExpenseEntry";
 
-    export let expenseEntries;
+    export let expenseEntries: ExpenseEntries;
 
     let hovering = false;
 
@@ -13,29 +15,34 @@
         event.detail.sequenceField.closest('.expense-row').setAttribute('draggable', event.detail.draggable);
     }
 
-    function drop(DragEvent: event, insertIndex: number) {
+    function drop(event: DragEvent, insertIndex: number) {
         event.dataTransfer.dropEffect = 'move';
         const draggedIndex = parseInt(event.dataTransfer.getData("text/plain"));
+
         const reorderedExpenseEntries = expenseEntries;
-
-        let expenseRowBeingDragged = reorderedExpenseEntries.splice(draggedIndex, 1)[0];
-        reorderedExpenseEntries.splice(insertIndex, 0, expenseRowBeingDragged);
-
-        const [from, to] = [insertIndex, draggedIndex].sort();
-        for(let i = from; i<=to; i++) {
-            reorderedExpenseEntries[i].sequence = i;
-            reorderedExpenseEntries[i].send();
-        }
-
+        reorderedExpenseEntries.moveItem(draggedIndex, insertIndex);
         expenseEntries = reorderedExpenseEntries;
+
         hovering = null;
     }
 
-    function dragStart(DragEvent: event, i) {
+    function dragStart(event: DragEvent, i: number): void {
         event.dataTransfer.effectAllowed = 'move';
         event.dataTransfer.dropEffect = 'move';
         const draggedIndex = i;
-        event.dataTransfer.setData('text/plain', draggedIndex);
+        event.dataTransfer.setData('text/plain', String(draggedIndex));
+    }
+
+    function insertAt(insertIndex: number): void {
+        let newExpenseEntry = new ExpenseEntry();
+        const reorderedEntryExpenses = expenseEntries;
+
+        reorderedEntryExpenses.splice(insertIndex, 0, newExpenseEntry);
+
+        for(let i=insertIndex; i<reorderedEntryExpenses.length; i++) {
+            reorderedEntryExpenses[i].sequence = i;
+        }
+        expenseEntries = reorderedEntryExpenses;
     }
 </script>
 
@@ -55,7 +62,9 @@
         </div>
     </div>
 
-    {#if expenseEntries}
+    { @debug(expenseEntries) }
+
+    { #if expenseEntries !== undefined }
         {#each expenseEntries as expenseEntry, index  (expenseEntry.id)}
             <div class="expense-row"
                  animate:flip
@@ -65,7 +74,9 @@
                  ondragover="return false"
                  on:dragenter={() => hovering = index}
                  class:is-active={hovering === index}>
-                 <ExpenseEntryRow bind:expenseEntry on:setdraggable={ event => setDraggable(event) }/>
+                 <ExpenseEntryRow bind:expenseEntry
+                                  on:setdraggable={ event => setDraggable(event) }
+                                  on:insertAt={ () => insertAt(index+1) } />
             </div>
         {/each}
     {:else}
