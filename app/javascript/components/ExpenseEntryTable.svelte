@@ -58,8 +58,6 @@
         </div>
     </div>
 
-    { @debug(expenseEntries) }
-
     { #if expenseEntries !== undefined }
         {#each expenseEntries as expenseEntry, index  (expenseEntry.id)}
             <div class="expense-row"
@@ -81,15 +79,8 @@
 </div>
 
 <style lang="scss">
-    .expenses-claim-table {
-    }
-
     .expense-row {
         display: block;
-    }
-
-    .expense-row:not(:last-child) {
-
     }
 
     .expense-row.is-active {
