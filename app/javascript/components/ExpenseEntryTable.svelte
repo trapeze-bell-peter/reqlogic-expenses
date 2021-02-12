@@ -35,13 +35,9 @@
 
     function insertAt(insertIndex: number): void {
         let newExpenseEntry = new ExpenseEntry();
+
         const reorderedEntryExpenses = expenseEntries;
-
         reorderedEntryExpenses.splice(insertIndex, 0, newExpenseEntry);
-
-        for(let i=insertIndex; i<reorderedEntryExpenses.length; i++) {
-            reorderedEntryExpenses[i].sequence = i;
-        }
         expenseEntries = reorderedEntryExpenses;
     }
 </script>
