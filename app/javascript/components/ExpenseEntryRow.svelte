@@ -12,6 +12,7 @@
 
     // Enable tooltip support via jQuery.
     onMount( () => {
+        expenseEntry.checkpoint();
         jQuery('[data-toggle="tooltip"]').tooltip();
     });
 
@@ -29,7 +30,7 @@
 
     function ifFocusMovedToNewRow(event: FocusEvent):void {
         if (!event.currentTarget.contains(event.relatedTarget)) {
-            expenseEntry.ifChangedSend();
+            expenseEntry.sendWhatsChanged();
         }
     }
 </script>

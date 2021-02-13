@@ -37,6 +37,11 @@ export class ExpenseEntry {
         return c.multiply(this.qty).format();
     }
 
+    checkpoint() {
+        this.originalExpenseEntry = Object.assign({}, this);
+        this.errors = undefined;
+    }
+
     // Returns a flag indicating whether an error has been flagged on the field.
     errorsPresent(field: string):boolean {
         return this.errors!==undefined && this.errors[field]!==undefined;
@@ -50,23 +55,32 @@ export class ExpenseEntry {
     // Removes those fields not required for sending to backend.
     stripUnnecessaryFields() {
         let {...strippedExpenseEntry} = this;
+
         strippedExpenseEntry.unit_cost = this.unit_cost;
+
         delete strippedExpenseEntry.id;
         delete strippedExpenseEntry._unit_cost;
         delete strippedExpenseEntry.errors;
         delete strippedExpenseEntry.originalExpenseEntry;
-        return strippedExpenseEntry;
-    }
 
-    // Sends the object to the backend, if something has changed since it was last sent.
-    ifChangedSend() {
-        if (this!==this.originalExpenseEntry) {
-            this.send();
+        for (const [key, val] of Object.entries(strippedExpenseEntry)) {
+            console.log(`${key} is ${val}`);
+
+            if (val == this.originalExpenseEntry[key]) {
+                delete strippedExpenseEntry[val];
+            }
         }
+
+        return (Object.keys(strippedExpenseEntry).length > 0) ? strippedExpenseEntry : null;
     }
 
     // Sends the object to the backend.  Checks the return and sets the `errors` property accordingly.
-    async send() {
+    async sendWhatsChanged() {
+        const strippedExpenseEntry = this.stripUnnecessaryFields();
+
+        // If nothing has changed, then exit early.
+        if (strippedExpenseEntry == null) return;
+
         fetch(this.url, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json;charset=utf-8'},
@@ -74,8 +88,7 @@ export class ExpenseEntry {
         }).then((response) => {
             switch (response.status) {
                 case StatusCodes.OK:
-                    this.originalExpenseEntry = Object.assign({}, this);
-                    this.errors = undefined;
+                    this.checkpoint();
                     break;
                 case StatusCodes.UNPROCESSABLE_ENTITY:
                     const errorPromise = response.json(); // Get JSON value from the response body

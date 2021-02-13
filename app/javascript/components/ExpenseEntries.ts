@@ -3,7 +3,7 @@ import { ExpenseEntry } from "components/ExpenseEntry";
 export class ExpenseEntries extends Array<ExpenseEntry> {
     sendIfChanged() {
         for(let expenseEntry of this) {
-            expenseEntry.ifChangedSend()
+            expenseEntry.sendWhatsChanged();
         }
     }
 
