@@ -45,7 +45,7 @@ gem 'convert_api'
 gem 'devise'
 
 # Give ability to view images.
-gem 'image_processing', '~> 1.2'
+gem 'image_processing', '~> 1.12'
 
 # Gem to access Azure storage container
 gem 'azure-storage'
